@@ -23,7 +23,7 @@ Code template generator has two parts in one npm package:
     * You don't need to care about the distribution directory `/dist`. The things you care are only in the directory `/src`.
     * Anti-caching.
 
-## The templates are supported:
+## Supported templates:
 |Templates|Main dependencies|
 |---|---|
 |react-babel-6|Babel 6, Babel Loader 7|
