@@ -3,6 +3,8 @@ Code template generator has two parts in one npm package:
 * Code template generation.
 * Project templates that is [Build environments](https://github.com/nguyenkhois/build-environments) project.
 
+You have more choice for your development environment.
+
 ## Main features
 * Project generation with two options:
     * Without Git support.
@@ -11,11 +13,11 @@ Code template generator has two parts in one npm package:
     * Two types of components: React and React-Redux.
     * It can become a single component `*.js, *.jsx` or a full component that is a directory with `*.js, *.css`.
 * `.gitignore` file generation whenever you want.
-* Automatic update checking.
+* Automatic update checking for the latest stable version.
 * Project templates:
     * It's simple for:
         * Configuration and installation of the dependencies you need.
-        * Changing to (or move from) an other build environment.
+        * Moving to (or from) an other build environment.
     * Code splitting.
     * Image handling.
     * CSS, JS code injected automatic into HTML template.
