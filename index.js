@@ -18,7 +18,7 @@ function MainApp() {
                     validateInputName(secondArgument)
                         .then(() => {
                             generateTemplate(secondArgument, firstArgument) // It must be (projectName, option)
-                                .then((projectName) => resolve({ type: "project", content: projectName }))
+                                .then(() => resolve())
                                 .catch((err) => reject({ code: err.message }));
                         })
                         .catch((err) => {
@@ -97,7 +97,7 @@ function MainApp() {
                     validateInputName(firstArgument)
                         .then(() => {
                             generateTemplate(firstArgument)
-                                .then((projectName) => resolve({type: "project", content: projectName}))
+                                .then(() => resolve())
                                 .catch((err) => reject({ code: err.message }));
                         })
                         .catch((err) => {
@@ -112,7 +112,7 @@ function MainApp() {
             }
         } else {
             generateTemplate()
-                .then((projectName) => resolve({type: "project", content: projectName}))
+                .then(() => resolve())
                 .catch((err) => reject({ code: err.message }));
         }
     });

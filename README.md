@@ -1,4 +1,4 @@
-# code-template-generator (version 2) [![Download on npm](https://img.shields.io/badge/npm-v2.0.0.alpha-blue.svg)](https://www.npmjs.com/package/code-template-generator/v/alpha)
+# code-template-generator (version 2)
 Code template generator has two parts in one npm package:
 * Code template generation.
 * Project templates that is [Build environments](https://github.com/nguyenkhois/build-environments) project.
