@@ -53,14 +53,13 @@ function generateTemplate(projectName = '', option = '') {
                             option === "-g" ? gitInstallation(chosenProjectName) : null;
 
                             dependencyInstallation(chosenProjectName, chosenProjectTemplate)
-                                .then(() => resolve(true));
+                                .then(() => resolve(chosenProjectName));
                         });
                 } else {
-                    console.log('\x1b[33mThe directory already exists.\x1b[0m');
+                    reject(Error("d001")); // The directory already exists
                 }
             })
             .catch((err) => {
-                console.log(err)
                 reject(err)
             });
     });
@@ -191,15 +190,15 @@ function generateFile(argFullFileName = null, fnGetAndReplaceFileContent, extraO
                         }
                     });
                 } else {
-                    console.log('\x1b[33mThe file already exists.\x1b[0m');
+                    reject(Error("f003")); // The file already exists
                 }
 
             } else {
-                reject(Error("The file extension is not supported."))
+                reject(Error("f001")) // The file extension is not supported
             }
 
         } else {
-            reject(Error("The file name can not null."))
+            reject(Error("f002")) // The file name can not empty
         }
     });
 }
@@ -237,7 +236,9 @@ function generateComponent(componentName = null, option = "", extraOption = {}) 
 
             const componentTemplatePath = path.join(templateFilePath, templateName);
             const originalContent = fs.readFileSync(componentTemplatePath, 'utf8');
-            const replacedContent = originalContent.replace(/YourClassName/g, filteredName);
+            
+            const replacedContent = originalContent.replace(/YourClassName/g, filteredName)
+                                                    .replace(/\-/g,'');
 
             // Return the file content
             return replacedContent;
@@ -290,7 +291,7 @@ function generateFullComponent(componentName = null, option = "") {
                 .catch((err) => reject(err));
 
         } else {
-            console.log('\x1b[33mThe directory already exists.\x1b[0m');
+            reject(Error("d001")); // The directory already exists
         }
     });
 }

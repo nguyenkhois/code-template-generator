@@ -1,3 +1,5 @@
+const { errorCode } = require('./error-code');
+
 // Automatic update check
 function queryLatestVersion() {
     return new Promise(function (resolve, reject) {
@@ -34,7 +36,7 @@ function installedVersion() {
         if (version !== undefined && version !== null && version.length > 0)
             resolve(version);
         else
-            reject(new Error('Can not get the installed version'));
+            reject(new Error('i001'));
     });
 }
 
@@ -88,14 +90,46 @@ function validateInputName(input) {
     const { regularExpression } = require('./');
     
     return new Promise(function (resolve, reject) {
-        if (input === null)
-            reject(Error("Input data is null"));
+        if (input === null){
+            reject(Error("n002"));
+            return;
+        }
 
-        if (regularExpression.test(input))
+        if (regularExpression.test(input)){
             resolve(true);
-        else
-            reject(Error("Input data is invalid"));
+        } else {
+            reject(Error("n001"));
+        }
     });
+}
+
+function filterByProperty(objectArray,sPropertyName,sSeekingValue){
+    try{
+        if (Array.isArray(objectArray)){
+            if (objectArray.length > 0)
+                return objectArray.filter(objItem => objItem[sPropertyName] === sSeekingValue);
+            else
+                return -1;
+        }else
+            return false
+    }catch(e){return e}
+}
+
+// Print out message
+function printOutResolve(result) {
+    console.log(`\n\x1b[32mDone!\x1b[0m ${result.content} ${result.type} is generated successfully.`);
+}
+
+function printOutReject(error) {
+    messageArray = filterByProperty(errorCode, 'code', error.code);
+
+    if (messageArray.length === 1) {
+        console.log(`\x1b[31mError!\x1b[0m ${messageArray[0].error}.`);
+        console.log(`${messageArray[0].solution}.`);
+    } else {
+        // For general error
+        console.log(`\x1b[31mError!\x1b[0m Error is found and the process is interrupted.`)
+    }
 }
 
 module.exports = {
@@ -104,5 +138,8 @@ module.exports = {
     autoUpdateCheck,
     printUpdateMessage,
     helpInformation,
-    validateInputName
+    validateInputName,
+    filterByProperty,
+    printOutResolve,
+    printOutReject
 }

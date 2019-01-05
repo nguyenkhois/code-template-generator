@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-const { installedVersion, autoUpdateCheck, printUpdateMessage, helpInformation, validateInputName,
-    generateTemplate, generateGitignoreFile, generateComponent, generateFullComponent,
-    errorMessage
+const { installedVersion, autoUpdateCheck, validateInputName, helpInformation, 
+        printUpdateMessage, printOutResolve, printOutReject,
+        generateTemplate, generateGitignoreFile, generateComponent, generateFullComponent,
 } = require('./functions/');
 
 function MainApp() {
@@ -18,23 +18,16 @@ function MainApp() {
                     validateInputName(secondArgument)
                         .then(() => {
                             generateTemplate(secondArgument, firstArgument) // It must be (projectName, option)
-                                .then(() => resolve(true)) // Create a signal to complete the current and go to next job
-                                .catch(() => console.log(errorMessage.forGeneral));
+                                .then((projectName) => resolve({ type: "project", content: projectName }))
+                                .catch((err) => reject({ code: err.message }));
                         })
-                        .catch(() => {
-                            console.log(errorMessage.forProjectName)
-                            console.log(`\nYou may want to use the command \x1b[33mgenerate -g <project-name>\x1b[0m.\n`)
+                        .catch((err) => {
+                            if (err.message === "n001"){
+                                reject({ code: "p001" }); // The project name is invalid
+                            } else if(err.message === "n002") {
+                                reject({ code: "p002" }); // The project name is empty
+                            }
                         });
-
-                    break;
-
-                case "-i":
-                    generateGitignoreFile()
-                        .then(() => {
-                            console.log(`\n\x1b[32mDone!\x1b[0m A .gitignore file is generated successfully.`)
-                            resolve(true);
-                        })
-                        .catch((err) => console.log(errorMessage.errorText, err.message));
 
                     break;
 
@@ -44,23 +37,16 @@ function MainApp() {
                     validateInputName(secondArgument)
                         .then(() => {
                             generateComponent(secondArgument, firstArgument)
-                                .then((fullFileName) => {
-                                    console.log(`\n\x1b[32mDone!\x1b[0m ${fullFileName} component is generated successfully.`)
-                                    resolve(true);
-                                })
-                                .catch((err) =>
-                                    console.log(errorMessage.errorText,
-                                        err.message,
-                                        errorMessage.componentFileExtension,
-                                        errorMessage.componentCommand)
-                                );
+                                .then((fullFileName) => resolve({type: "component", content: fullFileName}))
+                                .catch((err) => reject({ code: err.message }));
                         })
-                        .catch(() =>
-                            console.log(errorMessage.errorText,
-                                errorMessage.componentName,
-                                errorMessage.componentFileExtension,
-                                errorMessage.componentCommand)
-                        );
+                        .catch((err) => {
+                            if (err.message === "n001"){
+                                reject({ code: "c001" });
+                            } else if(err.message === "n002") {
+                                reject({ code: "c002" });
+                            }
+                        });
 
                     break;
                 
@@ -69,19 +55,24 @@ function MainApp() {
                     validateInputName(secondArgument)
                         .then(() => {
                             generateFullComponent(secondArgument, firstArgument)
-                                .then((fullDirName) => {
-                                    console.log(`\n\x1b[32mDone!\x1b[0m ${fullDirName} component is generated successfully.`)
-                                    resolve(true);
-                                })
-                                .catch((err) =>
-                                    console.log(errorMessage.errorText,
-                                        err.message)
-                                );
+                                .then((fullDirName) => resolve({type: "component", name: secondArgument, content: fullDirName}))
+                                .catch((err) => reject({ code: err.message }));
                         })
-                        .catch(() =>
-                            console.log(errorMessage.errorText,
-                                errorMessage.componentName)
-                        );
+                        .catch((err) => {
+                            if (err.message === "n001"){
+                                reject({ code: "c001" });
+                            } else if(err.message === "n002") {
+                                reject({ code: "c002" });
+                            }
+                        });
+
+                    break;
+                
+                case "-i":
+                    generateGitignoreFile()
+                        .then((fileName) => resolve({ type: "file", content: fileName }))
+                        .catch((err) => reject({ code: err.message }));
+
                     break;
 
                 case "-v":
@@ -89,16 +80,16 @@ function MainApp() {
                     installedVersion()
                         .then((version) => {
                             console.log(version);
-                            resolve(true);
+                            resolve({ type: "info" });
                         })
-                        .catch(() => console.log(errorMessage.forGeneral));
+                        .catch((err) => reject({ code: err.message }));
 
                     break;
 
                 case "-help":
                     // Show the help information
                     console.log(helpInformation());
-                    resolve(true);
+                    resolve({ type: "info" });
 
                     break;
 
@@ -106,31 +97,41 @@ function MainApp() {
                     validateInputName(firstArgument)
                         .then(() => {
                             generateTemplate(firstArgument)
-                                .then(() => resolve(true))
-                                .catch(() => console.log(errorMessage.forProjectName));
+                                .then((projectName) => resolve({type: "project", content: projectName}))
+                                .catch((err) => reject({ code: err.message }));
                         })
-                        .catch(() => {
-                            console.log(errorMessage.forProjectName)
-                            console.log(`\nYou may want to use the command \x1b[33mgenerate <project-name>\x1b[0m.\n`)
+                        .catch((err) => {
+                            if (err.message === "n001"){
+                                reject({ code: "p001" });
+                            } else if(err.message === "n002") {
+                                reject({ code: "p002" });
+                            }
                         });
 
                     break;
             }
         } else {
             generateTemplate()
-                .then(() => resolve(true))
-                .catch(() => console.log(errorMessage.forProjectName));
+                .then((projectName) => resolve({type: "project", content: projectName}))
+                .catch((err) => reject({ code: err.message }));
         }
     });
 }
 
 // MAIN APP
 MainApp()
-    .then(() => {
+    .then((result) => {
+        if (result.type !== undefined && result.type !== "info") {
+            printOutResolve(result);
+        }
+
         autoUpdateCheck().then((result) => {
             result[0] !== result[1] ?
                 printUpdateMessage(result[1]) :
                 null;
         })
+        .catch((err) => printOutReject(err));
     })
-    .catch((error) => console.log(error.message));
+    .catch((error) => {
+        printOutReject(error);
+    });
