@@ -18,7 +18,7 @@ function MainApp() {
                     validateInputName(secondArgument)
                         .then(() => {
                             generateTemplate(secondArgument, firstArgument) // It must be (projectName, option)
-                                .then(() => resolve())
+                                .then(() => resolve(true))
                                 .catch((err) => reject({ code: err.message }));
                         })
                         .catch((err) => {
@@ -97,7 +97,7 @@ function MainApp() {
                     validateInputName(firstArgument)
                         .then(() => {
                             generateTemplate(firstArgument)
-                                .then(() => resolve())
+                                .then(() => resolve(true))
                                 .catch((err) => reject({ code: err.message }));
                         })
                         .catch((err) => {
@@ -112,7 +112,7 @@ function MainApp() {
             }
         } else {
             generateTemplate()
-                .then(() => resolve())
+                .then(() => resolve(true))
                 .catch((err) => reject({ code: err.message }));
         }
     });
@@ -129,8 +129,7 @@ MainApp()
             result[0] !== result[1] ?
                 printUpdateMessage(result[1]) :
                 null;
-        })
-        .catch((err) => printOutReject(err));
+        });
     })
     .catch((error) => {
         printOutReject(error);
