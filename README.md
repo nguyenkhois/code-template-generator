@@ -6,10 +6,10 @@ Code template generator has two parts in one npm package:
 ## Main features
 * Project generation with two options:
     * Without Git support.
-    * With Git support: it runs automatically `git init` and generates a `.gitignore` file while the project is generated.
+    * With Git support - It runs automatically `git init` and generates a `.gitignore` file while the project is generated.
 * Component generation:
     * Two types of components: React and React-Redux.
-    * It can become a single component `*.js, *.jsx` or a full component that is a directory with `*.js, *.css`. You name it.
+    * It can become a single component `*.js, *.jsx` or a full component that is a directory with `*.js, *.css`.
 * `.gitignore` file generation whenever you want.
 * Automatic update checking.
 * Project templates:
