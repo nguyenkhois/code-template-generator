@@ -99,7 +99,7 @@ async function createDirectoryContents(templatePath, newProjectPath, option = ''
 // Dependency installation
 function gitInstallation(projectName) {
     return new Promise((resolve, reject) => {
-        console.log('\nStarting the installation for git...');
+        console.log('\nStarting the installation for Git support...');
         const exec = require("child_process").exec;
 
         exec(`cd ${projectName} && git init`, (error, stdout, stderr) => {
@@ -109,7 +109,7 @@ function gitInstallation(projectName) {
                 return;
             }
 
-            console.log(`\n\x1b[32mDone!\x1b[0m Git installation is completed.`);
+            console.log(`\n\x1b[32mDone!\x1b[0m Git support installation is completed.`);
             resolve(true);
         });
     });

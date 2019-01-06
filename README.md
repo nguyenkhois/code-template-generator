@@ -1,23 +1,23 @@
 # code-template-generator (version 2)
-Code template generator has two parts in one npm package:
+This is the lightweight React code template generator that has two parts in one npm package:
 * Code template generation.
-* Project templates that is [Build environments](https://github.com/nguyenkhois/build-environments) project.
+* Project template generation that is the [Build environments](https://github.com/nguyenkhois/build-environments) project.
 
-You have more choice for your development environment.
+You have more choice for your development environment. It makes your life easier.
 
 ## Main features
 * Project generation with two options:
     * Without Git support.
     * With Git support - It runs automatically `git init` and generates a `.gitignore` file while the project is generated.
 * Component generation:
-    * Two types of components: React and React-Redux.
-    * It can become a single component `*.js, *.jsx` or a full component that is a directory with `*.js, *.css`.
+    * Two kinds of components: React and React-Redux.
+    * It can become a single component that is a file `*.js, *.jsx` or a full component that is a directory with two files `*.js, *.css`.
 * `.gitignore` file generation whenever you want.
 * Automatic update checking for the latest stable version.
-* Project templates:
+* [Project template generation](https://github.com/nguyenkhois/build-environments):
     * It's simple for:
         * Configuration and installation of the dependencies you need.
-        * Moving to (or from) an other build environment.
+        * Moving to (or from) an other React build environment.
     * Code splitting.
     * Image handling.
     * CSS, JS code injected automatic into HTML template.
