@@ -129,7 +129,7 @@ MainApp()
             result[0] !== result[1] ?
                 printUpdateMessage(result[1]) :
                 null;
-        });
+        }).catch((err) => printOutReject({code: 'i002'}));
     })
     .catch((error) => {
         printOutReject(error);

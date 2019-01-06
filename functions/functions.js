@@ -124,11 +124,11 @@ function printOutReject(error) {
     messageArray = filterByProperty(errorCode, 'code', error.code);
 
     if (messageArray.length === 1) {
-        console.log(`\x1b[31mError!\x1b[0m ${messageArray[0].error}.`);
-        console.log(`${messageArray[0].solution}.`);
+        console.log(`\n\x1b[31mError!\x1b[0m ${messageArray[0].error}.`);
+        console.log(`${messageArray[0].solution}.\n`);
     } else {
         // For general error
-        console.log(`\x1b[31mError!\x1b[0m Error is found and the process is interrupted.`)
+        console.log(`\n\x1b[31mError!\x1b[0m Error is found and the process is interrupted.\n`)
     }
 }
 

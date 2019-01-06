@@ -85,6 +85,11 @@ const errorCode = [
         code: "i001",
         error: "Can not get the installed version",
         solution: "You may want to install the latest stable version"
+    },
+    {
+        code: "i002",
+        error: "Can not connect to registry.npmjs.com for the latest stable version checking",
+        solution: "You may want to check again the internet connection"
     }
 
     /* {
