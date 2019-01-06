@@ -58,16 +58,16 @@ function helpInformation() {
     const helpContent = '\nCOMMAND:' +
                     '\n\t$ generate [option] \x1b[33m<name>\x1b[0m' +
                     '\n\nREQUIRED:' +
-                    '\n\t\x1b[33m<name>\x1b[0m\t\tIt is <project-name> or <component-name>.' +
+                    '\n\t\x1b[33m<name>\x1b[0m\t\tIt is <project-name> or <component-name>' +
                     '\n\nOPTION:' +
-                    '\n\t-g\t\tInstall automatically git and generate a .gitignore file.' +
-                    '\n\t-c\t\tGenerate a React component (*.js, *.jsx).' +
-                    '\n\t-r\t\tGenerate a React-Redux component (*.js, *.jsx).' +
-                    '\n\t-fc\t\tGenerate a full React component (a directory with *.js, *.css).' +
-                    '\n\t-fr\t\tGenerate a full React-Redux component (a directory with *.js, *.css).' +
-                    '\n\t-i\t\tGenerate a .gitignore file.' +
-                    '\n\t-v\t\tView the installed version.' +
-                    '\n\t-help\t\tDisplay the help information.' +
+                    '\n\t-g\t\tInstall automatically git and generate a .gitignore file' +
+                    '\n\t-c\t\tGenerate a React component file (*.js, *.jsx)' +
+                    '\n\t-r\t\tGenerate a React-Redux component file (*.js, *.jsx)' +
+                    '\n\t-fc\t\tGenerate a full React component (a directory with *.js, *.css)' +
+                    '\n\t-fr\t\tGenerate a full React-Redux component (a directory with *.js, *.css)' +
+                    '\n\t-i\t\tGenerate a .gitignore file' +
+                    '\n\t-v\t\tView the installed version' +
+                    '\n\t-help\t\tDisplay the help information' +
                     '\n\nEXAMPLE:' +
                     '\n\t$ generate \x1b[33mnew-project\x1b[0m' +
                     '\n\t$ generate -g \x1b[33mother-project\x1b[0m' +
