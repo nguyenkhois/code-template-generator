@@ -60,9 +60,9 @@ function MainApp() {
                         })
                         .catch((err) => {
                             if (err.message === "n001"){
-                                reject({ code: "c001" });
+                                reject({ code: "fu001" });
                             } else if(err.message === "n002") {
-                                reject({ code: "c002" });
+                                reject({ code: "fu002" });
                             }
                         });
 

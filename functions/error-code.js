@@ -1,3 +1,5 @@
+const helpCommandText = "Tip! Run \x1b[33mgenerate -help\x1b[0m to view more information"
+
 const errorCode = [
     // For name
     {
@@ -11,16 +13,17 @@ const errorCode = [
         solution: ""
     },
 
-    // For file
+    // For file - single component
     {
         code: "f001",
         error: "The file extension is not supported",
-        solution: "The supported file extensions are  *.js, *.jsx"
+        solution: `The supported file extensions are  *.js, *.jsx.
+            \n${helpCommandText}`
     },
     {
         code: "f002",
         error: "The file name is empty",
-        solution: "You may want to enter a file name"
+        solution: ""
     },
     {
         code: "f003",
@@ -28,16 +31,32 @@ const errorCode = [
         solution: "You may want to choose another file name"
     },
     
-    // For component
+    // For single component
     {
         code: "c001",
         error: "The component name is invalid",
-        solution: "You may want to choose another component name"
+        solution: `It may only include letters, numbers, underscores and hashes. You may want to choose another component name.
+            \n${helpCommandText}`
     },
     {
         code: "c002",
         error: "The component name is empty",
-        solution: "You may want to enter a component name"
+        solution: `You may want to use the command \x1b[33mgenerate <-c|-r> <component-name.js>\x1b[0m for the component generation.
+            \n${helpCommandText}`
+    },
+
+    // For full component
+    {
+        code: "fu001",
+        error: "The component name is invalid",
+        solution: `It may only include letters, numbers, underscores and hashes. You may want to choose another component name.
+            \n${helpCommandText}`
+    },
+    {
+        code: "fu002",
+        error: "The component name is empty",
+        solution: `You may want to use the command \x1b[33mgenerate <-fc|-fr> <component-name>\x1b[0m for the component generation.
+            \n${helpCommandText}`
     },
 
     // For directory
@@ -51,19 +70,21 @@ const errorCode = [
     {
         code: "p001",
         error: "The project name is invalid",
-        solution: "You may want to choose another component name"
+        solution: `It may only include letters, numbers, underscores and hashes. You may want to choose another project name.
+            \n${helpCommandText}`
     },
     {
         code: "p002",
         error: "The project name is empty",
-        solution: "You may want to enter a component name"
+        solution: `You may want to use the command \x1b[33mgenerate [-g] <project-name>\x1b[0m for the project generation.
+            \n${helpCommandText}`
     },
 
     // For other information
     {
         code: "i001",
         error: "Can not get the installed version",
-        solution: "Check your internet connection or install the latest stable version"
+        solution: "You may want to install the latest stable version"
     }
 
     /* {
