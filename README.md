@@ -34,7 +34,7 @@ You have more choice for your development environment. It makes your life easier
 |react-typescript-3|TypeScript 3 and using awesome-typescript-loader|
 
 ## Installation
-`$ npm i -g code-template-generator@alpha`
+`$ npm i -g code-template-generator@next`
 
 ## Using
 `$ generate [option] <project-name>[<component-name>]`
