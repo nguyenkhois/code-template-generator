@@ -91,12 +91,6 @@ const errorCode = [
         error: "Can not connect to registry.npmjs.com for the latest stable version checking",
         solution: "You may want to check again the internet connection"
     }
-
-    /* {
-        code: "",
-        error: "",
-        solution: ""
-    }, */
 ];
 
 module.exports = {

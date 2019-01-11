@@ -60,7 +60,7 @@ function helpInformation() {
                     '\n\nREQUIRED:' +
                     '\n\t\x1b[33m<name>\x1b[0m\t\tIt is <project-name> or <component-name>' +
                     '\n\nOPTION:' +
-                    '\n\t-g\t\tInstall automatically git and generate a .gitignore file' +
+                    '\n\t-g\t\tInstall automatically Git support and generate a .gitignore file' +
                     '\n\t-c\t\tGenerate a React component file (*.js, *.jsx)' +
                     '\n\t-r\t\tGenerate a React-Redux component file (*.js, *.jsx)' +
                     '\n\t-fc\t\tGenerate a full React component (a directory with *.js, *.css)' +
