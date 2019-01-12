@@ -69,12 +69,12 @@ function helpInformation() {
                     '\n\t-v\t\tView the installed version' +
                     '\n\t-help\t\tDisplay the help information' +
                     '\n\nEXAMPLE:' +
-                    '\n\t$ generate \x1b[33mnew-project\x1b[0m' +
-                    '\n\t$ generate -g \x1b[33mother-project\x1b[0m' +
-                    '\n\t$ generate -c \x1b[33mProductList.js\x1b[0m' +
-                    '\n\t$ generate -r \x1b[33mCart.js\x1b[0m' +
-                    '\n\t$ generate -fc \x1b[33mProduct\x1b[0m' +
-                    '\n\t$ generate -fr \x1b[33mShoppingCart\x1b[0m' +
+                    '\n\t$ generate \x1b[33mfirst-project\x1b[0m' +
+                    '\n\t$ generate -g \x1b[33msecond-project\x1b[0m' +
+                    '\n\t$ generate -c \x1b[33mSearchComponent.js\x1b[0m' +
+                    '\n\t$ generate -r \x1b[33mReviewComponent.jsx\x1b[0m' +
+                    '\n\t$ generate -fc \x1b[33mProductComponent\x1b[0m' +
+                    '\n\t$ generate -fr \x1b[33mCartComponent\x1b[0m' +
                     '\n\t$ generate -i' +
                     '\n\t$ generate -v' +
                     '\n\t$ generate -help';

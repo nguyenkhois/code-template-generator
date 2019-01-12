@@ -67,16 +67,23 @@ _(*) You install and config Redux, React-Redux by yourself._
 ## Examples
 
 ````
-$ generate new-project
-$ generate -g other-project
-$ generate -c ProductList.js
-$ generate -c Payment.jsx
-$ generate -r Cart.js
-$ generate -fc Product
-$ generate -fr ShoppingCart
-$ generate -i
-$ generate -v
-$ generate -help
+// Project
+$ generate first-project      // Without Git support
+$ generate -g second-project  // With Git support
+
+// Single component -> A file (*.js, *.jsx)
+$ generate -c SearchComponent.js    // React component
+$ generate -c ReviewComponent.jsx
+$ generate -r PaymentComponent.js    // React-Redux component
+
+// Full component -> A directory with two files are within (*.js, *.css)
+$ generate -fc ProductComponent
+$ generate -fr CartComponent
+
+// Other
+$ generate -i     // A .gitignore file
+$ generate -v     // Installed version
+$ generate -help  // Help information
 ````
 
 ## Thank you!
