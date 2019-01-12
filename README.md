@@ -41,7 +41,7 @@ You have more choice for your development environment. It makes your life easier
 _(*) You install and config Redux, React-Redux by yourself._
 
 ## Installation
-`$ npm i -g code-template-generator@next`
+`$ npm i -g code-template-generator`
 
 ## Using
 `$ generate [option] <project-name>[<component-name>]`
