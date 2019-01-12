@@ -1,6 +1,6 @@
 {
     "name": "code-template-generator",
-    "version": "2.0.0-beta.1.0.7",
+    "version": "2.0.0",
     "description": "The lightweight React code template generator",
     "main": "index.js",
     "scripts": {
@@ -25,12 +25,12 @@
     "devDependencies": {},
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/nguyenkhois/build-environments.git"
+        "url": "git+https://github.com/nguyenkhois/code-template-generator.git"
     },
     "bugs": {
-        "url": "https://github.com/nguyenkhois/build-environments/issues"
+        "url": "https://github.com/nguyenkhois/code-template-generator/issues"
     },
-    "homepage": "https://github.com/nguyenkhois/build-environments",
+    "homepage": "https://github.com/nguyenkhois/code-template-generator",
     "dependencies": {
         "inquirer": "^6.2.1"
     }
