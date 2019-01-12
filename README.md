@@ -71,12 +71,12 @@ _(*) You install and config Redux, React-Redux by yourself._
 $ generate first-project      // Without Git support
 $ generate -g second-project  // With Git support
 
-// Single component -> A file (*.js, *.jsx)
-$ generate -c SearchComponent.js    // React component
+// Single component -> A file
+$ generate -c SearchComponent.js   // React component
 $ generate -c ReviewComponent.jsx
-$ generate -r PaymentComponent.js    // React-Redux component
+$ generate -r PaymentComponent.js  // React-Redux component
 
-// Full component -> A directory with two files are within (*.js, *.css)
+// Full component -> A directory
 $ generate -fc ProductComponent
 $ generate -fr CartComponent
 
