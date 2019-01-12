@@ -37,6 +37,7 @@ You have more choice for your development environment. It makes your life easier
 |---|:---:|:---:|---|
 |Single|X|X|A file with these supported extension `*.js, *.jsx`.|
 |Full|X|X|A directory with two files `*.js, *.css` that are generated within.|
+
 _(*) You install and config Redux, React-Redux by yourself._
 
 ## Installation
