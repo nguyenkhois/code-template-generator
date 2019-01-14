@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-const { installedVersion, autoUpdateCheck, validateInputName, helpInformation, 
-        printUpdateMessage, printOutResolve, printOutReject,
-        generateTemplate, generateGitignoreFile, generateComponent, generateFullComponent,
+const { installedVersion, autoUpdateCheck, validateInputName, helpInformation,
+    printUpdateMessage, printOutResolve, printOutReject,
+    generateTemplate, generateGitignoreFile, generateComponent, generateFullComponent,
 } = require('./functions/');
 
 function MainApp() {
@@ -22,9 +22,9 @@ function MainApp() {
                                 .catch((err) => reject({ code: err.message }));
                         })
                         .catch((err) => {
-                            if (err.message === "n001"){
+                            if (err.message === "n001") {
                                 reject({ code: "p001" }); // The project name is invalid
-                            } else if(err.message === "n002") {
+                            } else if (err.message === "n002") {
                                 reject({ code: "p002" }); // The project name is empty
                             }
                         });
@@ -37,37 +37,37 @@ function MainApp() {
                     validateInputName(secondArgument)
                         .then(() => {
                             generateComponent(secondArgument, firstArgument)
-                                .then((fullFileName) => resolve({type: "component", content: fullFileName}))
+                                .then((fullFileName) => resolve({ type: "component", content: fullFileName }))
                                 .catch((err) => reject({ code: err.message }));
                         })
                         .catch((err) => {
-                            if (err.message === "n001"){
+                            if (err.message === "n001") {
                                 reject({ code: "c001" });
-                            } else if(err.message === "n002") {
+                            } else if (err.message === "n002") {
                                 reject({ code: "c002" });
                             }
                         });
 
                     break;
-                
+
                 case "-fc":
                 case "-fr":
                     validateInputName(secondArgument)
                         .then(() => {
                             generateFullComponent(secondArgument, firstArgument)
-                                .then((fullDirName) => resolve({type: "component", name: secondArgument, content: fullDirName}))
+                                .then((fullDirName) => resolve({ type: "component", name: secondArgument, content: fullDirName }))
                                 .catch((err) => reject({ code: err.message }));
                         })
                         .catch((err) => {
-                            if (err.message === "n001"){
+                            if (err.message === "n001") {
                                 reject({ code: "fu001" });
-                            } else if(err.message === "n002") {
+                            } else if (err.message === "n002") {
                                 reject({ code: "fu002" });
                             }
                         });
 
                     break;
-                
+
                 case "-i":
                     generateGitignoreFile()
                         .then((fileName) => resolve({ type: "file", content: fileName }))
@@ -101,9 +101,9 @@ function MainApp() {
                                 .catch((err) => reject({ code: err.message }));
                         })
                         .catch((err) => {
-                            if (err.message === "n001"){
+                            if (err.message === "n001") {
                                 reject({ code: "p001" });
-                            } else if(err.message === "n002") {
+                            } else if (err.message === "n002") {
                                 reject({ code: "p002" });
                             }
                         });
@@ -129,7 +129,7 @@ MainApp()
             result[0] !== result[1] ?
                 printUpdateMessage(result[1]) :
                 null;
-        }).catch((err) => printOutReject({code: 'i002'}));
+        }).catch((err) => printOutReject({ code: 'i002' }));
     })
     .catch((error) => {
         printOutReject(error);

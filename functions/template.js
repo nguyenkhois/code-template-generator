@@ -13,7 +13,7 @@ const templateFilePath = path.join(__dirname, '../templates-files/');
  *      gitSupport: false
  * } 
  */
-function generateTemplate(projectName = '', option = { gitSupport: false}) {
+function generateTemplate(projectName = '', option = { gitSupport: false }) {
     return new Promise((resolve, reject) => {
         const CHOICES = fs.readdirSync(templatePath);
         const choiceList = [
@@ -89,7 +89,7 @@ async function createDirectoryContents(templatePath, newProjectPath) {
         if (stats.isFile()) {
             const contents = fs.readFileSync(origFilePath);
             const writePath = `${newProjectPath}/${file}`;
-            
+
             fs.writeFileSync(writePath, contents);
 
         } else if (stats.isDirectory()) {
@@ -178,13 +178,13 @@ function generateFile(argFullFileName = null, fnGetAndReplaceFileContent, extraO
                 let newFullFilePath = `${CURR_DIR}/${argFullFileName}`; // Default is in current directory
 
                 if (Object.keys(extraOption).length > 0) {
-                    if (extraOption.subDir !== undefined && extraOption.subDir !== ''){
+                    if (extraOption.subDir !== undefined && extraOption.subDir !== '') {
                         newFullFilePath = `${CURR_DIR}/${extraOption.subDir}/${argFullFileName}`;
                     }
                 }
 
                 // Check if the file is found
-                if (!fs.existsSync(newFullFilePath)){
+                if (!fs.existsSync(newFullFilePath)) {
                     fs.writeFile(newFullFilePath, fnGetAndReplaceFileContent(filteredName), (err) => {
                         if (!err) {
                             resolve(argFullFileName);
@@ -216,8 +216,8 @@ function generateGitignoreFile(subDirectory = '') {
 
             return gitignoreContent;
         }, extraOption)
-        .then((result) => resolve(result))
-        .catch((error) => reject(error));
+            .then((result) => resolve(result))
+            .catch((error) => reject(error));
     });
 }
 
@@ -241,16 +241,16 @@ function generateComponent(componentName = null, option = "", extraOption = {}) 
 
             const componentTemplatePath = path.join(templateFilePath, templateName);
             const originalContent = fs.readFileSync(componentTemplatePath, 'utf8');
-            
+
             const replacedContent = originalContent.replace(/YourClassName/g, filteredName)
-                                                    .replace(/\-/g,'');
+                .replace(/\-/g, '');
 
             // Return the file content
             return replacedContent;
 
         }, extraOption)
-        .then((result) => resolve(result))
-        .catch((err) => reject(err));
+            .then((result) => resolve(result))
+            .catch((err) => reject(err));
 
     });
 }
@@ -263,8 +263,8 @@ function generateComponent(componentName = null, option = "", extraOption = {}) 
 function generateFullComponent(componentName = null, option = "") {
     return new Promise((resolve, reject) => {
         const newFullDirectoryPath = `${CURR_DIR}/${componentName}`;
-        
-        if (!fs.existsSync(newFullDirectoryPath)){
+
+        if (!fs.existsSync(newFullDirectoryPath)) {
             fs.mkdirSync(newFullDirectoryPath);
 
             // Create extra option
@@ -275,7 +275,7 @@ function generateFullComponent(componentName = null, option = "") {
             // Create file name
             const newFullJSFileName = `${componentName}.js`;
             const newFullCSSFileName = `${componentName}.css`;
-            
+
             // Chosen comonent type - React or React-Redux
             let componentType;
             option === "-fr" ?
