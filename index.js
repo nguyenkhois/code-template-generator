@@ -17,7 +17,7 @@ function MainApp() {
                 case "-g":
                     validateInputName(secondArgument)
                         .then(() => {
-                            generateTemplate(secondArgument, firstArgument) // It must be (projectName, option)
+                            generateTemplate(secondArgument, { gitSupport: true }) // It must be (projectName, option)
                                 .then(() => resolve(true))
                                 .catch((err) => reject({ code: err.message }));
                         })

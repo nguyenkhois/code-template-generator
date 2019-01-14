@@ -7,7 +7,13 @@ const templatePath = path.join(__dirname, '../templates/');
 const templateFilePath = path.join(__dirname, '../templates-files/');
 
 // Project generation
-function generateTemplate(projectName = '', option = '') {
+/**
+ * @param {*} projectName 
+ * @param {*} option = {
+ *      gitSupport: false
+ * } 
+ */
+function generateTemplate(projectName = '', option = { gitSupport: false}) {
     return new Promise((resolve, reject) => {
         const CHOICES = fs.readdirSync(templatePath);
         const choiceList = [
@@ -48,10 +54,16 @@ function generateTemplate(projectName = '', option = '') {
                 if (!fs.existsSync(newProjectPath)) {
                     fs.mkdirSync(newProjectPath);
 
-                    createDirectoryContents(chosenTemplatePath, newProjectPath, option)
+                    createDirectoryContents(chosenTemplatePath, newProjectPath)
                         .then(() => {
-                            option === "-g" ? gitInstallation(chosenProjectName) : null;
+                            // Generate .gitignore file and run "git init" command
+                            if (option.gitSupport === true) {
+                                gitInstallation(chosenProjectName)
+                                    .then(() => generateGitignoreFile(chosenProjectName))
+                                    .catch((err) => reject(err));
+                            }
 
+                            // Dependency installation
                             dependencyInstallation(chosenProjectName, chosenProjectTemplate)
                                 .then(() => resolve(chosenProjectName));
                         });
@@ -65,7 +77,7 @@ function generateTemplate(projectName = '', option = '') {
     });
 }
 
-async function createDirectoryContents(templatePath, newProjectPath, option = '') {
+async function createDirectoryContents(templatePath, newProjectPath) {
     const filesToCreate = fs.readdirSync(templatePath);
 
     filesToCreate.forEach((file) => {
@@ -76,16 +88,9 @@ async function createDirectoryContents(templatePath, newProjectPath, option = ''
 
         if (stats.isFile()) {
             const contents = fs.readFileSync(origFilePath);
-
-            // Rename for the using .gitignore
-            if (file === 'gitignore.template' && option === "-g") {
-                file = '.gitignore';
-            }
-
-            if (file !== 'gitignore.template') {
-                const writePath = `${newProjectPath}/${file}`;
-                fs.writeFileSync(writePath, contents);
-            }
+            const writePath = `${newProjectPath}/${file}`;
+            
+            fs.writeFileSync(writePath, contents);
 
         } else if (stats.isDirectory()) {
             fs.mkdirSync(`${newProjectPath}/${file}`);
@@ -170,14 +175,12 @@ function generateFile(argFullFileName = null, fnGetAndReplaceFileContent, extraO
 
             if (supportedExtension.indexOf(fileExtension) > -1) {
                 // Check if the file will be created in a sub directory
-                let newFullFilePath;
+                let newFullFilePath = `${CURR_DIR}/${argFullFileName}`; // Default is in current directory
 
                 if (Object.keys(extraOption).length > 0) {
                     if (extraOption.subDir !== undefined && extraOption.subDir !== ''){
                         newFullFilePath = `${CURR_DIR}/${extraOption.subDir}/${argFullFileName}`;
                     }
-                } else {
-                    newFullFilePath = `${CURR_DIR}/${argFullFileName}`;
                 }
 
                 // Check if the file is found
@@ -203,14 +206,16 @@ function generateFile(argFullFileName = null, fnGetAndReplaceFileContent, extraO
     });
 }
 
-function generateGitignoreFile() {
+function generateGitignoreFile(subDirectory = '') {
+    const extraOption = { subDir: subDirectory };
+
     return new Promise((resolve, reject) => {
         generateFile('.gitignore', function () {
             const gitignoreTemplatePath = path.join(templateFilePath, '/gitignore.template');
             const gitignoreContent = fs.readFileSync(gitignoreTemplatePath);
 
             return gitignoreContent;
-        })
+        }, extraOption)
         .then((result) => resolve(result))
         .catch((error) => reject(error));
     });

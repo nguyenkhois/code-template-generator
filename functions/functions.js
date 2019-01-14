@@ -1,25 +1,24 @@
+const https = require("https");
 const { errorCode } = require('./error-code');
 
 // Automatic update check
 function queryLatestVersion() {
     return new Promise(function (resolve, reject) {
-        const https = require("https");
         const url = "https://registry.npmjs.com/code-template-generator/latest";
-        
         let latestVersion;
 
         https.get(url, (response) => {
             response.setEncoding("utf8");
-            
+
             let rawData = "";
             response.on("data", (chunk) => {
                 rawData += chunk;
             });
-    
+
             response.on("end", () => {
                 const parsedData = JSON.parse(rawData);
                 latestVersion = parsedData.version;
-                
+
                 resolve(latestVersion);
             });
 
@@ -56,28 +55,28 @@ function printUpdateMessage(latestVersion) {
 
 function helpInformation() {
     const helpContent = '\nCOMMAND:' +
-                    '\n\t$ generate [option] \x1b[33m<name>\x1b[0m' +
-                    '\n\nREQUIRED:' +
-                    '\n\t\x1b[33m<name>\x1b[0m\t\tIt is <project-name> or <component-name>' +
-                    '\n\nOPTION:' +
-                    '\n\t-g\t\tInstall automatically Git support and generate a .gitignore file' +
-                    '\n\t-c\t\tGenerate a React component file (*.js, *.jsx)' +
-                    '\n\t-r\t\tGenerate a React-Redux component file (*.js, *.jsx)' +
-                    '\n\t-fc\t\tGenerate a full React component (a directory with *.js, *.css)' +
-                    '\n\t-fr\t\tGenerate a full React-Redux component (a directory with *.js, *.css)' +
-                    '\n\t-i\t\tGenerate a .gitignore file' +
-                    '\n\t-v\t\tView the installed version' +
-                    '\n\t-help\t\tDisplay the help information' +
-                    '\n\nEXAMPLE:' +
-                    '\n\t$ generate \x1b[33mfirst-project\x1b[0m' +
-                    '\n\t$ generate -g \x1b[33msecond-project\x1b[0m' +
-                    '\n\t$ generate -c \x1b[33mSearchComponent.js\x1b[0m' +
-                    '\n\t$ generate -r \x1b[33mReviewComponent.jsx\x1b[0m' +
-                    '\n\t$ generate -fc \x1b[33mProductComponent\x1b[0m' +
-                    '\n\t$ generate -fr \x1b[33mCartComponent\x1b[0m' +
-                    '\n\t$ generate -i' +
-                    '\n\t$ generate -v' +
-                    '\n\t$ generate -help';
+        '\n\t$ generate [option] \x1b[33m<name>\x1b[0m' +
+        '\n\nREQUIRED:' +
+        '\n\t\x1b[33m<name>\x1b[0m\t\tIt is <project-name> or <component-name>' +
+        '\n\nOPTION:' +
+        '\n\t-g\t\tInstall automatically Git support and generate a .gitignore file' +
+        '\n\t-c\t\tGenerate a React component file (*.js, *.jsx)' +
+        '\n\t-r\t\tGenerate a React-Redux component file (*.js, *.jsx)' +
+        '\n\t-fc\t\tGenerate a full React component (a directory with *.js, *.css)' +
+        '\n\t-fr\t\tGenerate a full React-Redux component (a directory with *.js, *.css)' +
+        '\n\t-i\t\tGenerate a .gitignore file' +
+        '\n\t-v\t\tView the installed version' +
+        '\n\t-help\t\tDisplay the help information' +
+        '\n\nEXAMPLE:' +
+        '\n\t$ generate \x1b[33mfirst-project\x1b[0m' +
+        '\n\t$ generate -g \x1b[33msecond-project\x1b[0m' +
+        '\n\t$ generate -c \x1b[33mSearchComponent.js\x1b[0m' +
+        '\n\t$ generate -r \x1b[33mReviewComponent.jsx\x1b[0m' +
+        '\n\t$ generate -fc \x1b[33mProductComponent\x1b[0m' +
+        '\n\t$ generate -fr \x1b[33mCartComponent\x1b[0m' +
+        '\n\t$ generate -i' +
+        '\n\t$ generate -v' +
+        '\n\t$ generate -help';
     return helpContent;
 }
 
@@ -88,14 +87,14 @@ function validateInputName(input) {
      * Do NOT accept any special characters. View more at regularExpression in /functions/index.js.
      */
     const { regularExpression } = require('./');
-    
+
     return new Promise(function (resolve, reject) {
-        if (input === null){
+        if (input === null) {
             reject(Error("n002"));
             return;
         }
 
-        if (regularExpression.test(input)){
+        if (regularExpression.test(input)) {
             resolve(true);
         } else {
             reject(Error("n001"));
@@ -103,16 +102,16 @@ function validateInputName(input) {
     });
 }
 
-function filterByProperty(objectArray,sPropertyName,sSeekingValue){
-    try{
-        if (Array.isArray(objectArray)){
+function filterByProperty(objectArray, sPropertyName, sSeekingValue) {
+    try {
+        if (Array.isArray(objectArray)) {
             if (objectArray.length > 0)
                 return objectArray.filter(objItem => objItem[sPropertyName] === sSeekingValue);
             else
                 return -1;
-        }else
+        } else
             return false
-    }catch(e){return e}
+    } catch (e) { return e }
 }
 
 // Print out message
