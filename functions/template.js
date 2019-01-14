@@ -227,7 +227,7 @@ function generateGitignoreFile(subDirectory = '') {
  * @param {*} option : "-c" or "-r" // React component or React-Redux component
  * @param {*} extraOption : { JSON } // using for creating a full component that is a directory with *.js, *.css are within
  */
-function generateComponent(componentName = null, option = "", extraOption = {}) {
+function generateComponent(componentName = null, option = { componentType: '' }, extraOption = {}) {
     return new Promise((resolve, reject) => {
 
         // Call an other Promise function -> input data is (argument, function)
@@ -235,7 +235,7 @@ function generateComponent(componentName = null, option = "", extraOption = {}) 
             let templateName;
 
             // Chosen template file
-            option === "-r" ?
+            option.componentType === "-r" ?
                 templateName = '/js-redux-component.template' :
                 templateName = '/js-component.template';
 
@@ -258,9 +258,11 @@ function generateComponent(componentName = null, option = "", extraOption = {}) 
 /**
  * A full component that is a directory with *.js, *.css are within.
  * @param {*} componentName : <component-name> is <diectory-name> now.
- * @param {*} option : "-fc" or "-fr" // React component or React-Redux component
+ * @param {*} option : {
+ *      componentType: '' // "-fc" or "-fr" // React component or React-Redux component
+ * }
  */
-function generateFullComponent(componentName = null, option = "") {
+function generateFullComponent(componentName = null, option = { componentType: '' }) {
     return new Promise((resolve, reject) => {
         const newFullDirectoryPath = `${CURR_DIR}/${componentName}`;
 
@@ -277,13 +279,13 @@ function generateFullComponent(componentName = null, option = "") {
             const newFullCSSFileName = `${componentName}.css`;
 
             // Chosen comonent type - React or React-Redux
-            let componentType;
-            option === "-fr" ?
-                componentType = "-r" : // React-Redux component
-                componentType = "-c"; // React component
+            let compType;
+            option.componentType === "-fr" ?
+                compType = "-r" : // React-Redux component
+                compType = "-c"; // React component
 
             // Generate JS file
-            const generateJSFile = generateComponent(newFullJSFileName, componentType, extraOption);
+            const generateJSFile = generateComponent(newFullJSFileName, { componentType: compType }, extraOption);
 
             // Generate CSS file
             const generateCSSFile = generateFile(newFullCSSFileName, function () {

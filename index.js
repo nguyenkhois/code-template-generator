@@ -36,7 +36,7 @@ function MainApp() {
                 case "-r":
                     validateInputName(secondArgument)
                         .then(() => {
-                            generateComponent(secondArgument, firstArgument)
+                            generateComponent(secondArgument, { componentType: firstArgument })
                                 .then((fullFileName) => resolve({ type: "component", content: fullFileName }))
                                 .catch((err) => reject({ code: err.message }));
                         })
@@ -54,7 +54,7 @@ function MainApp() {
                 case "-fr":
                     validateInputName(secondArgument)
                         .then(() => {
-                            generateFullComponent(secondArgument, firstArgument)
+                            generateFullComponent(secondArgument, { componentType: firstArgument })
                                 .then((fullDirName) => resolve({ type: "component", name: secondArgument, content: fullDirName }))
                                 .catch((err) => reject({ code: err.message }));
                         })
