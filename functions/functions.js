@@ -117,12 +117,12 @@ function filterByProperty(objectArray, sPropertyName, sSeekingValue) {
 // Print out message
 function printOutResolve(result) {
     const regularExpression = /component/gi;
+    const seekingComponentText = regularExpression.test(result.content);
 
-    if (regularExpression.test(result.content)){
-        console.log(`\n\x1b[32mDone!\x1b[0m ${result.content} is generated successfully.\n`);
-    } else {
-        console.log(`\n\x1b[32mDone!\x1b[0m ${result.content} ${result.type} is generated successfully.\n`);
-    }
+    console.log(`\n\x1b[32mDone!\x1b[0m ` +
+        `${result.content} ` +
+        `${!seekingComponentText ? result.type + ' ' : ''}` +
+        `is generated successfully.\n`);
 }
 
 function printOutReject(error) {
