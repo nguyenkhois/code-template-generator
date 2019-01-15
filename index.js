@@ -55,7 +55,7 @@ function MainApp() {
                     validateInputName(secondArgument)
                         .then(() => {
                             generateFullComponent(secondArgument, { componentType: firstArgument })
-                                .then((fullDirName) => resolve({ type: "component", name: secondArgument, content: fullDirName }))
+                                .then((fullDirName) => resolve({ type: "component", content: fullDirName }))
                                 .catch((err) => reject({ code: err.message }));
                         })
                         .catch((err) => {
