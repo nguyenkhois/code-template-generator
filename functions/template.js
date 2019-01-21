@@ -38,7 +38,7 @@ function generateTemplate(projectName = '', option = { gitSupport: false }) {
         let QUESTIONS = [];
 
         projectName.length !== 0 ?
-            QUESTIONS = [choiceList[0]] : // Project name is not null and we don't ask again
+            QUESTIONS = choiceList.slice(0, 1) : // Project name is not null and we don't ask again
             QUESTIONS = choiceList // Project name is null therefor we have two questions
 
         inquirer.prompt(QUESTIONS)
@@ -56,7 +56,7 @@ function generateTemplate(projectName = '', option = { gitSupport: false }) {
 
                     createDirectoryContents(chosenTemplatePath, newProjectPath)
                         .then(() => {
-                            // Generate .gitignore file and run "git init" command
+                            // Generate .gitignore file and run the "git init" command
                             if (option.gitSupport === true) {
                                 gitInstallation(chosenProjectName)
                                     .then(() => generateGitignoreFile(chosenProjectName))
@@ -65,15 +65,15 @@ function generateTemplate(projectName = '', option = { gitSupport: false }) {
 
                             // Dependency installation
                             dependencyInstallation(chosenProjectName, chosenProjectTemplate)
-                                .then(() => resolve(chosenProjectName));
-                        });
+                                .then(() => resolve(chosenProjectName))
+                                .catch((err) => reject(err));
+                        })
+                        .catch((err) => reject(err));
                 } else {
                     reject(Error("d001")); // The directory already exists
                 }
             })
-            .catch((err) => {
-                reject(err)
-            });
+            .catch((err) => reject(err));
     });
 }
 
