@@ -1,4 +1,4 @@
-# code-template-generator [![Download on npm](https://img.shields.io/badge/npm-v2.0.2-blue.svg)](https://www.npmjs.com/package/code-template-generator/)
+# code-template-generator [![Download on npm](https://img.shields.io/badge/npm-v2.0.3-blue.svg)](https://www.npmjs.com/package/code-template-generator/)
 This is the lightweight React code template generator that has two parts in one npm package:
 * Project template generation that has a part of the [Build environments](https://github.com/nguyenkhois/build-environments) project.
 * Code template generation.
@@ -65,7 +65,7 @@ _(*) You install and config Redux, React-Redux by yourself._
 - Changed the `git` support option.
     * Version 1: `$ generate react-counter git`
     * Version 2: `$ generate -g react-counter`
-- Requirement for Node.js version is larger than 8.0.0 (Node.js LTS is a good choice for many reasons).
+- The minimum supported Node.js version is 8 (Node.js LTS is a good choice for many reasons).
 
 ## Examples
 
