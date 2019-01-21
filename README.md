@@ -5,7 +5,7 @@ This is the lightweight React code template generator that has two parts in one 
 
 You have more choice for your development environment. It makes your life easier.
 
-![Demo](demo.gif)
+![Demo](demonew.gif)
 
 ## Main features
 * Project template generation has two options:
