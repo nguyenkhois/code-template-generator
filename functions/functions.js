@@ -1,5 +1,6 @@
 const https = require("https");
 const { errorCode } = require('./error-code');
+const { filterByProperty, supportedTemplate } = require('../common/');
 
 // Automatic update check
 function queryLatestVersion() {
@@ -84,9 +85,9 @@ function validateInputName(input) {
     /**
      * Input data must be larger than 2 character.
      * Project name may only include letters, numbers, underscores and hashes.
-     * Do NOT accept any special characters. View more at regularExpression in /functions/index.js.
+     * Do NOT accept any special characters. View more at regularExpression in ../common/index.js.
      */
-    const { regularExpression } = require('./');
+    const { regularExpression } = require('../common/');
 
     return new Promise(function (resolve, reject) {
         if (input === null) {
@@ -102,18 +103,6 @@ function validateInputName(input) {
     });
 }
 
-function filterByProperty(objectArray, sPropertyName, sSeekingValue) {
-    try {
-        if (Array.isArray(objectArray)) {
-            if (objectArray.length > 0)
-                return objectArray.filter(objItem => objItem[sPropertyName] === sSeekingValue);
-            else
-                return -1;
-        } else
-            return false
-    } catch (e) { return e }
-}
-
 // Print out message
 function printOutResolve(result) {
     const regularExpression = /component/gi;
@@ -126,15 +115,50 @@ function printOutResolve(result) {
 }
 
 function printOutReject(error) {
-    messageArray = filterByProperty(errorCode, 'code', error.code);
+    filterByProperty(errorCode, 'code', error.code)
+        .then((result) => {
+            if (result.length === 1) {
+                console.log(`\n\x1b[31mError!\x1b[0m ${result[0].error}.`);
+                console.log(`${result[0].solution}.\n`);
+            } else {
+                // For general error
+                console.log(`\n\x1b[31mError!\x1b[0m Error is found and the process is interrupted.\n`)
+            }
+        })
+        .catch((err) => console.log(err.message));
+}
 
-    if (messageArray.length === 1) {
-        console.log(`\n\x1b[31mError!\x1b[0m ${messageArray[0].error}.`);
-        console.log(`${messageArray[0].solution}.\n`);
-    } else {
-        // For general error
-        console.log(`\n\x1b[31mError!\x1b[0m Error is found and the process is interrupted.\n`)
-    }
+function printOutGuideAfterGeneration(projectName, projectTemplate) {
+    const beginMessage = '\x1b[32m' + 'SUCCESS! ' + '\x1b[0m' +
+        'Your project ' + projectName + ' is generated successfully by the template ' + projectTemplate + '.' +
+        '\n\n\t' + '\x1b[36m' + 'cd ' + projectName + '\x1b[0m' + ' to change into your project directory';
+
+    let detailMessage = '\n';
+
+    const endMessage = '\n\nView README.md for more information.' +
+        '\n\nHappy coding! (^_^)';
+
+    filterByProperty(supportedTemplate, 'name', projectTemplate)
+        .then((result) => {
+            if (result.length === 1) {
+                switch (result[0].type) {
+                    case 'react': // React project
+                        detailMessage += '\n\t' + '\x1b[36m' + 'npm start ' + '\x1b[0m' + ' to start the local web server at http://localhost:9000' +
+                            '\n\t' + '\x1b[36m' + 'npm run build ' + '\x1b[0m' + ' to compile your code';
+
+                        break;
+                    case 'express': // Express project
+                        detailMessage += '\n\t' + '\x1b[36m' + 'npm start ' + '\x1b[0m' + ' to start the local web server at http://localhost:8000';
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+
+            console.log(beginMessage + detailMessage + endMessage);
+        })
+        .catch((err) => console.log(err.message));
 }
 
 module.exports = {
@@ -144,7 +168,7 @@ module.exports = {
     printUpdateMessage,
     helpInformation,
     validateInputName,
-    filterByProperty,
     printOutResolve,
-    printOutReject
+    printOutReject,
+    printOutGuideAfterGeneration
 }

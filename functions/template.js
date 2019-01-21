@@ -1,6 +1,7 @@
 const path = require("path");
 const fs = require('fs');
 const inquirer = require('inquirer');
+const { printOutGuideAfterGeneration } = require('./functions');
 
 const CURR_DIR = process.cwd();
 const templatePath = path.join(__dirname, '../templates/');
@@ -137,15 +138,7 @@ function dependencyInstallation(projectName, projectTemplate) {
             console.log(`\n\x1b[32mDone!\x1b[0m npm ${stdout}`);
             console.log(`\x1b[35mInformation\x1b[0m: ${stderr}`);
 
-            const resultMessage = 'Your project ' + projectName + ' created by the template ' + projectTemplate + '.';
-
-            console.log('\x1b[32m' + 'SUCCESS! ' + '\x1b[0m' + resultMessage);
-            console.log('\n\t' + '\x1b[36m' + 'cd ' + projectName + '\x1b[0m' + ' to change into your project directory');
-            console.log('\n\t' + '\x1b[36m' + 'npm start ' + '\x1b[0m' + ' to start the local web server at http://localhost:9000');
-            console.log('\t' + '\x1b[36m' + 'npm run build ' + '\x1b[0m' + ' to compile your code');
-            console.log('\nView README.md for more information.');
-            console.log('\nHappy coding! (^_^)');
-
+            printOutGuideAfterGeneration(projectName, projectTemplate);
             resolve(true);
         });
     });
