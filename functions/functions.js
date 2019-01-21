@@ -145,8 +145,8 @@ function printOutGuideAfterGeneration(projectName, projectTemplate) {
                     case 'react': // React project
                         detailMessage += '\n\t' + '\x1b[36m' + 'npm start ' + '\x1b[0m' + ' to start the local web server at http://localhost:9000' +
                             '\n\t' + '\x1b[36m' + 'npm run build ' + '\x1b[0m' + ' to compile your code';
-
                         break;
+                        
                     case 'express': // Express project
                         detailMessage += '\n\t' + '\x1b[36m' + 'npm start ' + '\x1b[0m' + ' to start the local web server at http://localhost:8000';
                         break;
