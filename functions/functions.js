@@ -44,16 +44,29 @@ function autoUpdateCheck() {
     return Promise.all([installedVersion(), queryLatestVersion()]);
 }
 
-// Print out the message
-function printUpdateMessage(latestVersion) {
-    const message = "\n" +
-        "\t---------------------------------------------------\n" +
-        `\t| \x1b[33mThe latest stable version ${latestVersion} is available\x1b[0m.   |\n` +
-        `\t| Run \x1b[36mnpm i -g code-template-generator\x1b[0m to update. |\n` +
-        "\t---------------------------------------------------\n";
-    console.log(message);
+function validateInputName(input) {
+    /**
+     * Input data must be larger than 2 character.
+     * Project name may only include letters, numbers, underscores and hashes.
+     * Do NOT accept any special characters. View more at regularExpression in ../common/index.js.
+     */
+    const { regularExpression } = require('../common/');
+
+    return new Promise(function (resolve, reject) {
+        if (input === null) {
+            reject(Error("n002"));
+            return;
+        }
+
+        if (regularExpression.test(input)) {
+            resolve(true);
+        } else {
+            reject(Error("n001"));
+        }
+    });
 }
 
+// Print out the information
 function helpInformation() {
     const helpContent = '\nCOMMAND:' +
         '\n\t$ generate [option] \x1b[33m<name>\x1b[0m' +
@@ -81,29 +94,15 @@ function helpInformation() {
     return helpContent;
 }
 
-function validateInputName(input) {
-    /**
-     * Input data must be larger than 2 character.
-     * Project name may only include letters, numbers, underscores and hashes.
-     * Do NOT accept any special characters. View more at regularExpression in ../common/index.js.
-     */
-    const { regularExpression } = require('../common/');
-
-    return new Promise(function (resolve, reject) {
-        if (input === null) {
-            reject(Error("n002"));
-            return;
-        }
-
-        if (regularExpression.test(input)) {
-            resolve(true);
-        } else {
-            reject(Error("n001"));
-        }
-    });
+function printUpdateMessage(latestVersion) {
+    const message = "\n" +
+        "\t---------------------------------------------------\n" +
+        `\t| \x1b[33mThe latest stable version ${latestVersion} is available\x1b[0m.   |\n` +
+        `\t| Run \x1b[36mnpm i -g code-template-generator\x1b[0m to update. |\n` +
+        "\t---------------------------------------------------\n";
+    console.log(message);
 }
 
-// Print out message
 function printOutResolve(result) {
     const regularExpression = /component/gi;
     const seekingComponentText = regularExpression.test(result.content);
