@@ -59,6 +59,7 @@ _(*) You install and config Redux, React-Redux by yourself._
 | `-i` |-| A `.gitignore` file will be generated in the current directory |
 |`-v`|-|View the installed version|
 |`-help`|-|View the help information|
+|`-u`|-| Automatic update checking and install the latest stable version |
 
 ## Breaking changes:
 - Removed the project template `react-babel-6`.
