@@ -83,7 +83,7 @@ function checkAndInstallStableUpdate() {
                 if (availability.isFound) {
                     const exec = require("child_process").exec;
 
-                    console.log('\nStarting the latest stable version installation...');
+                    console.log(`\nStarting installation for the latest stable version ${availability.version}...`);
                     exec(`npm i -g code-template-generator`, (error, stdout, stderr) => {
                         if (error) {
                             console.error(`\x1b[31mERROR\x1b[0m: ${error}`);
