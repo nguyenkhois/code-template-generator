@@ -121,13 +121,12 @@ function gitInstallation(projectName) {
     });
 }
 
+// Installation of all needed dependencies
 function dependencyInstallation(projectName, projectTemplate) {
     return new Promise((resolve, reject) => {
-        // Installation of all needed dependencies
-        console.log('\nStarting the installation for all needed dependencies...');
-
         const exec = require("child_process").exec;
 
+        console.log('\nStarting the installation for all needed dependencies...');
         exec(`cd ${projectName} && npm i`, (error, stdout, stderr) => {
             if (error) {
                 console.error(`\x1b[31mERROR\x1b[0m: ${error}`);
@@ -136,7 +135,10 @@ function dependencyInstallation(projectName, projectTemplate) {
             }
 
             console.log(`\n\x1b[32mDone!\x1b[0m npm ${stdout}`);
-            console.log(`\x1b[35mInformation\x1b[0m: ${stderr}`);
+
+            if (stderr !== '') {
+                console.log(`\x1b[35mInformation\x1b[0m: ${stderr}`);
+            }
 
             printOutGuideAfterGeneration(projectName, projectTemplate);
             resolve(true);

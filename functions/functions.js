@@ -1,5 +1,5 @@
 const https = require("https");
-const { errorCode } = require('./error-code');
+const { errorCode, errorIdentification } = require('./error-handling');
 const { filterByProperty, supportedTemplate } = require('../common/');
 
 // Automatic update check
@@ -41,7 +41,17 @@ function installedVersion() {
 }
 
 function autoUpdateCheck() {
-    return Promise.all([installedVersion(), queryLatestVersion()]);
+    return new Promise((resolve, reject) => {
+        Promise.all([installedVersion(), queryLatestVersion()])
+            .then((result) => {
+                if (result[0] === result[1]) {
+                    resolve({ isFound: false, version: result[0] });
+                } else {
+                    resolve({ isFound: true, version: result[1] }); // A new update is available
+                }
+            })
+            .catch((err) => reject(err));
+    });
 }
 
 function validateInputName(input) {
@@ -63,6 +73,42 @@ function validateInputName(input) {
         } else {
             reject(Error("n001"));
         }
+    });
+}
+
+function checkAndInstallStableUpdate() {
+    return new Promise((resolve, reject) => {
+        autoUpdateCheck()
+            .then((availability) => {
+                if (availability.isFound) {
+                    const exec = require("child_process").exec;
+
+                    console.log('\nStarting the latest stable version installation...');
+                    exec(`npm i -g code-template-generator`, (error, stdout, stderr) => {
+                        if (error) {
+                            console.error(`\x1b[31mERROR\x1b[0m: ${error}`);
+                            reject(error);
+                            return;
+                        }
+            
+                        console.log(`\n\x1b[32mDone!\x1b[0m npm ${stdout}`);
+
+                        if (stderr !== '') {
+                            console.log(`\x1b[35mInformation\x1b[0m: ${stderr}`);
+                        }
+
+                        resolve(true);
+                    });
+
+                } else {
+                    console.log('You have installed the latest version');
+                    resolve(true);
+                }
+
+            })
+            .catch((err) => {
+                reject(errorIdentification(err));
+            });
     });
 }
 
@@ -113,6 +159,12 @@ function printOutResolve(result) {
         `is generated successfully.\n`);
 }
 
+/**
+ * Structure
+ * @param {*} error = {
+ *      code: err.message
+ * }
+ */
 function printOutReject(error) {
     filterByProperty(errorCode, 'code', error.code)
         .then((result) => {
@@ -145,7 +197,7 @@ function printOutGuideAfterGeneration(projectName, projectTemplate) {
                         detailMessage += '\n\t' + '\x1b[36m' + 'npm start ' + '\x1b[0m' + ' to start the local web server at http://localhost:9000' +
                             '\n\t' + '\x1b[36m' + 'npm run build ' + '\x1b[0m' + ' to compile your code';
                         break;
-                        
+
                     case 'express': // Express project
                         detailMessage += '\n\t' + '\x1b[36m' + 'npm start ' + '\x1b[0m' + ' to start the local web server at http://localhost:8000';
                         break;
@@ -164,6 +216,7 @@ module.exports = {
     installedVersion,
     queryLatestVersion,
     autoUpdateCheck,
+    checkAndInstallStableUpdate,
     printUpdateMessage,
     helpInformation,
     validateInputName,

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const { installedVersion, autoUpdateCheck, validateInputName, helpInformation,
-    printUpdateMessage, printOutResolve, printOutReject,
+const { installedVersion, autoUpdateCheck, checkAndInstallStableUpdate, validateInputName,
+    helpInformation, printUpdateMessage, printOutResolve, printOutReject,
     generateTemplate, generateGitignoreFile, generateComponent, generateFullComponent,
 } = require('./functions/');
 
@@ -93,6 +93,17 @@ function MainApp() {
 
                     break;
 
+                case "-u":
+                    checkAndInstallStableUpdate()
+                        .then(() => {
+                            resolve({ type: "info" });
+                        })
+                        .catch((err) => {
+                            reject({ code: err.message });
+                        });
+
+                    break;
+
                 default:
                     validateInputName(firstArgument)
                         .then(() => {
@@ -102,7 +113,7 @@ function MainApp() {
                         })
                         .catch((err) => {
                             if (err.message === "n001") {
-                                reject({ code: "p001" });
+                                reject({ code: "p001" }); // Error code mapping
                             } else if (err.message === "n002") {
                                 reject({ code: "p002" });
                             }
@@ -119,17 +130,27 @@ function MainApp() {
 }
 
 // MAIN APP
+/**
+ * Reject a custom object = {
+ *      code: err.message
+ * }
+ */
 MainApp()
     .then((result) => {
         if (result.type !== undefined && result.type !== "info") {
             printOutResolve(result);
         }
 
-        autoUpdateCheck().then((result) => {
-            result[0] !== result[1] ?
-                printUpdateMessage(result[1]) :
-                null;
-        }).catch((err) => printOutReject({ code: 'i002' }));
+        autoUpdateCheck().then((availability) => {
+            if (availability.isFound) {
+                printUpdateMessage(availability.version);
+            }
+        }).catch((err) => {
+            // Internet connection is not found
+            if (/ENOTFOUND/g.test(err.message)) {
+                printOutReject({ code: 'i002' });
+            }
+        });
     })
     .catch((error) => {
         printOutReject(error);

@@ -30,7 +30,7 @@ const errorCode = [
         error: "The file already exists",
         solution: "You may want to choose another file name"
     },
-    
+
     // For single component
     {
         code: "c001",
@@ -93,6 +93,21 @@ const errorCode = [
     }
 ];
 
+/**
+ * Return always an Error object
+ * @param {*} error 
+ */
+function errorIdentification(error) {
+    const errorMessage = error.message;
+    
+    if (/ENOTFOUND/g.test(errorMessage)) {
+        return Error("i002"); // Internet connection is not found
+    }
+
+    return error;
+}
+
 module.exports = {
-    errorCode
+    errorCode,
+    errorIdentification
 }
