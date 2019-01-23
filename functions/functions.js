@@ -45,9 +45,9 @@ function autoUpdateCheck() {
         Promise.all([installedVersion(), queryLatestVersion()])
             .then((result) => {
                 if (result[0] === result[1]) {
-                    resolve({ isFound: false, version: result[1] });
+                    resolve({ isFound: false, version: result[1], installed: result[0] });
                 } else {
-                    resolve({ isFound: true, version: result[1] }); // A new update is available
+                    resolve({ isFound: true, version: result[1], installed: result[0] }); // A new update is available
                 }
             })
             .catch((err) => reject(err));
@@ -83,6 +83,7 @@ function checkAndInstallStableUpdate() {
                 if (availability.isFound) {
                     const exec = require("child_process").exec;
 
+                    console.log(`\nInstalled version: ${availability.installed}`);
                     console.log(`\nStarting installation for the latest stable version ${availability.version}...`);
                     exec(`npm i -g code-template-generator`, (error, stdout, stderr) => {
                         if (error) {
@@ -90,7 +91,7 @@ function checkAndInstallStableUpdate() {
                             reject(error);
                             return;
                         }
-            
+
                         console.log(`\n\x1b[32mDone!\x1b[0m npm ${stdout}`);
 
                         if (stderr !== '') {
