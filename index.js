@@ -3,6 +3,7 @@
 const { installedVersion, autoUpdateCheck, checkAndInstallStableUpdate, validateInputName,
     helpInformation, printUpdateMessage, printOutResolve, printOutReject,
     generateTemplate, generateGitignoreFile, generateComponent, generateFullComponent,
+    errorIdentification
 } = require('./functions/');
 
 function MainApp() {
@@ -132,7 +133,7 @@ function MainApp() {
 // MAIN APP
 /**
  * Reject a custom object = {
- *      code: err.message
+ *      code: err.message // Create custom error code
  * }
  */
 MainApp()
@@ -141,15 +142,14 @@ MainApp()
             printOutResolve(result);
         }
 
+        // Automatic update checking after resolving
         autoUpdateCheck().then((availability) => {
             if (availability.isFound) {
                 printUpdateMessage(availability.version);
             }
         }).catch((err) => {
-            // Internet connection is not found
-            if (/ENOTFOUND/g.test(err.message)) {
-                printOutReject({ code: 'i002' });
-            }
+            const errorCode = errorIdentification(err).message;
+            printOutReject({ code: errorCode });
         });
     })
     .catch((error) => {

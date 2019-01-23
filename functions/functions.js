@@ -136,7 +136,8 @@ function helpInformation() {
         '\n\t$ generate -fr \x1b[33mCartComponent\x1b[0m' +
         '\n\t$ generate -i' +
         '\n\t$ generate -v' +
-        '\n\t$ generate -help';
+        '\n\t$ generate -help' +
+        '\n\t$ generate -u';;
     return helpContent;
 }
 
@@ -222,5 +223,6 @@ module.exports = {
     validateInputName,
     printOutResolve,
     printOutReject,
-    printOutGuideAfterGeneration
+    printOutGuideAfterGeneration,
+    errorIdentification
 }
