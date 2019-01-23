@@ -19,7 +19,7 @@ function MainApp() {
                     validateInputName(secondArgument)
                         .then(() => {
                             generateTemplate(secondArgument, { gitSupport: true }) // It must be (projectName, option)
-                                .then(() => resolve(true))
+                                .then(() => resolve({ type: "template"}))
                                 .catch((err) => reject({ code: err.message }));
                         })
                         .catch((err) => {
@@ -97,7 +97,7 @@ function MainApp() {
                 case "-u":
                     checkAndInstallStableUpdate()
                         .then(() => {
-                            resolve({ type: "info" });
+                            resolve({ type: "updating" });
                         })
                         .catch((err) => {
                             reject({ code: err.message });
@@ -109,7 +109,7 @@ function MainApp() {
                     validateInputName(firstArgument)
                         .then(() => {
                             generateTemplate(firstArgument)
-                                .then(() => resolve(true))
+                                .then(() => resolve({ type: "template"}))
                                 .catch((err) => reject({ code: err.message }));
                         })
                         .catch((err) => {
@@ -124,7 +124,7 @@ function MainApp() {
             }
         } else {
             generateTemplate()
-                .then(() => resolve(true))
+                .then(() => resolve({ type: "template"}))
                 .catch((err) => reject({ code: err.message }));
         }
     });
@@ -132,25 +132,30 @@ function MainApp() {
 
 // MAIN APP
 /**
+ * Resolving types: template, component, file, info, updating
  * Reject a custom object = {
  *      code: err.message // Create custom error code
  * }
  */
 MainApp()
-    .then((result) => {
-        if (result.type !== undefined && result.type !== "info") {
-            printOutResolve(result);
+    .then((resolving) => {
+        const printOutResolvingTypes = ["template", "component", "file"];
+
+        if (printOutResolvingTypes.indexOf(resolving.type) > -1) {
+            printOutResolve(resolving);
         }
 
         // Automatic update checking after resolving
-        autoUpdateCheck().then((availability) => {
-            if (availability.isFound) {
-                printUpdateMessage(availability.version);
-            }
-        }).catch((err) => {
-            const errorCode = errorIdentification(err).message;
-            printOutReject({ code: errorCode });
-        });
+        if (resolving.type !== "updating") {
+            autoUpdateCheck().then((availability) => {
+                if (availability.isFound) {
+                    printUpdateMessage(availability.version);
+                }
+            }).catch((err) => {
+                const errorCode = errorIdentification(err).message;
+                printOutReject({ code: errorCode });
+            });
+        }
     })
     .catch((error) => {
         printOutReject(error);

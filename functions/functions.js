@@ -45,7 +45,7 @@ function autoUpdateCheck() {
         Promise.all([installedVersion(), queryLatestVersion()])
             .then((result) => {
                 if (result[0] === result[1]) {
-                    resolve({ isFound: false, version: result[0] });
+                    resolve({ isFound: false, version: result[1] });
                 } else {
                     resolve({ isFound: true, version: result[1] }); // A new update is available
                 }
