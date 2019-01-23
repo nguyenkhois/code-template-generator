@@ -139,7 +139,7 @@ function MainApp() {
  */
 MainApp()
     .then((resolving) => {
-        const printOutResolvingTypes = ["template", "component", "file"];
+        const printOutResolvingTypes = ["component", "file"];
 
         if (printOutResolvingTypes.indexOf(resolving.type) > -1) {
             printOutResolve(resolving);
