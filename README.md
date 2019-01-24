@@ -1,4 +1,4 @@
-# code-template-generator [![Download on npm](https://img.shields.io/badge/npm-v2.1.0-blue.svg)](https://www.npmjs.com/package/code-template-generator/v/next)
+# code-template-generator [![Download on npm](https://img.shields.io/badge/npm-v2.1.0-blue.svg)](https://www.npmjs.com/package/code-template-generator/)
 This is the lightweight React code template generator that has two parts in one npm package:
 * Project template generation that has a part of the [Build environments](https://github.com/nguyenkhois/build-environments) project.
 * Code template generation.
