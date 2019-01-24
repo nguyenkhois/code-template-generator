@@ -152,8 +152,8 @@ MainApp()
                     printUpdateMessage(availability.version);
                 }
             }).catch((err) => {
-                const errorCode = errorIdentification(err).message;
-                printOutReject({ code: errorCode });
+                const customErrorCode = errorIdentification(err).message;
+                printOutReject({ code: customErrorCode });
             });
         }
     })
