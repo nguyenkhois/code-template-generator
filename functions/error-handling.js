@@ -1,4 +1,4 @@
-const helpCommandText = "Tip! Run \x1b[33mgenerate -help\x1b[0m to view more information"
+const helpCommandText = "Tip! Run \x1b[33mgenerate -help\x1b[0m to view more information";
 
 const errorCode = [
     // For name
@@ -95,11 +95,11 @@ const errorCode = [
 
 /**
  * Return always an Error object
- * @param {*} error 
+ * @param {*} error
  */
 function errorIdentification(error) {
     const errorMessage = error.message;
-    
+
     if (/ENOTFOUND/g.test(errorMessage)) {
         return Error("i002"); // Internet connection is not found
     }
@@ -110,4 +110,4 @@ function errorIdentification(error) {
 module.exports = {
     errorCode,
     errorIdentification
-}
+};

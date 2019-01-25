@@ -1,6 +1,6 @@
-const library = require('./library');
+const library = require("./library");
 
-const regularExpression = /^(?![\-\.])([A-Za-z\-\_\.\d])+([A-Za-z\d])+$/;
+const regularExpression = /^(?![-.])([A-Za-z-_.\d])+([A-Za-z\d])+$/;
 
 const supportedTemplate = [
     {
@@ -25,4 +25,4 @@ module.exports = {
     ...library,
     regularExpression,
     supportedTemplate
-}
+};

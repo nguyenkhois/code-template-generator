@@ -4,7 +4,7 @@ const { installedVersion, autoUpdateCheck, checkAndInstallStableUpdate, validate
     helpInformation, printUpdateMessage, printOutResolve, printOutReject,
     generateTemplate, generateGitignoreFile, generateComponent, generateFullComponent,
     errorIdentification
-} = require('./functions/');
+} = require("./functions/");
 
 function MainApp() {
     return new Promise((resolve, reject) => {
