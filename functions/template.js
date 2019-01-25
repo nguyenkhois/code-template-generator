@@ -1,35 +1,35 @@
 const path = require("path");
-const fs = require('fs');
-const inquirer = require('inquirer');
-const { printOutGuideAfterGeneration } = require('./functions');
+const fs = require("fs");
+const inquirer = require("inquirer");
+const { printOutGuideAfterGeneration } = require("./functions");
 
 const CURR_DIR = process.cwd();
-const templatePath = path.join(__dirname, '../templates/');
-const templateFilePath = path.join(__dirname, '../templates-files/');
+const templatePath = path.join(__dirname, "../templates/");
+const templateFilePath = path.join(__dirname, "../templates-files/");
 
 // Project generation
 /**
- * @param {*} projectName 
+ * @param {*} projectName
  * @param {*} option = {
  *      gitSupport: false
- * } 
+ * }
  */
-function generateTemplate(projectName = '', option = { gitSupport: false }) {
+function generateTemplate(projectName = "", option = { gitSupport: false }) {
     return new Promise((resolve, reject) => {
         const CHOICES = fs.readdirSync(templatePath);
         const choiceList = [
             {
-                name: 'projectChoice',
-                type: 'list',
-                message: 'What project template would you like to generate?',
+                name: "projectChoice",
+                type: "list",
+                message: "What project template would you like to generate?",
                 choices: CHOICES
             },
             {
-                name: 'projectName',
-                type: 'input',
-                message: 'Project name:',
+                name: "projectName",
+                type: "input",
+                message: "Project name:",
                 validate: function (input) {
-                    if (/^(?!\-)([A-Za-z\-\_\d])+([A-Za-z\d])+$/.test(input))
+                    if (/^(?![-.])([A-Za-z-_.\d])+([A-Za-z\d])+$/.test(input))
                         return true;
                     else
                         return false;
@@ -40,7 +40,7 @@ function generateTemplate(projectName = '', option = { gitSupport: false }) {
 
         projectName.length !== 0 ?
             QUESTIONS = choiceList.slice(0, 1) : // Project name is not null and we don't ask again
-            QUESTIONS = choiceList // Project name is null therefor we have two questions
+            QUESTIONS = choiceList; // Project name is null therefor we have two questions
 
         inquirer.prompt(QUESTIONS)
             .then((answers) => {
@@ -105,17 +105,17 @@ async function createDirectoryContents(templatePath, newProjectPath) {
 // Dependency installation
 function gitInstallation(projectName) {
     return new Promise((resolve, reject) => {
-        console.log('\nStarting the installation for Git support...');
+        console.log("\nStarting the installation for Git support...");
         const exec = require("child_process").exec;
 
-        exec(`cd ${projectName} && git init`, (error, stdout, stderr) => {
+        exec(`cd ${projectName} && git init`, (error) => {
             if (error) {
                 console.error(`\x1b[31mERROR\x1b[0m: ${error}`);
                 reject(error);
                 return;
             }
 
-            console.log(`\n\x1b[32mDone!\x1b[0m Git support installation is completed.`);
+            console.log("\n\x1b[32mDone!\x1b[0m Git support installation is completed.");
             resolve(true);
         });
     });
@@ -126,7 +126,7 @@ function dependencyInstallation(projectName, projectTemplate) {
     return new Promise((resolve, reject) => {
         const exec = require("child_process").exec;
 
-        console.log('\nStarting the installation for all needed dependencies...');
+        console.log("\nStarting the installation for all needed dependencies...");
         exec(`cd ${projectName} && npm i`, (error, stdout, stderr) => {
             if (error) {
                 console.error(`\x1b[31mERROR\x1b[0m: ${error}`);
@@ -136,7 +136,7 @@ function dependencyInstallation(projectName, projectTemplate) {
 
             console.log(`\n\x1b[32mDone!\x1b[0m npm ${stdout}`);
 
-            if (stderr !== '') {
+            if (stderr !== "") {
                 console.log(`\x1b[35mInformation\x1b[0m: ${stderr}`);
             }
 
@@ -155,15 +155,15 @@ function generateFile(argFullFileName = null, fnGetAndReplaceFileContent, extraO
     return new Promise(function (resolve, reject) {
         if (argFullFileName !== null) {
             const supportedExtension = ["js", "jsx", "gitignore", "css"];
-            const seekingExtension = argFullFileName.split('.');
+            const seekingExtension = argFullFileName.split(".");
 
-            let fileExtension = '';
-            let filteredName = '';
+            let fileExtension = "";
+            let filteredName = "";
 
             if (seekingExtension.length > 1) {
                 fileExtension = seekingExtension[seekingExtension.length - 1];
 
-                for (i = 0; i < seekingExtension.length - 1; i++) {
+                for (let i = 0; i < seekingExtension.length - 1; i++) {
                     filteredName += seekingExtension[i];
                 }
             }
@@ -173,7 +173,7 @@ function generateFile(argFullFileName = null, fnGetAndReplaceFileContent, extraO
                 let newFullFilePath = `${CURR_DIR}/${argFullFileName}`; // Default is in current directory
 
                 if (Object.keys(extraOption).length > 0) {
-                    if (extraOption.subDir !== undefined && extraOption.subDir !== '') {
+                    if (extraOption.subDir !== undefined && extraOption.subDir !== "") {
                         newFullFilePath = `${CURR_DIR}/${extraOption.subDir}/${argFullFileName}`;
                     }
                 }
@@ -192,21 +192,21 @@ function generateFile(argFullFileName = null, fnGetAndReplaceFileContent, extraO
                 }
 
             } else {
-                reject(Error("f001")) // The file extension is not supported
+                reject(Error("f001")); // The file extension is not supported
             }
 
         } else {
-            reject(Error("f002")) // The file name can not empty
+            reject(Error("f002")); // The file name can not empty
         }
     });
 }
 
-function generateGitignoreFile(subDirectory = '') {
+function generateGitignoreFile(subDirectory = "") {
     const extraOption = { subDir: subDirectory };
 
     return new Promise((resolve, reject) => {
-        generateFile('.gitignore', function () {
-            const gitignoreTemplatePath = path.join(templateFilePath, '/gitignore.template');
+        generateFile(".gitignore", function () {
+            const gitignoreTemplatePath = path.join(templateFilePath, "/gitignore.template");
             const gitignoreContent = fs.readFileSync(gitignoreTemplatePath);
 
             return gitignoreContent;
@@ -222,7 +222,7 @@ function generateGitignoreFile(subDirectory = '') {
  * @param {*} option : "-c" or "-r" // React component or React-Redux component
  * @param {*} extraOption : { JSON } // using for creating a full component that is a directory with *.js, *.css are within
  */
-function generateComponent(componentName = null, option = { componentType: '' }, extraOption = {}) {
+function generateComponent(componentName = null, option = { componentType: "" }, extraOption = {}) {
     return new Promise((resolve, reject) => {
 
         // Call an other Promise function -> input data is (argument, function)
@@ -231,14 +231,14 @@ function generateComponent(componentName = null, option = { componentType: '' },
 
             // Chosen template file
             option.componentType === "-r" ?
-                templateName = '/js-redux-component.template' :
-                templateName = '/js-component.template';
+                templateName = "/js-redux-component.template" :
+                templateName = "/js-component.template";
 
             const componentTemplatePath = path.join(templateFilePath, templateName);
-            const originalContent = fs.readFileSync(componentTemplatePath, 'utf8');
+            const originalContent = fs.readFileSync(componentTemplatePath, "utf8");
 
             const replacedContent = originalContent.replace(/YourClassName/g, filteredName)
-                .replace(/\-/g, '');
+                .replace(/-/g, "");
 
             // Return the file content
             return replacedContent;
@@ -257,7 +257,7 @@ function generateComponent(componentName = null, option = { componentType: '' },
  *      componentType: '' // "-fc" or "-fr" // React component or React-Redux component
  * }
  */
-function generateFullComponent(componentName = null, option = { componentType: '' }) {
+function generateFullComponent(componentName = null, option = { componentType: "" }) {
     return new Promise((resolve, reject) => {
         const newFullDirectoryPath = `${CURR_DIR}/${componentName}`;
 
@@ -303,4 +303,4 @@ module.exports = {
     generateGitignoreFile,
     generateComponent,
     generateFullComponent
-}
+};

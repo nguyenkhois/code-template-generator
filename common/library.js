@@ -11,4 +11,4 @@ function filterByProperty(objectArray, sPropertyName, sSeekingValue) {
 
 module.exports = {
     filterByProperty
-}
+};
