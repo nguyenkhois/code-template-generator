@@ -45,9 +45,9 @@ function autoUpdateCheck() {
         Promise.all([installedVersion(), queryLatestVersion()])
             .then((result) => {
                 if (result[0] === result[1]) {
-                    resolve({ isFound: false, version: result[1], installed: result[0] });
+                    resolve({ isUpdateFound: false, installed: result[0], latest: result[1] });
                 } else {
-                    resolve({ isFound: true, version: result[1], installed: result[0] }); // A new update is available
+                    resolve({ isUpdateFound: true, installed: result[0], latest: result[1] }); // A new update is available
                 }
             })
             .catch((err) => reject(err));
@@ -79,12 +79,12 @@ function validateInputName(input) {
 function checkAndInstallStableUpdate() {
     return new Promise((resolve, reject) => {
         autoUpdateCheck()
-            .then((availability) => {
-                if (availability.isFound) {
+            .then((version) => {
+                if (version.isUpdateFound) {
                     const exec = require("child_process").exec;
 
-                    console.log(`\nInstalled version is ${availability.installed}`);
-                    console.log(`\nStarting installation for the latest stable version ${availability.version}...`);
+                    console.log(`\nInstalled version is ${version.installed}`);
+                    console.log(`\nStarting installation for the latest stable version ${version.latest}...`);
                     exec("npm i -g code-template-generator", (error, stdout, stderr) => {
                         if (error) {
                             console.error(`\x1b[31mERROR\x1b[0m: ${error}`);
@@ -102,7 +102,7 @@ function checkAndInstallStableUpdate() {
                     });
 
                 } else {
-                    console.log("You have installed the latest version");
+                    console.log(`You have installed the latest stable version ${version.installed}`);
                     resolve(true);
                 }
 
