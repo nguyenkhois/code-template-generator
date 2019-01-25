@@ -147,9 +147,9 @@ MainApp()
 
         // Automatic update checking after resolving
         if (resolving.type !== "updating") {
-            autoUpdateCheck().then((version) => {
-                if (version.isUpdateFound) {
-                    printUpdateMessage(version.latest);
+            autoUpdateCheck().then((versionInfo) => {
+                if (versionInfo.isUpdateFound) {
+                    printUpdateMessage(versionInfo.latest);
                 }
             }).catch((err) => {
                 const customErrorCode = errorIdentification(err).message;

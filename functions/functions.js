@@ -81,12 +81,12 @@ function validateInputName(input) {
 function checkAndInstallStableUpdate() {
     return new Promise((resolve, reject) => {
         autoUpdateCheck()
-            .then((version) => {
-                if (version.isUpdateFound) {
+            .then((versionInfo) => {
+                if (versionInfo.isUpdateFound) {
                     const exec = require("child_process").exec;
 
-                    console.log(`\nInstalled version is ${version.installed}`);
-                    console.log(`\nStarting installation for the latest stable version ${version.latest}...`);
+                    console.log(`\nInstalled version is ${versionInfo.installed}`);
+                    console.log(`\nStarting installation for the latest stable version ${versionInfo.latest}...`);
                     exec("npm i -g code-template-generator", (error, stdout, stderr) => {
                         if (error) {
                             console.error(`\x1b[31mERROR\x1b[0m: ${error}`);
@@ -104,7 +104,7 @@ function checkAndInstallStableUpdate() {
                     });
 
                 } else {
-                    console.log(`You have installed the latest stable version ${version.installed}`);
+                    console.log(`You have installed the latest stable version ${versionInfo.installed}`);
                     resolve(true);
                 }
 
