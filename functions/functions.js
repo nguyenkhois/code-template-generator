@@ -44,11 +44,13 @@ function autoUpdateCheck() {
     return new Promise((resolve, reject) => {
         Promise.all([installedVersion(), queryLatestVersion()])
             .then((result) => {
-                if (result[0] === result[1]) {
-                    resolve({ isUpdateFound: false, installed: result[0], latest: result[1] });
-                } else {
-                    resolve({ isUpdateFound: true, installed: result[0], latest: result[1] }); // A new update is available
+                const versionInfo = {
+                    isUpdateFound: result[0] === result[1] ? false : true,
+                    installed: result[0],
+                    latest: result[1]
                 }
+
+                resolve(versionInfo);
             })
             .catch((err) => reject(err));
     });
@@ -158,7 +160,7 @@ function printOutResolve(result) {
 
     console.log("\n\x1b[32mDone!\x1b[0m " +
         `${result.content} ` +
-        `${!seekingComponentText ? result.type + " "  : ""}` +
+        `${!seekingComponentText ? result.type + " " : ""}` +
         "is generated successfully.\n");
 }
 
