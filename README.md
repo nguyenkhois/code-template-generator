@@ -9,7 +9,7 @@ You have more choice for your development environment. It makes your life easier
 
 ## What's new in version 2.1.0
 * Added a new command that is `generate -u` to check and install automatic the latest stable version from npmjs.com.
-* Added a new project template that is `simple-express-server`.
+* Added a new project template that is `simple-express-server`. You don't need to use `body-parser` because Express 4.x has a built-in middleware [`express.json([options])`](https://expressjs.com/en/api.html#express.json) that is based on.
 * Improved these things:
     * Performance
     * Error handling
