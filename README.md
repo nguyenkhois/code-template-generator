@@ -1,4 +1,4 @@
-# code-template-generator [![Download on npm](https://img.shields.io/badge/npm-v2.1.0-blue.svg)](https://www.npmjs.com/package/code-template-generator/)
+# code-template-generator [![Download on npm](https://img.shields.io/badge/npm-v2.1.1-blue.svg)](https://www.npmjs.com/package/code-template-generator/)
 This is the lightweight React code template generator that has two parts in one npm package:
 * Project template generation that has a part of the [Build environments](https://github.com/nguyenkhois/build-environments) project.
 * Code template generation.
@@ -7,7 +7,7 @@ You have more choice for your development environment. It makes your life easier
 
 ![Demo](demonew.gif)
 
-## What's new in version 2.1.0
+## What's new in version 2.1.x
 * Added a new command that is `generate -u` to check and install automatic the latest stable version from npmjs.com.
 * Added a new project template that is `simple-express-server`.
 * Improved these things:
