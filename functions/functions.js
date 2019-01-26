@@ -48,7 +48,7 @@ function autoUpdateCheck() {
                     isUpdateFound: result[0] === result[1] ? false : true,
                     installed: result[0],
                     latest: result[1]
-                }
+                };
 
                 resolve(versionInfo);
             })
@@ -80,6 +80,8 @@ function validateInputName(input) {
 
 function checkAndInstallStableUpdate() {
     return new Promise((resolve, reject) => {
+        let resolvingContent = "";
+
         autoUpdateCheck()
             .then((versionInfo) => {
                 if (versionInfo.isUpdateFound) {
@@ -89,25 +91,23 @@ function checkAndInstallStableUpdate() {
                     console.log(`\nStarting installation for the latest stable version ${versionInfo.latest}...`);
                     exec("npm i -g code-template-generator", (error, stdout, stderr) => {
                         if (error) {
-                            console.error(`\x1b[31mERROR\x1b[0m: ${error}`);
                             reject(error);
                             return;
                         }
 
-                        console.log(`\n\x1b[32mDone!\x1b[0m npm ${stdout}`);
+                        resolvingContent = `\n\x1b[32mDone!\x1b[0m npm ${stdout}`;
 
                         if (stderr !== "") {
-                            console.log(`\x1b[35mInformation\x1b[0m: ${stderr}`);
+                            resolvingContent += `\n\x1b[35mInformation\x1b[0m: ${stderr}`;
                         }
 
-                        resolve(true);
+                        resolve({ message: resolvingContent });
                     });
 
                 } else {
-                    console.log(`You have installed the latest stable version ${versionInfo.installed}`);
-                    resolve(true);
+                    resolvingContent = `You have installed the latest stable version ${versionInfo.installed}`;
+                    resolve({ message: resolvingContent });
                 }
-
             })
             .catch((err) => {
                 reject(errorIdentification(err));
@@ -154,14 +154,35 @@ function printUpdateMessage(latestVersion) {
     console.log(message);
 }
 
-function printOutResolve(result) {
-    const regularExpression = /component/gi;
-    const seekingComponentText = regularExpression.test(result.content);
+function printOutResolve(resolving) {
+    switch (resolving.type) {
+        case "project":
+            printOutGuideAfterGeneration(resolving.name, resolving.template);
+            break;
 
-    console.log("\n\x1b[32mDone!\x1b[0m " +
-        `${result.content} ` +
-        `${!seekingComponentText ? result.type + " " : ""}` +
-        "is generated successfully.\n");
+        case "component":
+            const regularExpression = /component/gi;
+            const seekingComponentText = regularExpression.test(resolving.name);
+
+            console.log("\n\x1b[32mDone!\x1b[0m " +
+                `${resolving.name} ` +
+                `${!seekingComponentText ? resolving.type + " " : ""}` +
+                "is generated successfully.\n");
+
+            break;
+
+        case "file":
+            console.log(`\n\x1b[32mDone!\x1b[0m ${resolving.name} is generated successfully.\n`);
+            break;
+
+        case "info":
+        case "update":
+            console.log(resolving.message);
+            break;
+
+        default:
+            break;
+    }
 }
 
 /**
@@ -184,9 +205,9 @@ function printOutReject(error) {
         .catch((err) => console.log(err.message));
 }
 
-function printOutGuideAfterGeneration(projectName, projectTemplate) {
+function printOutGuideAfterGeneration(projectName, templateName) {
     const beginMessage = "\x1b[32mSUCCESS! \x1b[0m" +
-        `Your project ${projectName} is generated successfully by the template ${projectTemplate}.` +
+        `Your project ${projectName} is generated successfully by the template ${templateName}.` +
         `\n\n\t\x1b[36mcd ${projectName}\x1b[0m to change into your project directory`;
 
     let detailMessage = "\n";
@@ -194,7 +215,7 @@ function printOutGuideAfterGeneration(projectName, projectTemplate) {
     const endMessage = "\n\nView README.md for more information." +
         "\n\nHappy coding! (^_^)";
 
-    filterByProperty(supportedTemplate, "name", projectTemplate)
+    filterByProperty(supportedTemplate, "name", templateName)
         .then((result) => {
             if (result.length === 1) {
                 switch (result[0].type) {

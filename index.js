@@ -19,7 +19,11 @@ function MainApp() {
                     validateInputName(secondArgument)
                         .then(() => {
                             generateTemplate(secondArgument, { gitSupport: true }) // It must be (projectName, option)
-                                .then(() => resolve({ type: "template"}))
+                                .then((result) => resolve({
+                                    type: "project",
+                                    name: result.name,
+                                    template: result.template
+                                }))
                                 .catch((err) => reject({ code: err.message }));
                         })
                         .catch((err) => {
@@ -38,7 +42,7 @@ function MainApp() {
                     validateInputName(secondArgument)
                         .then(() => {
                             generateComponent(secondArgument, { componentType: firstArgument })
-                                .then((fullFileName) => resolve({ type: "component", content: fullFileName }))
+                                .then((fullFileName) => resolve({ type: "component", name: fullFileName }))
                                 .catch((err) => reject({ code: err.message }));
                         })
                         .catch((err) => {
@@ -56,7 +60,7 @@ function MainApp() {
                     validateInputName(secondArgument)
                         .then(() => {
                             generateFullComponent(secondArgument, { componentType: firstArgument })
-                                .then((fullDirName) => resolve({ type: "component", content: fullDirName }))
+                                .then((fullDirName) => resolve({ type: "component", name: fullDirName }))
                                 .catch((err) => reject({ code: err.message }));
                         })
                         .catch((err) => {
@@ -71,7 +75,7 @@ function MainApp() {
 
                 case "-i":
                     generateGitignoreFile()
-                        .then((fileName) => resolve({ type: "file", content: fileName }))
+                        .then((fileName) => resolve({ type: "file", name: fileName }))
                         .catch((err) => reject({ code: err.message }));
 
                     break;
@@ -80,8 +84,7 @@ function MainApp() {
                     // Get installed version
                     installedVersion()
                         .then((version) => {
-                            console.log(version);
-                            resolve({ type: "info" });
+                            resolve({ type: "info", message: version });
                         })
                         .catch((err) => reject({ code: err.message }));
 
@@ -89,15 +92,14 @@ function MainApp() {
 
                 case "-help":
                     // Show the help information
-                    console.log(helpInformation());
-                    resolve({ type: "info" });
+                    resolve({ type: "info", message: helpInformation() });
 
                     break;
 
                 case "-u":
                     checkAndInstallStableUpdate()
-                        .then(() => {
-                            resolve({ type: "updating" });
+                        .then((result) => {
+                            resolve({ type: "update", message: result.message });
                         })
                         .catch((err) => {
                             reject({ code: err.message });
@@ -109,7 +111,11 @@ function MainApp() {
                     validateInputName(firstArgument)
                         .then(() => {
                             generateTemplate(firstArgument)
-                                .then(() => resolve({ type: "template"}))
+                                .then((result) => resolve({
+                                    type: "project",
+                                    name: result.name,
+                                    template: result.template
+                                }))
                                 .catch((err) => reject({ code: err.message }));
                         })
                         .catch((err) => {
@@ -124,7 +130,11 @@ function MainApp() {
             }
         } else {
             generateTemplate()
-                .then(() => resolve({ type: "template"}))
+                .then((result) => resolve({
+                    type: "project",
+                    name: result.name,
+                    template: result.template
+                }))
                 .catch((err) => reject({ code: err.message }));
         }
     });
@@ -132,21 +142,17 @@ function MainApp() {
 
 // MAIN APP
 /**
- * Resolving types: template, component, file, info, updating
- * Reject a custom object = {
- *      code: err.message // Create custom error code
+ * Resolving types: project, component, file, info, update
+ * Reject is using a custom error object = {
+ *      code: err.message
  * }
  */
 MainApp()
     .then((resolving) => {
-        const printOutResolvingTypes = ["component", "file"];
-
-        if (printOutResolvingTypes.indexOf(resolving.type) > -1) {
-            printOutResolve(resolving);
-        }
+        printOutResolve(resolving);
 
         // Automatic update checking after resolving
-        if (resolving.type !== "updating") {
+        if (resolving.type !== "update") {
             autoUpdateCheck().then((versionInfo) => {
                 if (versionInfo.isUpdateFound) {
                     printUpdateMessage(versionInfo.latest);

@@ -7,9 +7,15 @@
         "eslint:recommended",
         "plugin:react/recommended"
     ],
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
     "parserOptions": {
         "ecmaVersion": 2015,
         "ecmaFeatures": {
+            "jsx": true,
             "experimentalObjectRestSpread": true
         },
         "sourceType": "module"
@@ -23,6 +29,8 @@
             "error",
             "always"
         ],
-        "no-console": "off"
+        "no-console": "off",
+        "no-undef":"off",
+        "no-case-declarations": "off"
     }
 }

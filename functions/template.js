@@ -1,7 +1,6 @@
 const path = require("path");
 const fs = require("fs");
 const inquirer = require("inquirer");
-const { printOutGuideAfterGeneration } = require("./functions");
 
 const CURR_DIR = process.cwd();
 const templatePath = path.join(__dirname, "../templates/");
@@ -65,8 +64,11 @@ function generateTemplate(projectName = "", option = { gitSupport: false }) {
                             }
 
                             // Dependency installation
-                            dependencyInstallation(chosenProjectName, chosenProjectTemplate)
-                                .then(() => resolve(chosenProjectName))
+                            dependencyInstallation(chosenProjectName)
+                                .then(() => resolve({
+                                    name: chosenProjectName,
+                                    template: chosenProjectTemplate
+                                }))
                                 .catch((err) => reject(err));
                         })
                         .catch((err) => reject(err));
@@ -110,7 +112,6 @@ function gitInstallation(projectName) {
 
         exec(`cd ${projectName} && git init`, (error) => {
             if (error) {
-                console.error(`\x1b[31mERROR\x1b[0m: ${error}`);
                 reject(error);
                 return;
             }
@@ -122,14 +123,13 @@ function gitInstallation(projectName) {
 }
 
 // Installation of all needed dependencies
-function dependencyInstallation(projectName, projectTemplate) {
+function dependencyInstallation(projectName) {
     return new Promise((resolve, reject) => {
         const exec = require("child_process").exec;
 
         console.log("\nStarting the installation for all needed dependencies...");
         exec(`cd ${projectName} && npm i`, (error, stdout, stderr) => {
             if (error) {
-                console.error(`\x1b[31mERROR\x1b[0m: ${error}`);
                 reject(error);
                 return;
             }
@@ -140,7 +140,6 @@ function dependencyInstallation(projectName, projectTemplate) {
                 console.log(`\x1b[35mInformation\x1b[0m: ${stderr}`);
             }
 
-            printOutGuideAfterGeneration(projectName, projectTemplate);
             resolve(true);
         });
     });
