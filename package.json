@@ -1,10 +1,10 @@
 {
     "name": "code-template-generator",
-    "version": "2.1.2",
+    "version": "2.1.3",
     "description": "The lightweight React code template generator",
     "main": "index.js",
     "scripts": {
-        "test": "Hello"
+        "test": "mocha --watch --recursive"
     },
     "bin": {
         "generate": "./index.js"
@@ -23,7 +23,13 @@
     ],
     "author": "Khoi Le",
     "license": "MIT",
-    "devDependencies": {},
+    "devDependencies": {
+        "chai": "^4.2.0",
+        "chai-as-promised": "^7.1.1",
+        "eslint": "^5.12.1",
+        "eslint-plugin-react": "^7.12.4",
+        "mocha": "^5.2.0"
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/nguyenkhois/code-template-generator.git"

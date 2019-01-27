@@ -64,7 +64,7 @@ function validateInputName(input) {
     const { regularExpression } = require("../common/");
 
     return new Promise(function (resolve, reject) {
-        if (input === null) {
+        if (input === undefined || input === null || input === "") {
             reject(Error("n002"));
             return;
         }
