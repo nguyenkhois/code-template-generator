@@ -81,6 +81,12 @@ _(*) You install and config Redux, React-Redux by yourself._
 |`-help`||
 |`-u`|`--update`|
 
+Example:
+```
+$ generate --git new-project  // Generate a new project and run automatically git init
+$ generate --update           // Check and install automatically the latest stable version
+```
+
 ## Breaking changes:
 - Removed the project template `react-babel-6`.
 - Changed the `git` support option.
