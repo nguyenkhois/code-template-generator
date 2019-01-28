@@ -79,7 +79,7 @@ _(*) You install and config Redux, React-Redux by yourself._
 |`-fr`|`--full-redux-component`|
 | `-i` |`--gitignore`|
 |`-v`|`--version`|
-|`-help`||
+|`-help`|`--help`|
 |`-u`|`--update`|
 
 ## Breaking changes:
@@ -93,9 +93,9 @@ _(*) You install and config Redux, React-Redux by yourself._
 
 ````
 // Project
-$ generate first-project      // Without Git support
-$ generate -g secondproject   // With Git support
-$ generate --git ThirdProject // Using alias --git instead of -g
+$ generate first-project       // Without Git support
+$ generate -g secondproject    // With Git support
+$ generate --git ThirdProject  // Using alias --git instead of -g
 
 // Single component -> A file
 $ generate -c SearchComponent.js   // React component
@@ -106,10 +106,10 @@ $ generate -fc ProductComponent
 $ generate -fr CartComponent
 
 // Other
-$ generate --gitignore // A .gitignore file
-$ generate -v          // Installed version
-$ generate -help       // Help information
-$ generate --update    // Check and install automatic the latest stable version
+$ generate --gitignore  // A .gitignore file
+$ generate -v           // Installed version
+$ generate -help        // Help information
+$ generate --update     // Check and install automatic the latest stable version
 ````
 
 ## Thank you!
