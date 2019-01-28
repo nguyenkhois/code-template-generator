@@ -55,18 +55,18 @@ _(*) You install and config Redux, React-Redux by yourself._
 ## Using
 `$ generate [option] <project-name>[<component-name>]`
 
-| Argument | Used with | Description |
-|:---:|:---:|---|
-| `<project-name>` | - |  Generate a new project by the chosen template (without Git support) |
-|`-g`|`<project-name>`| Git support is installed automatically by `git init` and a `.gitignore` file is also created on the root of work directory while a new project is generated|
-|`-c`|`<component-name.js>`|It will be generate a single React component `(*.js or *.jsx)` in the current directory|
-|`-r`|`<component-name.js>`|It will be generate a single React-Redux component `(*.js or *.jsx)` in the current directory|
-|`-fc`|`<component-name>`|It will be generate a full React component that is a directory with `*.js, *.css` files in the current directory|
-|`-fr`|`<component-name>`|It will be generate a full React-Redux component that is a directory with `*.js, *.css` files in the current directory|
-| `-i` |-| A `.gitignore` file will be generated in the current directory |
-|`-v`|-|View the installed version|
-|`-help`|-|View the help information|
-|`-u`|-| Automatic update checking and install the latest stable version |
+| Argument | Alias | Used with | Description |
+|:---:|:---:|:---:|---|
+| `<project-name>` | - | - |  Generate a new project by the chosen template (without Git support) |
+|`-g`|`--git`|`<project-name>`| Git support is installed automatically by `git init` and a `.gitignore` file is also created on the root of work directory while a new project is generated|
+|`-c`|`--component`|`<component-name.js>`|It will be generate a single React component `(*.js or *.jsx)` in the current directory|
+|`-r`|`--redux-component`|`<component-name.js>`|It will be generate a single React-Redux component `(*.js or *.jsx)` in the current directory|
+|`-fc`|`--full-component`|`<component-name>`|It will be generate a full React component that is a directory with `*.js, *.css` files in the current directory|
+|`-fr`|`--full-redux-component`|`<component-name>`|It will be generate a full React-Redux component that is a directory with `*.js, *.css` files in the current directory|
+| `-i` |`--gitignore`|-| A `.gitignore` file will be generated in the current directory |
+|`-v`|`--version`|-|View the installed version|
+|`-help`|-|-|View the help information|
+|`-u`|`--update`|-| Automatic update checking and install the latest stable version |
 
 ## Breaking changes:
 - Removed the project template `react-babel-6`.
