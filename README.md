@@ -114,3 +114,5 @@ $ generate --update     // Check and install automatic the latest stable version
 
 ## Thank you!
 Special thanks to [Harriet Ryder](https://medium.com/northcoders/creating-a-project-generator-with-node-29e13b3cd309)!
+
+Many thanks to [Commander.js](https://github.com/tj/commander.js) for the inspiration.
