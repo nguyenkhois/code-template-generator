@@ -84,7 +84,7 @@ _(*) You install and config Redux, React-Redux by yourself._
 Example:
 ```
 $ generate --git my-project  // Generate a new project and run automatically git init
-$ generate --update           // Check and install automatically the latest stable version
+$ generate --update          // Check and install automatically the latest stable version
 ```
 
 ## Breaking changes:
