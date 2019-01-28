@@ -13,6 +13,7 @@ You have more choice for your development environment. It makes your life easier
 * Improved these things:
     * Performance
     * Error handling
+* Added alias for the options.
 
 ## Main features
 * Project template generation has two options:
