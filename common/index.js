@@ -1,7 +1,5 @@
 const library = require("./library");
-
 const regularExpression = /^(?![-.])([A-Za-z-_.\d])+([A-Za-z\d])+$/;
-
 const supportedTemplate = [
     {
         "name": "react-advance",

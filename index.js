@@ -6,12 +6,30 @@ const { installedVersion, autoUpdateCheck, checkAndInstallStableUpdate, validate
     errorIdentification
 } = require("./functions/");
 
+// Option definition - (<flag>)([alias])([description])
+const option = require("./functions/optionHandling");
+
+option.definition("-g")("--git")();
+option.definition("-c")("--component")("Generate a React component");
+option.definition("-fc")("--full-component")("Generate a full React component");
+option.definition("-r")("--redux-component")("Generate a React-Redux component");
+option.definition("-fr")("--full-redux-component")("Generate a full React-Redux component");
+option.definition("-i")("--gitignore")("Generate a .gitignore file");
+option.definition("-v")("--version")("View the installed version");
+option.definition("-help")()("View the help information");
+option.definition("-u")("--update")("Checking and updating for the latest stable version");
+// End of definition
+
 function MainApp() {
     return new Promise((resolve, reject) => {
         const inputArgument = process.argv.slice(2, process.argv.length) || [];
 
         if (inputArgument.length > 0) {
-            const firstArgument = inputArgument[0];
+            const firstArgument =
+                option.identification(inputArgument[0]) !== -1 ?
+                    option.identification(inputArgument[0]) :
+                    inputArgument[0];
+
             const secondArgument = inputArgument.length > 1 ? inputArgument[1] : null;
 
             switch (firstArgument) {
