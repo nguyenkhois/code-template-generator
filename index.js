@@ -9,7 +9,7 @@ const { installedVersion, autoUpdateCheck, checkAndInstallStableUpdate, validate
 // Option definition - (<flag>)([alias])([description])
 const option = require("./functions/optionHandling");
 
-option.definition("-g")("--git")();
+option.definition("-g")("--git")("Run git init while a project is generated");
 option.definition("-c")("--component")("Generate a React component");
 option.definition("-fc")("--full-component")("Generate a full React component");
 option.definition("-r")("--redux-component")("Generate a React-Redux component");
