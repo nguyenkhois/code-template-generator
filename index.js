@@ -11,8 +11,8 @@ const option = require("./functions/optionHandling");
 
 option.definition("-g")("--git")("Run git init while a project is generated");
 option.definition("-c")("--component")("Generate a React component");
-option.definition("-fc")("--full-component")("Generate a full React component");
 option.definition("-r")("--redux-component")("Generate a React-Redux component");
+option.definition("-fc")("--full-component")("Generate a full React component");
 option.definition("-fr")("--full-redux-component")("Generate a full React-Redux component");
 option.definition("-i")("--gitignore")("Generate a .gitignore file");
 option.definition("-v")("--version")("View the installed version");
