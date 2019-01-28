@@ -15,9 +15,9 @@ function helpInformation() {
         "\n\t$ generate [option] \x1b[33m<project-name>[<component-name>]\x1b[0m" +
         "\n\nOPTION:" +
         `\n${mainFlagContent}` +
-        "\n\nALIAS:" +
+        "\nALIAS:" +
         `\n${aliasContent}` +
-        "\n\nEXAMPLE:" +
+        "\nEXAMPLE:" +
         "\n\t$ generate \x1b[33mfirst-project\x1b[0m" +
         "\n\t$ generate -g \x1b[33msecondproject\x1b[0m" +
         "\n\t$ generate --git \x1b[33mThirdProject\x1b[0m" +
