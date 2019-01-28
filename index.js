@@ -9,14 +9,14 @@ const { installedVersion, autoUpdateCheck, checkAndInstallStableUpdate, validate
 // Option definition - (<flag>)([alias])([description])
 const option = require("./functions/optionHandling");
 
-option.definition("-g")("--git")("Run git init while a project is generated");
-option.definition("-c")("--component")("Generate a React component");
-option.definition("-r")("--redux-component")("Generate a React-Redux component");
-option.definition("-fc")("--full-component")("Generate a full React component");
-option.definition("-fr")("--full-redux-component")("Generate a full React-Redux component");
+option.definition("-g")("--git")("Run automatically git init and generate a .gitignore file");
+option.definition("-c")("--component")("Generate a React component file (*.js, *.jsx)");
+option.definition("-r")("--redux-component")("Generate a React-Redux component file (*.js, *.jsx)");
+option.definition("-fc")("--full-component")("Generate a full React component (a directory with *.js, *.css)");
+option.definition("-fr")("--full-redux-component")("Generate a full React-Redux component (a directory with *.js, *.css)");
 option.definition("-i")("--gitignore")("Generate a .gitignore file");
 option.definition("-v")("--version")("View the installed version");
-option.definition("-help")()("View the help information");
+option.definition("-help")("--help")("View the help information");
 option.definition("-u")("--update")("Checking and updating for the latest stable version");
 // End of definition
 

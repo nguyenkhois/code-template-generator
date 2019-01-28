@@ -82,12 +82,6 @@ _(*) You install and config Redux, React-Redux by yourself._
 |`-help`||
 |`-u`|`--update`|
 
-Example:
-```
-$ generate --git my-project  // Generate a new project and run automatically git init
-$ generate --update          // Check and install automatically the latest stable version
-```
-
 ## Breaking changes:
 - Removed the project template `react-babel-6`.
 - Changed the `git` support option.
@@ -100,22 +94,22 @@ $ generate --update          // Check and install automatically the latest stabl
 ````
 // Project
 $ generate first-project      // Without Git support
-$ generate -g second-project  // With Git support
+$ generate -g secondproject   // With Git support
+$ generate --git ThirdProject // Using alias --git instead of -g
 
 // Single component -> A file
 $ generate -c SearchComponent.js   // React component
-$ generate -c ReviewComponent.jsx
-$ generate -r PaymentComponent.js  // React-Redux component
+$ generate -r ReviewComponent.jsx  // React-Redux component
 
 // Full component -> A directory
 $ generate -fc ProductComponent
 $ generate -fr CartComponent
 
 // Other
-$ generate -i     // A .gitignore file
-$ generate -v     // Installed version
-$ generate -help  // Help information
-$ generate -u     // Check and install automatic the latest stable version
+$ generate --gitignore // A .gitignore file
+$ generate -v          // Installed version
+$ generate -help       // Help information
+$ generate --update    // Check and install automatic the latest stable version
 ````
 
 ## Thank you!

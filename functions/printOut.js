@@ -3,30 +3,32 @@ const { errorCode } = require("./errorHandling");
 
 // Print out the information
 function helpInformation() {
-    const helpContent = "\nCOMMAND:" +
-        "\n\t$ generate [option] \x1b[33m<name>\x1b[0m" +
-        "\n\nREQUIRED:" +
-        "\n\t\x1b[33m<name>\x1b[0m\t\tIt is <project-name> or <component-name>" +
+    let mainFlagContent = "";
+    let aliasContent = "";
+
+    optionList.map((option) => {
+        mainFlagContent += `\t${option.flag}\t${option.description}\n`;
+        aliasContent += `\t${option.flag}\t${option.alias}\n`;
+    });
+
+    const helpContent = "\nUSAGE:" +
+        "\n\t$ generate [option] \x1b[33m<project-name>[<component-name>]\x1b[0m" +
         "\n\nOPTION:" +
-        "\n\t-g\t\tInstall automatically Git support and generate a .gitignore file" +
-        "\n\t-c\t\tGenerate a React component file (*.js, *.jsx)" +
-        "\n\t-r\t\tGenerate a React-Redux component file (*.js, *.jsx)" +
-        "\n\t-fc\t\tGenerate a full React component (a directory with *.js, *.css)" +
-        "\n\t-fr\t\tGenerate a full React-Redux component (a directory with *.js, *.css)" +
-        "\n\t-i\t\tGenerate a .gitignore file" +
-        "\n\t-v\t\tView the installed version" +
-        "\n\t-help\t\tDisplay the help information" +
+        `\n${mainFlagContent}` +
+        "\n\nALIAS:" +
+        `\n${aliasContent}` +
         "\n\nEXAMPLE:" +
         "\n\t$ generate \x1b[33mfirst-project\x1b[0m" +
-        "\n\t$ generate -g \x1b[33msecond-project\x1b[0m" +
+        "\n\t$ generate -g \x1b[33msecondproject\x1b[0m" +
+        "\n\t$ generate --git \x1b[33mThirdProject\x1b[0m" +
         "\n\t$ generate -c \x1b[33mSearchComponent.js\x1b[0m" +
         "\n\t$ generate -r \x1b[33mReviewComponent.jsx\x1b[0m" +
         "\n\t$ generate -fc \x1b[33mProductComponent\x1b[0m" +
         "\n\t$ generate -fr \x1b[33mCartComponent\x1b[0m" +
-        "\n\t$ generate -i" +
+        "\n\t$ generate --gitignore" +
         "\n\t$ generate -v" +
         "\n\t$ generate -help" +
-        "\n\t$ generate -u";
+        "\n\t$ generate --update";
 
     return helpContent;
 }
