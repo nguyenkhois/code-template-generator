@@ -92,7 +92,7 @@ $ generate --update          // Check and install automatically the latest stabl
 - Changed the `git` support option.
     * Version 1: `$ generate react-counter git`
     * Version 2: `$ generate -g react-counter`
-- The minimum supported Node.js version is 8 (Node.js LTS is a good choice for many reasons).
+- The minimum supported Node.js version is 8.3.0 (Node.js LTS is a good choice for many reasons).
 
 ## Examples
 
