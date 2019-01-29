@@ -15,12 +15,16 @@ function helpInformation() {
         "\n\t$ generate [option] \x1b[33m<project-name>[<component-name>]\x1b[0m" +
         "\n\nOPTION:" +
         `\n${mainFlagContent}` +
-        "\nALIAS:" +
+        "\nSUB OPTION:" +
+        "\n\t--no-install \tNo install dependencies when a project is generated" +
+        "\n\nALIAS:" +
         `\n${aliasContent}` +
         "\nEXAMPLE:" +
         "\n\t$ generate \x1b[33mfirst-project\x1b[0m" +
         "\n\t$ generate -g \x1b[33msecondproject\x1b[0m" +
         "\n\t$ generate --git \x1b[33mThirdProject\x1b[0m" +
+        "\n\t$ generate --git --no-install \x1b[33mOtherProject\x1b[0m" +
+        "\n\t$ generate --no-install \x1b[33mLastProject\x1b[0m" +
         "\n\t$ generate -c \x1b[33mSearchComponent.js\x1b[0m" +
         "\n\t$ generate -r \x1b[33mReviewComponent.jsx\x1b[0m" +
         "\n\t$ generate -fc \x1b[33mProductComponent\x1b[0m" +
@@ -74,9 +78,9 @@ function printOutResolve(resolving) {
 }
 
 /**
- * Structure
+ * Custom error object structure
  * @param {*} error = {
- *      code: err.message
+ *      "code": "err.message"
  * }
  */
 function printOutReject(error) {

@@ -1,4 +1,4 @@
-# code-template-generator [![Download on npm](https://img.shields.io/badge/npm-v2.1.4-blue.svg)](https://www.npmjs.com/package/code-template-generator/)
+# code-template-generator [![Download on npm](https://img.shields.io/badge/npm-v2.1.5-blue.svg)](https://www.npmjs.com/package/code-template-generator/)
 This is the lightweight React code template generator that has two parts in one npm package:
 * Project template generation that has a part of the [Build environments](https://github.com/nguyenkhois/build-environments) project.
 * Code template generation.
@@ -69,6 +69,15 @@ _(*) You install and config Redux, React-Redux by yourself._
 |`-help`|-|View the help information|
 |`-u`|-| Automatic update checking and installation for the latest stable version |
 
+__Sub option__
+
+* `--no-install`: no install dependencies when a project is generated.
+
+|Main flag|Sub flag|Used with|Description|
+|:---:|:---:|:---:|---|
+|`-g`|`--no-install`|`<project-name>`|Generate a project with Git support but without installation of dependencies|
+|-|`--no-install`|`<project-name>`|Generate a project without both Git support and installation of dependencies|
+
 ## Alias
 |Argument|Alias|
 |:---:|:---|
@@ -93,9 +102,11 @@ _(*) You install and config Redux, React-Redux by yourself._
 
 ````
 // Project
-$ generate first-project       // Without Git support
-$ generate -g secondproject    // With Git support
-$ generate --git ThirdProject  // Using alias --git instead of -g
+$ generate first-project                    // Without Git support
+$ generate -g secondproject                 // With Git support
+$ generate --git ThirdProject               // Using alias --git instead of -g
+$ generate --git --no-install OtherProject  // Without installation of dependencies
+$ generate --no-install LastProject
 
 // Single component -> A file
 $ generate -c SearchComponent.js   // React component

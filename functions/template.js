@@ -13,7 +13,7 @@ const templateFilePath = path.join(__dirname, "../templates-files/");
  *      gitSupport: false
  * }
  */
-function generateTemplate(projectName = "", option = { gitSupport: false }) {
+function generateTemplate(projectName = "", option = { gitSupport: false, subFlag: [] }) {
     return new Promise((resolve, reject) => {
         const CHOICES = fs.readdirSync(templatePath);
         const choiceList = [
@@ -64,12 +64,20 @@ function generateTemplate(projectName = "", option = { gitSupport: false }) {
                             }
 
                             // Dependency installation
-                            dependencyInstallation(chosenProjectName)
-                                .then(() => resolve({
+                            if (option.subFlag.indexOf("--no-install") === -1) {
+                                dependencyInstallation(chosenProjectName)
+                                    .then(() => resolve({
+                                        name: chosenProjectName,
+                                        template: chosenProjectTemplate
+                                    }))
+                                    .catch((err) => reject(err));
+                            } else {
+                                // Sub flag "--no-install" is found => no install dependencies
+                                resolve({
                                     name: chosenProjectName,
                                     template: chosenProjectTemplate
-                                }))
-                                .catch((err) => reject(err));
+                                });
+                            }
                         })
                         .catch((err) => reject(err));
                 } else {

@@ -4,18 +4,11 @@
         "node": true
     },
     "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended"
+        "eslint:recommended"
     ],
-    "settings": {
-        "react": {
-            "version": "detect"
-        }
-    },
     "parserOptions": {
         "ecmaVersion": 2015,
         "ecmaFeatures": {
-            "jsx": true,
             "experimentalObjectRestSpread": true
         },
         "sourceType": "module"
@@ -26,7 +19,9 @@
             "always"
         ],
         "no-console": "off",
-        "no-undef":"off",
         "no-case-declarations": "off"
+    },
+    "globals": {
+        "optionList": true
     }
 }

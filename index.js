@@ -6,37 +6,34 @@ const { installedVersion, autoUpdateCheck, checkAndInstallStableUpdate, validate
     errorIdentification
 } = require("./functions/");
 
-// Option definition - (<flag>)([alias])([description])
-const option = require("./functions/optionHandling");
+const { command, option } = require("./functions/commandHandling");
 
-option.definition("-g")("--git")("Run automatically git init and generate a .gitignore file");
-option.definition("-c")("--component")("Generate a React component file (*.js, *.jsx)");
-option.definition("-r")("--redux-component")("Generate a React-Redux component file (*.js, *.jsx)");
-option.definition("-fc")("--full-component")("Generate a full React component (a directory with *.js, *.css)");
-option.definition("-fr")("--full-redux-component")("Generate a full React-Redux component (a directory with *.js, *.css)");
-option.definition("-i")("--gitignore")("Generate a .gitignore file");
-option.definition("-v")("--version")("View the installed version");
-option.definition("-help")("--help")("View the help information");
-option.definition("-u")("--update")("Checking and updating for the latest stable version");
-// End of definition
+option.parse();
 
 function MainApp() {
     return new Promise((resolve, reject) => {
-        const inputArgument = process.argv.slice(2, process.argv.length) || [];
+        const inputCommand = command.parse(process.argv);
 
-        if (inputArgument.length > 0) {
-            const firstArgument =
-                option.identification(inputArgument[0]) !== -1 ?
-                    option.identification(inputArgument[0]) :
-                    inputArgument[0];
+        if (inputCommand.argumentArrLength > 0) {
+            const firstArgument = inputCommand.firstArgument;
+            const lastArgument = inputCommand.lastArgument;
+            const subFlag = inputCommand.subFlag;
 
-            const secondArgument = inputArgument.length > 1 ? inputArgument[1] : null;
+            let projectOption = {
+                "gitSupport": false,
+                "subFlag": subFlag
+            };
 
             switch (firstArgument) {
                 case "-g":
-                    validateInputName(secondArgument)
+                    validateInputName(lastArgument)
                         .then(() => {
-                            generateTemplate(secondArgument, { gitSupport: true }) // It must be (projectName, option)
+                            projectOption = {
+                                ...projectOption,
+                                "gitSupport": true
+                            };
+
+                            generateTemplate(lastArgument, projectOption) // It must be (projectName, option)
                                 .then((result) => resolve({
                                     type: "project",
                                     name: result.name,
@@ -57,9 +54,9 @@ function MainApp() {
                 // Both React component and React-Redux component
                 case "-c":
                 case "-r":
-                    validateInputName(secondArgument)
+                    validateInputName(lastArgument)
                         .then(() => {
-                            generateComponent(secondArgument, { componentType: firstArgument })
+                            generateComponent(lastArgument, { componentType: firstArgument })
                                 .then((fullFileName) => resolve({ type: "component", name: fullFileName }))
                                 .catch((err) => reject({ code: err.message }));
                         })
@@ -75,9 +72,9 @@ function MainApp() {
 
                 case "-fc":
                 case "-fr":
-                    validateInputName(secondArgument)
+                    validateInputName(lastArgument)
                         .then(() => {
-                            generateFullComponent(secondArgument, { componentType: firstArgument })
+                            generateFullComponent(lastArgument, { componentType: firstArgument })
                                 .then((fullDirName) => resolve({ type: "component", name: fullDirName }))
                                 .catch((err) => reject({ code: err.message }));
                         })
@@ -109,7 +106,6 @@ function MainApp() {
                     break;
 
                 case "-help":
-                    // Show the help information
                     resolve({ type: "info", message: helpInformation() });
 
                     break;
@@ -126,9 +122,17 @@ function MainApp() {
                     break;
 
                 default:
-                    validateInputName(firstArgument)
+                    let projectName = "";
+
+                    if (inputCommand.argumentArrLength === 2) { // Special case
+                        projectName = inputCommand.lastArgument;
+                    } else {
+                        projectName = firstArgument;
+                    }
+
+                    validateInputName(projectName)
                         .then(() => {
-                            generateTemplate(firstArgument)
+                            generateTemplate(projectName, projectOption)
                                 .then((result) => resolve({
                                     type: "project",
                                     name: result.name,
@@ -160,10 +164,14 @@ function MainApp() {
 
 // MAIN APP
 /**
- * Resolving types: project, component, file, info, update
- * Reject is using a custom error object = {
- *      code: err.message
- * }
+ * resolving = result = {
+ *      "type": "[project][component][file][info][update]"
+ *      ...
+ * };
+ *
+ * reject = error = {
+ *      code: "err.message"
+ * };
  */
 MainApp()
     .then((resolving) => {
