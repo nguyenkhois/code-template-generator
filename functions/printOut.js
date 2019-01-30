@@ -5,28 +5,42 @@ const { errorCode } = require("./errorHandling");
 function helpInformation() {
     let mainFlagContent = "";
     let aliasContent = "";
+    let subFlagContent = "";
 
     optionList.map((option) => {
         if (option.flag !== "-root") {
             mainFlagContent += `\t${option.flag}\t${option.description}\n`;
             aliasContent += `\t${option.flag}\t${option.alias}\n`;
+
+            if (option.subFlag.length > 0) {
+                subFlagContent += `\n\t${option.flag}`;
+                option.subFlag.map((subFlag, index) => {
+                    if (index !== 0) {
+                        subFlagContent += `\n\t`;
+                    }
+
+                    subFlagContent += `\t\x1b[90m${subFlag.flag}\x1b[0m   ${subFlag.description}`;
+                });
+            }
         }
     });
 
-    const helpContent = "\nUSAGE:" +
+    const helpContent = "USAGE:" +
         "\n\t$ generate [option] \x1b[33m<project-name>[<component-name>]\x1b[0m" +
-        "\n\nOPTION:" +
+        "\n\nOPTIONS:" +
         `\n${mainFlagContent}` +
-        "\nSUB OPTION:" +
-        "\n\t--no-install \tNo install dependencies when a project is generated" +
-        "\n\nALIAS:" +
+        "\nSUB OPTIONS:" +
+        `${subFlagContent}` +
+        /* "\n\t-g" +
+        "\n\t\t--no-install \tNo install dependencies when a project is generated" + */
+        "\n\nALIASES:" +
         `\n${aliasContent}` +
-        "\nEXAMPLE:" +
+        "\nEXAMPLES:" +
         "\n\t$ generate \x1b[33mfirst-project\x1b[0m" +
         "\n\t$ generate -g \x1b[33msecondproject\x1b[0m" +
         "\n\t$ generate --git \x1b[33mThirdProject\x1b[0m" +
-        "\n\t$ generate --git --no-install \x1b[33mOtherProject\x1b[0m" +
-        "\n\t$ generate --no-install \x1b[33mLastProject\x1b[0m" +
+        "\n\t$ generate -g \x1b[90m--no-install\x1b[0m \x1b[33mOtherProject\x1b[0m" +
+        "\n\t$ generate \x1b[90m--no-install\x1b[0m \x1b[33mLastProject\x1b[0m" +
         "\n\t$ generate -c \x1b[33mSearchComponent.js\x1b[0m" +
         "\n\t$ generate -r \x1b[33mReviewComponent.jsx\x1b[0m" +
         "\n\t$ generate -fc \x1b[33mProductComponent\x1b[0m" +

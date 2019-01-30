@@ -93,20 +93,19 @@ function optionIdentification(inputArg, optionArr = optionList) {
 function optionParse() {
     // Option definition - (<flag>)([alias])([description])
     optionDefinition("-root")()("Root for the command"); // Special case
-    optionDefinition("-g")("--git")("Run automatically git init and generate a .gitignore file");
+    optionDefinition("-g")("--git")("Run git init and generate a .gitignore file");
     optionDefinition("-c")("--component")("Generate a React component file (*.js, *.jsx)");
     optionDefinition("-r")("--redux-component")("Generate a React-Redux component file (*.js, *.jsx)");
-    optionDefinition("-fc")("--full-component")("Generate a full React component (a directory with *.js, *.css)");
-    optionDefinition("-fr")("--full-redux-component")("Generate a full React-Redux component (a directory with *.js, *.css)");
+    optionDefinition("-fc")("--full-component")("Generate a full React component (*.css, *.js)");
+    optionDefinition("-fr")("--full-redux-component")("Generate a full React-Redux component (*.css, *.js)");
     optionDefinition("-i")("--gitignore")("Generate a .gitignore file");
     optionDefinition("-v")("--version")("View the installed version");
     optionDefinition("-help")("--help")("View the help information");
-    optionDefinition("-u")("--update")("Checking and updating for the latest stable version");
+    optionDefinition("-u")("--update")("Install the latest stable version");
 
     // Sub flag definition - (<main-flag>)(<sub-flag>)([sub-flag-description])
     optionSubFlag("-root")("--no-install")();
     optionSubFlag("-g")("--no-install")("No install dependencies when a project is generated");
-    optionSubFlag("-g")("--help")("View the help information for -g option");
 
     /**
      * Get all supported sub flags and store them into an array for the command analysis

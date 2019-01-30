@@ -105,10 +105,10 @@ __Sub option__
 
 ````
 // Project
-$ generate first-project                    // Without Git support
-$ generate -g secondproject                 // With Git support
-$ generate --git ThirdProject               // Using alias --git instead of -g
-$ generate --git --no-install OtherProject  // Without installation of dependencies
+$ generate first-project                 // Without Git support
+$ generate -g secondproject              // With Git support
+$ generate --git ThirdProject            // Using alias --git instead of -g
+$ generate -g --no-install OtherProject  // Without installation of dependencies
 $ generate --no-install LastProject
 
 // Single component -> A file
