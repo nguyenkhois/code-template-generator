@@ -14,7 +14,7 @@ function MainApp() {
     return new Promise((resolve, reject) => {
         const inputCommand = command.parse(process.argv);
 
-        if (inputCommand.argumentArrLength > 0) {
+        if (inputCommand.commandLength > 0) {
             const firstArgument = inputCommand.firstArgument;
             const lastArgument = inputCommand.lastArgument;
             const subFlag = inputCommand.subFlag;
@@ -124,10 +124,10 @@ function MainApp() {
                 default:
                     let projectName = "";
 
-                    if (inputCommand.argumentArrLength === 2) { // Special case
-                        projectName = inputCommand.lastArgument;
-                    } else {
+                    if (inputCommand.commandLength === 1) {
                         projectName = firstArgument;
+                    } else {
+                        projectName = lastArgument;
                     }
 
                     validateInputName(projectName)

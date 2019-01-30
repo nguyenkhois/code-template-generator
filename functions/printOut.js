@@ -7,8 +7,10 @@ function helpInformation() {
     let aliasContent = "";
 
     optionList.map((option) => {
-        mainFlagContent += `\t${option.flag}\t${option.description}\n`;
-        aliasContent += `\t${option.flag}\t${option.alias}\n`;
+        if (option.flag !== "-root") {
+            mainFlagContent += `\t${option.flag}\t${option.description}\n`;
+            aliasContent += `\t${option.flag}\t${option.alias}\n`;
+        }
     });
 
     const helpContent = "\nUSAGE:" +
@@ -98,9 +100,9 @@ function printOutReject(error) {
 }
 
 function printOutGuideAfterGeneration(projectName, templateName) {
-    const beginMessage = "\x1b[32mSUCCESS! \x1b[0m" +
+    const beginMessage = "\n\x1b[32mSUCCESS! \x1b[0m" +
         `Your project ${projectName} is generated successfully by the template ${templateName}.` +
-        `\n\n\t\x1b[36mcd ${projectName}\x1b[0m to change into your project directory`;
+        `\n\n\t\x1b[36mcd ${projectName}\x1b[0m\tto change into your project directory`;
 
     let detailMessage = "\n";
 
@@ -112,12 +114,12 @@ function printOutGuideAfterGeneration(projectName, templateName) {
             if (result.length === 1) {
                 switch (result[0].type) {
                     case "react": // React project
-                        detailMessage += "\n\t\x1b[36mnpm start \x1b[0m to start the local web server at http://localhost:9000" +
-                            "\n\t\x1b[36mnpm run build \x1b[0m to compile your code";
+                        detailMessage += "\n\t\x1b[36mnpm start\x1b[0m\tto start the local web server at http://localhost:9000" +
+                            "\n\t\x1b[36mnpm run build\x1b[0m\tto compile your code";
                         break;
 
                     case "express": // Express project
-                        detailMessage += "\n\t\x1b[36mnpm start \x1b[0m to start the local web server at http://localhost:8000";
+                        detailMessage += "\n\t\x1b[36mnpm start\x1b[0m\tto start the local web server at http://localhost:8000";
                         break;
 
                     default:

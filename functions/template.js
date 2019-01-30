@@ -124,7 +124,6 @@ function gitInstallation(projectName) {
                 return;
             }
 
-            console.log("\n\x1b[32mDone!\x1b[0m Git support installation is completed.");
             resolve(true);
         });
     });

@@ -7,7 +7,7 @@
 // Using the "global" object in Node.js
 global.optionList = [];
 
-const supportedSubFlag = ["--no-install"];
+let supportedSubFlag = [];
 
 function optionDefinition(flag) {
     return function (alias = "") {
@@ -15,10 +15,43 @@ function optionDefinition(flag) {
             return optionList = optionList.concat([{
                 "flag": flag,
                 "alias": alias,
-                "description": description
+                "description": description,
+                "subFlag": []
             }]);
         };
     };
+}
+
+function optionSubFlag(flag) {
+    return function (subFlag) {
+        return function (description = "") {
+            const optionIndex = optionList.findIndexByProperty("flag", flag);
+            if (optionIndex > -1) {
+                optionList[optionIndex] = {
+                    ...optionList[optionIndex],
+                    subFlag: [
+                        ...optionList[optionIndex].subFlag,
+                        {
+                            "flag": subFlag,
+                            "description": description
+                        }
+                    ]
+                };
+            }
+        };
+    };
+}
+
+function getSubFlag() {
+    optionList.map((option) => {
+        if (option.subFlag.length > 0) {
+            option.subFlag.map((subFlag) => {
+                if (supportedSubFlag.indexOf(subFlag.flag) === -1) {
+                    supportedSubFlag = supportedSubFlag.concat([subFlag.flag]);
+                }
+            });
+        }
+    });
 }
 
 function optionIdentification(inputArg, optionArr = optionList) {
@@ -57,8 +90,9 @@ function optionIdentification(inputArg, optionArr = optionList) {
     }
 }
 
-// Option definition - (<flag>)([alias])([description])
 function optionParse() {
+    // Option definition - (<flag>)([alias])([description])
+    optionDefinition("-root")()("Root for the command"); // Special case
     optionDefinition("-g")("--git")("Run automatically git init and generate a .gitignore file");
     optionDefinition("-c")("--component")("Generate a React component file (*.js, *.jsx)");
     optionDefinition("-r")("--redux-component")("Generate a React-Redux component file (*.js, *.jsx)");
@@ -68,60 +102,72 @@ function optionParse() {
     optionDefinition("-v")("--version")("View the installed version");
     optionDefinition("-help")("--help")("View the help information");
     optionDefinition("-u")("--update")("Checking and updating for the latest stable version");
+
+    // Sub flag definition - (<main-flag>)(<sub-flag>)([sub-flag-description])
+    optionSubFlag("-root")("--no-install")();
+    optionSubFlag("-g")("--no-install")("No install dependencies when a project is generated");
+    optionSubFlag("-g")("--help")("View the help information for -g option");
+
+    /**
+     * Get all supported sub flags and store them into an array for the command analysis
+     * -> commandParse()
+     */
+    getSubFlag();
 }
 
 function commandParse(processArgv) {
-    const argumentArr = processArgv.slice(2, process.argv.length) || [];
-    const argumentArrLength = argumentArr.length;
+    const commandArr = processArgv.slice(2, process.argv.length) || [];
+    const commandLength = commandArr.length;
     const defaultReturn = {
         firstArgument: null,
-        betweenArgument: null,
         lastArgument: null,
         subFlag: [],
-        argumentArrLength: 0
+        commandLength: 0
     };
 
-    if (argumentArrLength > 0) {
-        const firstArgument =
-            optionIdentification(argumentArr[0]) !== -1 ?
-                optionIdentification(argumentArr[0]) :
-                argumentArr[0];
+    if (commandLength > 0) {
+        let subFlag = [];
+        let firstArgument = null;
 
         const betweenArgument =
-            argumentArrLength > 2 ?
-                argumentArr.slice(1, argumentArrLength - 1) :
+            commandLength > 2 ?
+                commandArr.slice(1, commandLength - 1) :
                 null;
 
         const lastArgument =
-            argumentArrLength > 1 ?
-                argumentArr[argumentArrLength - 1] :
+            commandLength > 1 ?
+                commandArr[commandLength - 1] :
                 null;
 
-        // Filter the sub flags if it is found in the command
-        let subFlag = [];
-
-        // Special case: the user chooses the sub flag (without main flag) when it generates a project
-        if (argumentArrLength === 2) {
-            if (supportedSubFlag.indexOf(firstArgument) > -1) {
-                subFlag = [...subFlag, firstArgument];
+        // Process the first argument
+        if (optionIdentification(commandArr[0]) !== -1) {
+            // Identification and converting to main flag if the user has used alias flag '--'
+            firstArgument = optionIdentification(commandArr[0]);
+        } else if (supportedSubFlag.indexOf(commandArr[0]) > -1) {
+            // Catch the sub flag if it is found in the first position
+            if (subFlag.indexOf(commandArr[0]) === -1) {
+                subFlag = subFlag.concat([commandArr[0]]);
             }
+        } else {
+            firstArgument = commandArr[0];
         }
 
         if (betweenArgument !== null && betweenArgument.length > 0) {
-            betweenArgument.map((flag) => {
-                if (supportedSubFlag.indexOf(flag) > -1) {
-                    subFlag = [...subFlag, flag];
+            betweenArgument.map((item) => {
+                if (supportedSubFlag.indexOf(item) > -1) {
+                    if (subFlag.indexOf(item) === -1) {
+                        subFlag = subFlag.concat([item]);
+                    }
                 }
             });
         }
 
         return {
             ...defaultReturn,
-            firstArgument: supportedSubFlag.indexOf(firstArgument) > -1 ? null : firstArgument,
-            betweenArgument: betweenArgument,
-            lastArgument: lastArgument,
-            subFlag: subFlag,
-            argumentArrLength: argumentArrLength
+            "firstArgument": supportedSubFlag.indexOf(firstArgument) > -1 ? null : firstArgument,
+            "lastArgument": lastArgument,
+            "subFlag": subFlag,
+            "commandLength": commandLength
         };
     }
 
