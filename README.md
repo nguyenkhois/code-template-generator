@@ -72,11 +72,9 @@ _(*) You install and config Redux, React-Redux by yourself._
 |`-help`|-|View the help information|
 |`-u`|-| Automatic update checking and installation for the latest stable version (*) |
 
-(*) `sudo` is required on MacOS and Ubuntu.
-
-* Example:
-    * `$ sudo generate -u`
-    * `$ sudo generate --update`
+(*) `sudo` is required for the automatic updating on MacOS and Ubuntu. Example:
+* `$ sudo generate -u`
+* `$ sudo generate --update`
 
 __Sub option__
 
