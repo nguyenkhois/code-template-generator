@@ -11,7 +11,7 @@ You have more choice for your development environment. It makes your life easier
 * New features:
     * `generate -u` to check and install automatic the latest stable version.
     * `simple-express-server` is new project template. You don't need to use `body-parser` because Express 4.x has a built-in middleware [`express.json([options])`](https://expressjs.com/en/api.html#express.json) that is based on.
-    * Alias for the options.
+    * Aliases for the options.
     * Sub option `--no-install` is used when you don't need to install dependencies for a generated project.
 * Improvement:
     * Performance.
@@ -81,7 +81,7 @@ __Sub option__
 |`-g`|`--no-install`|`<project-name>`|Generate a project with Git support but without installation of dependencies|
 |-|`--no-install`|`<project-name>`|Generate a project without both Git support and installation of dependencies|
 
-## Alias
+## Aliases
 |Argument|Alias|
 |:---:|:---|
 |`-g`|`--git`|
