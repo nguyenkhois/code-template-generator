@@ -156,6 +156,10 @@ function dependencyInstallation(projectName) {
  * Component generation
  * Using Higher-Order Function (HOF)
  * Input data is (argument, function)
+ * extraOption = {
+ *      subDir: 'string',
+ *      fullComponent: false
+ * }
  */
 function generateFile(argFullFileName = null, fnGetAndReplaceFileContent, extraOption = {}) {
     return new Promise(function (resolve, reject) {
@@ -226,7 +230,15 @@ function generateGitignoreFile(subDirectory = "") {
  * Using for both React component and React-Redux component
  * @param {*} componentName : <component-name.js>
  * @param {*} option : "-c" or "-r" // React component or React-Redux component
+ * option = {
+ *      componentType: 'string',
+ *      fullComponent: boolean,
+ *      fullCSSFileName: 'string'
+ * }
  * @param {*} extraOption : { JSON } // using for creating a full component that is a directory with *.js, *.css are within
+ * extraOption = {
+ *      subDir: 'string'
+ * }
  */
 function generateComponent(componentName = null, option = { componentType: "" }, extraOption = {}) {
     return new Promise((resolve, reject) => {
@@ -243,11 +255,19 @@ function generateComponent(componentName = null, option = { componentType: "" },
             const componentTemplatePath = path.join(templateFilePath, templateName);
             const originalContent = fs.readFileSync(componentTemplatePath, "utf8");
 
-            const replacedContent = originalContent.replace(/YourClassName/g, filteredName)
-                .replace(/-/g, "");
+            const className = filteredName.replace(/-/g, "");
+            let replacedContent = originalContent
+                .replace(/YourClassName/g, className);
 
-            // Return the file content
-            return replacedContent;
+            // Return file content
+            if (option.fullComponent !== undefined &&
+                option.fullCSSFileName !== undefined &&
+                option.fullComponent === true &&
+                option.fullCSSFileName.length > 0) {
+                return replacedContent.replace(/\/\/ImportYourCSS/g, `import './${option.fullCSSFileName}';`);
+            } else {
+                return replacedContent.replace(/\/\/ImportYourCSS/g, "");
+            }
 
         }, extraOption)
             .then((result) => resolve(result))
@@ -270,11 +290,6 @@ function generateFullComponent(componentName = null, option = { componentType: "
         if (!fs.existsSync(newFullDirectoryPath)) {
             fs.mkdirSync(newFullDirectoryPath);
 
-            // Create extra option
-            const extraOption = {
-                subDir: componentName
-            };
-
             // Create file name
             const newFullJSFileName = `${componentName}.js`;
             const newFullCSSFileName = `${componentName}.css`;
@@ -285,8 +300,19 @@ function generateFullComponent(componentName = null, option = { componentType: "
                 compType = "-r" : // React-Redux component
                 compType = "-c"; // React component
 
+            // Create options
+            const newOption = {
+                componentType: compType,
+                fullComponent: true,
+                fullCSSFileName: newFullCSSFileName
+            };
+
+            const extraOption = {
+                subDir: componentName
+            };
+
             // Generate JS file
-            const generateJSFile = generateComponent(newFullJSFileName, { componentType: compType }, extraOption);
+            const generateJSFile = generateComponent(newFullJSFileName, newOption, extraOption);
 
             // Generate CSS file
             const generateCSSFile = generateFile(newFullCSSFileName, function () {

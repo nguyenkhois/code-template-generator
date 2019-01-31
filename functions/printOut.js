@@ -124,7 +124,7 @@ function printOutGuideAfterGeneration(projectName, templateName) {
     let detailMessage = "\n";
 
     const endMessage = "\n\nView README.md for more information." +
-        "\n\nHappy coding! (^_^)";
+        "\n\nHappy coding! (^_^)\n";
 
     filterByProperty(supportedTemplate, "name", templateName)
         .then((result) => {

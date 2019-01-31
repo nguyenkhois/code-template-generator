@@ -195,7 +195,6 @@ function filterSubFlagByMainFlag(mainFlag) {
             }
         }
 
-        console.log(mainFlag);
         return filteredSubFlag;
     };
 }
