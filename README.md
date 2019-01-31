@@ -9,7 +9,7 @@ You have more choice for your development environment. It makes your life easier
 
 ## What's new in version 2.1.x
 * New features:
-    * `generate -u` to check and install automatic the latest stable version.
+    * `generate -u` to check and install automatic the latest stable version. `sudo` is required on MacOS and Ubuntu. Example: `$ sudo generate -u`
     * `simple-express-server` is new project template. You don't need to use `body-parser` because Express 4.x has a built-in middleware [`express.json([options])`](https://expressjs.com/en/api.html#express.json) that is based on.
     * Aliases for the options.
     * Sub option `--no-install` is used when you don't need to install dependencies for a generated project.
@@ -70,7 +70,13 @@ _(*) You install and config Redux, React-Redux by yourself._
 | `-i` |-| A `.gitignore` file will be generated in the current directory |
 |`-v`|-|View the installed version|
 |`-help`|-|View the help information|
-|`-u`|-| Automatic update checking and installation for the latest stable version |
+|`-u`|-| Automatic update checking and installation for the latest stable version (*) |
+
+(*) `sudo` is required on MacOS and Ubuntu.
+
+* Example:
+    * `$ sudo generate -u`
+    * `$ sudo generate --update`
 
 __Sub option__
 
