@@ -109,7 +109,6 @@ function printOutReject(error) {
                 console.log(`${result[0].solution}.\n`);
             } else {
                 // For general error
-                console.log(error);
                 console.log("\n\x1b[31mError!\x1b[0m Error is found and the process is interrupted.\n");
             }
         })
