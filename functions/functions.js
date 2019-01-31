@@ -90,7 +90,7 @@ function checkAndInstallStableUpdate() {
                     console.log(`\nStarting installation for the latest stable version ${versionInfo.latest}...`);
                     exec("npm i -g code-template-generator", (error, stdout, stderr) => {
                         if (error) {
-                            reject(error);
+                            reject(errorIdentification(error));
                             return;
                         }
 

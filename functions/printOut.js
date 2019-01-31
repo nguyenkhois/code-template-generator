@@ -1,5 +1,5 @@
 const { filterByProperty, supportedTemplate } = require("../common/");
-const { errorCode } = require("./errorHandling");
+const { errorCodeList } = require("./errorHandling");
 
 // Print out the information
 function helpInformation() {
@@ -102,7 +102,7 @@ function printOutResolve(resolving) {
  * }
  */
 function printOutReject(error) {
-    filterByProperty(errorCode, "code", error.code)
+    filterByProperty(errorCodeList, "code", error.code)
         .then((result) => {
             if (result.length === 1) {
                 console.log(`\n\x1b[31mError!\x1b[0m ${result[0].error}.`);

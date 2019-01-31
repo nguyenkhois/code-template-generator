@@ -1,6 +1,6 @@
 const helpCommandText = "Tip! Run \x1b[33mgenerate -help\x1b[0m to view more information";
 
-const errorCode = [
+const errorCodeList = [
     // For name
     {
         code: "n001",
@@ -90,6 +90,13 @@ const errorCode = [
         code: "i002",
         error: "Can not connect to registry.npmjs.com for the latest stable version checking",
         solution: "You may want to check again the internet connection"
+    },
+
+    // For Node.js environment
+    {
+        code: "e243",
+        error: "EACCES: permission denied. The operation was rejected by your operating system",
+        solution: "You may want to try again by using administrator permission (Ex: sudo on MacOS, Ubuntu system)"
     }
 ];
 
@@ -98,16 +105,30 @@ const errorCode = [
  * @param {*} error
  */
 function errorIdentification(error) {
+    const errorCode = error.code;
     const errorMessage = error.message;
 
-    if (/ENOTFOUND/g.test(errorMessage)) {
-        return Error("i002"); // Internet connection is not found
-    }
+    switch(errorCode) {
+        // Internet connection is not found
+        case "ENOTFOUND":
+            if (/ENOTFOUND/g.test(errorMessage)) {
+                return Error("i002");
+            }
+            return error;
 
-    return error;
+        // MacOS and Ubuntu - not using sudo user when it installs a new update
+        case 243:
+            if (/permission denied/g.test(errorMessage)) {
+                return Error("e243");
+            }
+            return error;
+
+        default:
+            return error;
+    }
 }
 
 module.exports = {
-    errorCode,
+    errorCodeList,
     errorIdentification
 };
