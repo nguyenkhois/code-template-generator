@@ -6,7 +6,7 @@ const { installedVersion, autoUpdateCheck, checkAndInstallStableUpdate, validate
     errorIdentification
 } = require("./functions/");
 
-const { command, option } = require("./functions/commandHandling");
+const { command, option, subflag } = require("./functions/commandHandling");
 
 option.parse();
 
@@ -17,11 +17,12 @@ function MainApp() {
         if (inputCommand.commandLength > 0) {
             const firstArgument = inputCommand.firstArgument;
             const lastArgument = inputCommand.lastArgument;
-            const subFlag = inputCommand.subFlag;
+            const subFlagArr = inputCommand.subFlag;
 
+            // Default
             let projectOption = {
                 "gitSupport": false,
-                "subFlag": subFlag
+                "subFlag": subFlagArr
             };
 
             switch (firstArgument) {
@@ -30,7 +31,8 @@ function MainApp() {
                         .then(() => {
                             projectOption = {
                                 ...projectOption,
-                                "gitSupport": true
+                                "gitSupport": true,
+                                "subFlag": subflag.filterByMainFlag("-g")(subFlagArr)
                             };
 
                             generateTemplate(lastArgument, projectOption) // It must be (projectName, option)

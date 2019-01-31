@@ -42,7 +42,7 @@ function optionSubFlag(flag) {
     };
 }
 
-function getSubFlag() {
+function getSupportedSubFlagList() {
     optionList.map((option) => {
         if (option.subFlag.length > 0) {
             option.subFlag.map((subFlag) => {
@@ -104,14 +104,14 @@ function optionParse() {
     optionDefinition("-u")("--update")("Install the latest stable version");
 
     // Sub flag definition - (<main-flag>)(<sub-flag>)([sub-flag-description])
-    optionSubFlag("-root")("--no-install")();
-    optionSubFlag("-g")("--no-install")("No install dependencies when a project is generated");
+    optionSubFlag("-root")("--no-install")("No install git support and dependencies when a project is generated");
+    optionSubFlag("-g")("--no-install")("No install dependencies for generated project");
 
     /**
      * Get all supported sub flags and store them into an array for the command analysis
      * -> commandParse()
      */
-    getSubFlag();
+    getSupportedSubFlagList();
 }
 
 function commandParse(processArgv) {
@@ -173,7 +173,35 @@ function commandParse(processArgv) {
     return defaultReturn;
 }
 
+
+/**
+ * @param {*} mainFlag = 'string'; // Ex: -g, -c
+ * @param {*} subFlagArr = ['string', 'string']; // Ex: --no-install
+ * optionList = [{}, {}]; // Object array
+ * => Return only all the sub flags that belong to the main flag.
+ */
+function filterSubFlagByMainFlag(mainFlag) {
+    return function (subFlagArr = []) {
+        let filteredSubFlag = [];
+        const mainFlagIndex = optionList.findIndexByProperty("flag", mainFlag);
+
+        if (mainFlagIndex > -1 && optionList[mainFlagIndex].subFlag.length > 0) {
+            if (subFlagArr.length > 0) {
+                subFlagArr.map((inputSubFlag) => {
+                    if (optionList[mainFlagIndex].subFlag.findIndexByProperty("flag", inputSubFlag) > -1) {
+                        filteredSubFlag = filteredSubFlag.concat([inputSubFlag]);
+                    }
+                });
+            }
+        }
+
+        console.log(mainFlag);
+        return filteredSubFlag;
+    };
+}
+
 module.exports = {
     command: { parse: commandParse },
-    option: { parse: optionParse }
+    option: { parse: optionParse },
+    subflag: { filterByMainFlag: filterSubFlagByMainFlag }
 };

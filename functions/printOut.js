@@ -41,10 +41,12 @@ function helpInformation() {
         "\n\t$ generate --git \x1b[33mThirdProject\x1b[0m" +
         "\n\t$ generate -g \x1b[90m--no-install\x1b[0m \x1b[33mOtherProject\x1b[0m" +
         "\n\t$ generate \x1b[90m--no-install\x1b[0m \x1b[33mLastProject\x1b[0m" +
+        "\n" +
         "\n\t$ generate -c \x1b[33mSearchComponent.js\x1b[0m" +
         "\n\t$ generate -r \x1b[33mReviewComponent.jsx\x1b[0m" +
         "\n\t$ generate -fc \x1b[33mProductComponent\x1b[0m" +
         "\n\t$ generate -fr \x1b[33mCartComponent\x1b[0m" +
+        "\n" +
         "\n\t$ generate --gitignore" +
         "\n\t$ generate -v" +
         "\n\t$ generate -help" +
@@ -107,6 +109,7 @@ function printOutReject(error) {
                 console.log(`${result[0].solution}.\n`);
             } else {
                 // For general error
+                console.log(error);
                 console.log("\n\x1b[31mError!\x1b[0m Error is found and the process is interrupted.\n");
             }
         })

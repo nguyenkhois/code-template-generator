@@ -1,0 +1,20 @@
+{
+  "name": "simple-express-server",
+  "version": "1.0.0",
+  "description": "The simple Express server",
+  "main": "index.js",
+  "scripts": {
+    "test": "Hello",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "express",
+    "server"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.16.4"
+  }
+}
