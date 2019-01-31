@@ -87,7 +87,7 @@ function printOutResolve(resolving) {
 
         case "info":
         case "update":
-            console.log(resolving.message);
+            console.log(resolving.message + "\n");
             break;
 
         default:
