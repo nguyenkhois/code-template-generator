@@ -6,6 +6,8 @@ const CURR_DIR = process.cwd();
 const templatePath = path.join(__dirname, "../templates/");
 const templateFilePath = path.join(__dirname, "../templates-files/");
 
+const { AppError } = require("./errorHandling");
+
 // Project generation
 /**
  * @param {*} projectName
@@ -81,7 +83,7 @@ function generateTemplate(projectName = "", option = { gitSupport: false, subFla
                         })
                         .catch((err) => reject(err));
                 } else {
-                    reject(Error("d001")); // The directory already exists
+                    reject(new AppError("d001")); // The directory already exists
                 }
             })
             .catch((err) => reject(err));
@@ -198,15 +200,15 @@ function generateFile(argFullFileName = null, fnGetAndReplaceFileContent, extraO
                         }
                     });
                 } else {
-                    reject(Error("f003")); // The file already exists
+                    reject(new AppError("f003")); // The file already exists
                 }
 
             } else {
-                reject(Error("f001")); // The file extension is not supported
+                reject(new AppError("f001")); // The file extension is not supported
             }
 
         } else {
-            reject(Error("f002")); // The file name can not empty
+            reject(new AppError("f002")); // The file name can not empty
         }
     });
 }
@@ -325,7 +327,7 @@ function generateFullComponent(componentName = null, option = { componentType: "
                 .catch((err) => reject(err));
 
         } else {
-            reject(Error("d001")); // The directory already exists
+            reject(new AppError("d001")); // The directory already exists
         }
     });
 }

@@ -41,12 +41,12 @@ function MainApp() {
                                     name: result.name,
                                     template: result.template
                                 }))
-                                .catch((err) => reject({ code: err.message }));
+                                .catch((err) => reject(err));
                         })
                         .catch((err) => {
-                            if (err.message === "n001") {
+                            if (err.code === "n001") {
                                 reject({ code: "p001" }); // The project name is invalid
-                            } else if (err.message === "n002") {
+                            } else if (err.code === "n002") {
                                 reject({ code: "p002" }); // The project name is empty
                             }
                         });
@@ -60,12 +60,12 @@ function MainApp() {
                         .then(() => {
                             generateComponent(lastArgument, { componentType: firstArgument })
                                 .then((fullFileName) => resolve({ type: "component", name: fullFileName }))
-                                .catch((err) => reject({ code: err.message }));
+                                .catch((err) => reject(err));
                         })
                         .catch((err) => {
-                            if (err.message === "n001") {
+                            if (err.code === "n001") {
                                 reject({ code: "c001" });
-                            } else if (err.message === "n002") {
+                            } else if (err.code === "n002") {
                                 reject({ code: "c002" });
                             }
                         });
@@ -78,12 +78,12 @@ function MainApp() {
                         .then(() => {
                             generateFullComponent(lastArgument, { componentType: firstArgument })
                                 .then((fullDirName) => resolve({ type: "component", name: fullDirName }))
-                                .catch((err) => reject({ code: err.message }));
+                                .catch((err) => reject(err));
                         })
                         .catch((err) => {
-                            if (err.message === "n001") {
+                            if (err.code === "n001") {
                                 reject({ code: "fu001" });
-                            } else if (err.message === "n002") {
+                            } else if (err.code === "n002") {
                                 reject({ code: "fu002" });
                             }
                         });
@@ -93,7 +93,7 @@ function MainApp() {
                 case "-i":
                     generateGitignoreFile()
                         .then((fileName) => resolve({ type: "file", name: fileName }))
-                        .catch((err) => reject({ code: err.message }));
+                        .catch((err) => reject(err));
 
                     break;
 
@@ -103,7 +103,7 @@ function MainApp() {
                         .then((version) => {
                             resolve({ type: "info", message: version });
                         })
-                        .catch((err) => reject({ code: err.message }));
+                        .catch((err) => reject(err));
 
                     break;
 
@@ -117,9 +117,7 @@ function MainApp() {
                         .then((result) => {
                             resolve({ type: "update", message: result.message });
                         })
-                        .catch((err) => {
-                            reject({ code: err.message });
-                        });
+                        .catch((err) => reject(err));
 
                     break;
 
@@ -140,12 +138,12 @@ function MainApp() {
                                     name: result.name,
                                     template: result.template
                                 }))
-                                .catch((err) => reject({ code: err.message }));
+                                .catch((err) => reject(err));
                         })
                         .catch((err) => {
-                            if (err.message === "n001") {
+                            if (err.code === "n001") {
                                 reject({ code: "p001" }); // Error code mapping
-                            } else if (err.message === "n002") {
+                            } else if (err.code === "n002") {
                                 reject({ code: "p002" });
                             }
                         });
@@ -159,7 +157,7 @@ function MainApp() {
                     name: result.name,
                     template: result.template
                 }))
-                .catch((err) => reject({ code: err.message }));
+                .catch((err) => reject(err));
         }
     });
 }
@@ -186,8 +184,8 @@ MainApp()
                     printUpdateMessage(versionInfo.latest);
                 }
             }).catch((err) => {
-                const customErrorCode = errorIdentification(err).message;
-                printOutReject({ code: customErrorCode });
+                const customErrorObject = errorIdentification(err);
+                printOutReject(customErrorObject);
             });
         }
     })

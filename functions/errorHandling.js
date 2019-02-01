@@ -94,9 +94,10 @@ const errorCodeList = [
 
     // For Node.js environment
     {
-        code: "e243",
+        code: "n243",
         error: "EACCES: permission denied. The operation was rejected by your operating system",
-        solution: "You may want to try again by using administrator permission (Ex: sudo on MacOS, Ubuntu system)"
+        solution: "You may want to try again by using administrator permission." +
+            "\nExample: \x1b[33msudo generate --update\x1b[0m (Using \x1b[33msudo\x1b[0m on MacOS or Ubuntu system)"
     }
 ];
 
@@ -108,18 +109,18 @@ function errorIdentification(error) {
     const errorCode = error.code;
     const errorMessage = error.message;
 
-    switch(errorCode) {
+    switch (errorCode) {
         // Internet connection is not found
         case "ENOTFOUND":
             if (/ENOTFOUND/g.test(errorMessage)) {
-                return Error("i002");
+                return new AppError("i002", "Can not connect to registry.npmjs.com");
             }
             return error;
 
-        // MacOS and Ubuntu - not using sudo user when it installs a new update
+        // MacOS and Ubuntu - The user for update installation is not has administrator permission
         case 243:
             if (/permission denied/g.test(errorMessage)) {
-                return Error("e243");
+                return new AppError("n243", "Permission denied");
             }
             return error;
 
@@ -128,7 +129,20 @@ function errorIdentification(error) {
     }
 }
 
+// Custom Error object
+class AppError extends Error {
+    constructor(code = "UNKNOWN", message = "") {
+        super();
+
+        Error.captureStackTrace(this, this.constructor);
+        this.name = this.constructor.name;
+        this.code = code;
+        this.message = message;
+    }
+}
+
 module.exports = {
+    AppError,
     errorCodeList,
     errorIdentification
 };

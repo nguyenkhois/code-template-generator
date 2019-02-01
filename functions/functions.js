@@ -1,5 +1,5 @@
 const https = require("https");
-const { errorIdentification } = require("./errorHandling");
+const { AppError, errorIdentification } = require("./errorHandling");
 
 // Automatic update check
 function queryLatestVersion() {
@@ -35,7 +35,7 @@ function installedVersion() {
         if (version !== undefined && version !== null && version.length > 0)
             resolve(version);
         else
-            reject(new Error("i001"));
+            reject(new AppError("i001"));
     });
 }
 
@@ -65,14 +65,14 @@ function validateInputName(input) {
 
     return new Promise(function (resolve, reject) {
         if (input === undefined || input === null || input === "") {
-            reject(Error("n002"));
+            reject(new AppError("n002"));
             return;
         }
 
         if (regularExpression.test(input)) {
             resolve(true);
         } else {
-            reject(Error("n001"));
+            reject(new AppError("n001"));
         }
     });
 }
