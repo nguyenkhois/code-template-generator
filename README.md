@@ -1,7 +1,7 @@
 # code-template-generator
 [![Node.js version](https://img.shields.io/node/v/code-template-generator.svg?style=flat)](https://nodejs.org)   [![code-template-generator](https://img.shields.io/npm/v/code-template-generator.svg?style=flat)](https://www.npmjs.com/package/code-template-generator/)
 
-This is the lightweight React code template generator that has two parts in one npm package:
+This is the lightweight React code template generator that has two main parts in one npm package:
 * Project template generation that has a part of the [Build environments](https://github.com/nguyenkhois/build-environments) project.
 * Code template generation.
 
@@ -26,8 +26,12 @@ You have more choice for your development environment. It makes your life easier
 
 ## What's new in version 2.1.x
 * New features:
-    * `generate -u` to check and install automatic the latest stable version. `sudo` is required on MacOS and Ubuntu. Example: `$ sudo generate -u`
-    * `simple-express-server` is new project template. You don't need to use `body-parser` because Express 4.x has a built-in middleware [`express.json([options])`](https://expressjs.com/en/api.html#express.json) that is based on.
+    * `generate -u` to check and install automatic the latest stable version.
+        * Administrator permission is required when you run this command.
+        * Example for MacOS and Ubuntu: `$ sudo generate --update`
+    * `simple-express-server` is new project template.
+        * You don't need to use `body-parser` because Express 4.x has a built-in middleware [`express.json([options])`](https://expressjs.com/en/api.html#express.json) that is based on.
+        * CORS is installed by default.
     * Aliases for the options.
     * Sub option `--no-install` is used when you don't need to install dependencies for a generated project.
 * Improvement:
@@ -36,9 +40,9 @@ You have more choice for your development environment. It makes your life easier
     * Error handling.
 
 ## Main features
-* Project template generation has two options:
+* Project template generation:
     * Without Git support.
-    * With Git support - It runs automatically `git init` and generates a `.gitignore` file while the project is generated.
+    * With Git support -> It runs automatically command `git init` and generates a `.gitignore` file while the project is generated.
 * Component generation:
     * Two kinds of generated components: React and React-Redux.
     * It can become a single component that is a file `*.js, *.jsx` or a full component that is a directory with two files `*.js, *.css` are within.
@@ -89,7 +93,7 @@ _(*) You install and config Redux, React-Redux by yourself._
 |`-help`|-|View the help information|
 |`-u`|-| Automatic update checking and installation for the latest stable version (*) |
 
-(*) `sudo` is required for the automatic updating on MacOS and Ubuntu. Example:
+(*) Administrator permission is required for the automatic updating. Example for MacOS and Ubuntu:
 * `$ sudo generate -u`
 * `$ sudo generate --update`
 
