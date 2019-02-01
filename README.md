@@ -7,6 +7,21 @@ This is the lightweight React code template generator that has two parts in one 
 
 You have more choice for your development environment. It makes your life easier.
 
+## Table of contents
+* Screenshot
+* What's new in version 2.1.x
+* Main features
+    * Supported project templates
+    * Supported component templates
+* Installation
+* Using
+    * Sub option
+    * Aliases
+* Breaking changes
+* Examples
+* Thanks you!
+
+## Screenshot
 ![Demo](demonew.gif)
 
 ## What's new in version 2.1.x
