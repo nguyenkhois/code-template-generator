@@ -117,7 +117,7 @@ function errorIdentification(error) {
             }
             return error;
 
-        // MacOS and Ubuntu - The user for update installation is not has administrator permission
+        // MacOS and Ubuntu - The user has not administrator permission
         case 243:
             if (/permission denied/g.test(errorMessage)) {
                 return new AppError("n243", "Permission denied");
