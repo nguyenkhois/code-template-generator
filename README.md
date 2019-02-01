@@ -8,18 +8,18 @@ This is the lightweight React code template generator that has two parts in one 
 You have more choice for your development environment. It makes your life easier.
 
 ## Table of contents
-* Screenshot
-* What's new in version 2.1.x
-* Main features
-    * Supported project templates
-    * Supported component templates
-* Installation
-* Using
-    * Sub option
-    * Aliases
-* Breaking changes
-* Examples
-* Thanks you!
+* [Screenshot](#screenshot)
+* [What's new in version 2.1.x](#whats-new-in-version-21x)
+* [Main features](#main-features)
+    * [Supported project templates](#supported-project-templates)
+    * [Supported component templates](#supported-component-templates)
+* [Installation](#installation)
+* [Using](#using)
+    * [Sub option](#sub-option)
+    * [Aliases](#aliases)
+* [Breaking changes](#breaking-changes)
+* [Examples](#examples)
+* [Thanks you!](#thank-you)
 
 ## Screenshot
 ![Demo](demonew.gif)
@@ -55,14 +55,14 @@ You have more choice for your development environment. It makes your life easier
     * You don't need to care about the distribution directory `/dist`. The things you care are only in the source directory `/src`.
     * Anti-caching.
 
-## Supported project templates:
+### Supported project templates:
 |Templates|Main dependencies|
 |---|---|
 |react-advance|Babel 7, Babel Loader 8, SplitChunksPlugin for code splitting|
 |react-simple|Babel 7, Babel Loader 8|
 |react-typescript|TypeScript 3, awesome-typescript-loader|
 
-## Supported component templates:
+### Supported component templates:
 |Component|React|React-Redux (*)|Description|
 |---|:---:|:---:|---|
 |Single|X|X|A file with these supported extension `*.js, *.jsx`.|
@@ -93,7 +93,7 @@ _(*) You install and config Redux, React-Redux by yourself._
 * `$ sudo generate -u`
 * `$ sudo generate --update`
 
-__Sub option__
+### Sub option
 
 * `--no-install`: no install dependencies when a project is generated.
 
@@ -102,7 +102,7 @@ __Sub option__
 |`-g`|`--no-install`|`<project-name>`|Generate a project with Git support but without installation of dependencies|
 |-|`--no-install`|`<project-name>`|Generate a project without both Git support and installation of dependencies|
 
-## Aliases
+### Aliases
 |Argument|Alias|
 |:---:|:---|
 |`-g`|`--git`|
