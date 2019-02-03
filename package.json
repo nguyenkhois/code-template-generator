@@ -26,7 +26,7 @@
     "devDependencies": {
         "chai": "^4.2.0",
         "chai-as-promised": "^7.1.1",
-        "eslint": "^5.12.1",
+        "eslint": "^5.13.0",
         "mocha": "^5.2.0"
     },
     "repository": {
@@ -38,6 +38,6 @@
     },
     "homepage": "https://github.com/nguyenkhois/code-template-generator",
     "dependencies": {
-        "inquirer": "^6.2.1"
+        "inquirer": "^6.2.2"
     }
 }
