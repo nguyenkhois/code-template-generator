@@ -15,7 +15,7 @@ const { AppError } = require("./errorHandling");
  *      gitSupport: false
  * }
  */
-function generateTemplate(projectName = "", option = { gitSupport: false, subFlag: [] }) {
+function generateTemplate(projectName = "", option = { gitSupport: false, subFlags: [] }) {
     return new Promise((resolve, reject) => {
         const CHOICES = fs.readdirSync(templatePath);
         const choiceList = [
@@ -66,7 +66,7 @@ function generateTemplate(projectName = "", option = { gitSupport: false, subFla
                             }
 
                             // Dependency installation
-                            if (option.subFlag.indexOf("--no-install") === -1) {
+                            if (option.subFlags.indexOf("--no-install") === -1) {
                                 dependencyInstallation(chosenProjectName)
                                     .then(() => resolve({
                                         name: chosenProjectName,

@@ -6,23 +6,19 @@ const { installedVersion, autoUpdateCheck, checkAndInstallStableUpdate, validate
     errorIdentification
 } = require("./functions/");
 
-const { command, option, subflag } = require("./functions/commandHandling");
+const { command, option, subFlag } = require("./functions/commandHandling");
 
 option.parse();
 
 function MainApp() {
     return new Promise((resolve, reject) => {
-        const inputCommand = command.parse(process.argv);
+        const { firstArgument, lastArgument, inputSubFlags, commandLength } = command.parse(process.argv);
 
-        if (inputCommand.commandLength > 0) {
-            const firstArgument = inputCommand.firstArgument;
-            const lastArgument = inputCommand.lastArgument;
-            const subFlagArr = inputCommand.subFlag;
-
+        if (commandLength > 0) {
             // Default
             let projectOption = {
                 "gitSupport": false,
-                "subFlag": subFlagArr
+                "subFlags": inputSubFlags
             };
 
             switch (firstArgument) {
@@ -32,7 +28,7 @@ function MainApp() {
                             projectOption = {
                                 ...projectOption,
                                 "gitSupport": true,
-                                "subFlag": subflag.filterByMainFlag("-g")(subFlagArr)
+                                "subFlags": subFlag.filterByMainFlag("-g")(inputSubFlags)
                             };
 
                             generateTemplate(lastArgument, projectOption) // It must be (projectName, option)
@@ -122,9 +118,9 @@ function MainApp() {
                     break;
 
                 default:
-                    let projectName = "";
+                    let projectName;
 
-                    if (inputCommand.commandLength === 1) {
+                    if (commandLength === 1) {
                         projectName = firstArgument;
                     } else {
                         projectName = lastArgument;

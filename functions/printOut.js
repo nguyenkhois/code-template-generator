@@ -7,14 +7,15 @@ function helpInformation() {
     let aliasContent = "";
     let subFlagContent = "";
 
-    optionList.map((option) => {
+    // "CTGOptionList" is a global () variable is only using for this app.
+    CTGOptionList.map((option) => {
         if (option.flag !== "-root") {
             mainFlagContent += `\t${option.flag}\t${option.description}\n`;
             aliasContent += `\t${option.flag}\t${option.alias}\n`;
 
-            if (option.subFlag.length > 0) {
+            if (option.subFlags.length > 0) {
                 subFlagContent += `\n\t${option.flag}`;
-                option.subFlag.map((subFlag, index) => {
+                option.subFlags.map((subFlag, index) => {
                     if (index !== 0) {
                         subFlagContent += `\n\t`;
                     }
@@ -102,6 +103,8 @@ function printOutResolve(resolving) {
  * }
  */
 function printOutReject(error) {
+    console.log(error);
+
     filterByProperty(errorCodeList, "code", error.code)
         .then((result) => {
             if (result.length === 1) {

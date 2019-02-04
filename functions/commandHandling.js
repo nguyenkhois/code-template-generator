@@ -1,39 +1,38 @@
 /**
- * "optionList" is a global () variable in this app.
- * View more about Nodejs global object here:
+ * "CTGOptionList" is a global () variable is only using for this app.
  * https://nodejs.org/api/globals.html#globals_global
  */
 
-// Using the "global" object in Node.js
-global.optionList = [];
+global.CTGOptionList = [];// Using the "global" object in Node.js
+let supportedSubFlags = [];
 
-let supportedSubFlag = [];
-
+// Main flag definition
 function optionDefinition(flag) {
-    return function (alias = "") {
-        return function (description = "") {
-            return optionList = optionList.concat([{
+    return function (alias) {
+        return function (description) {
+            return CTGOptionList = CTGOptionList.concat([{
                 "flag": flag,
-                "alias": alias,
-                "description": description,
-                "subFlag": []
+                "alias": alias || "",
+                "description": description || "",
+                "subFlags": []
             }]);
         };
     };
 }
 
+// Sub flags definition
 function optionSubFlag(flag) {
     return function (subFlag) {
-        return function (description = "") {
-            const optionIndex = optionList.findIndexByProperty("flag", flag);
+        return function (description) {
+            const optionIndex = CTGOptionList.findIndexByProperty("flag", flag);
             if (optionIndex > -1) {
-                optionList[optionIndex] = {
-                    ...optionList[optionIndex],
-                    subFlag: [
-                        ...optionList[optionIndex].subFlag,
+                CTGOptionList[optionIndex] = {
+                    ...CTGOptionList[optionIndex],
+                    subFlags: [
+                        ...CTGOptionList[optionIndex].subFlags,
                         {
                             "flag": subFlag,
-                            "description": description
+                            "description": description || ""
                         }
                     ]
                 };
@@ -43,18 +42,18 @@ function optionSubFlag(flag) {
 }
 
 function getSupportedSubFlagList() {
-    optionList.map((option) => {
-        if (option.subFlag.length > 0) {
-            option.subFlag.map((subFlag) => {
-                if (supportedSubFlag.indexOf(subFlag.flag) === -1) {
-                    supportedSubFlag = supportedSubFlag.concat([subFlag.flag]);
+    CTGOptionList.map((option) => {
+        if (option.subFlags.length > 0) {
+            option.subFlags.map((subFlag) => {
+                if (supportedSubFlags.indexOf(subFlag.flag) === -1) {
+                    supportedSubFlags = supportedSubFlags.concat([subFlag.flag]);
                 }
             });
         }
     });
 }
 
-function optionIdentification(inputArg, optionArr = optionList) {
+function optionIdentification(inputArg, optionArr = CTGOptionList) {
     const flagPosition = inputArg.indexOf("-");
     let howToFind = -1;
 
@@ -75,7 +74,7 @@ function optionIdentification(inputArg, optionArr = optionList) {
                 return seekingMainFlag[0].flag;
             }
 
-            return -1; // Not found
+            break;
 
         case 1:
             const seekingAliasFlag = optionArr.filter(objItem => objItem["alias"] === inputArg);
@@ -83,11 +82,13 @@ function optionIdentification(inputArg, optionArr = optionList) {
                 return seekingAliasFlag[0].flag;
             }
 
-            return -1; // Not found
+            break;
 
         default:
             return -1;
     }
+
+    return -1; // Not found -> Unknown option
 }
 
 function optionParse() {
@@ -103,14 +104,11 @@ function optionParse() {
     optionDefinition("-help")("--help")("View the help information");
     optionDefinition("-u")("--update")("Install the latest stable version");
 
-    // Sub flag definition - (<main-flag>)(<sub-flag>)([sub-flag-description])
+    // Sub flags definition - (<main-flag>)(<sub-flag>)([sub-flag-description])
     optionSubFlag("-root")("--no-install")("No install git support and dependencies when a project is generated");
     optionSubFlag("-g")("--no-install")("No install dependencies for generated project");
 
-    /**
-     * Get all supported sub flags and store them into an array for the command analysis
-     * -> commandParse()
-     */
+    // Using for the command analysis -> commandParse()
     getSupportedSubFlagList();
 }
 
@@ -120,12 +118,12 @@ function commandParse(processArgv) {
     const defaultReturn = {
         firstArgument: null,
         lastArgument: null,
-        subFlag: [],
+        inputSubFlags: [],
         commandLength: 0
     };
 
     if (commandLength > 0) {
-        let subFlag = [];
+        let subFlags = [];
         let firstArgument = null;
 
         const betweenArgument =
@@ -139,13 +137,14 @@ function commandParse(processArgv) {
                 null;
 
         // Process the first argument
-        if (optionIdentification(commandArr[0]) !== -1) {
+        const identifiedFirstArg = optionIdentification(commandArr[0]);
+        if (identifiedFirstArg !== -1) {
             // Identification and converting to main flag if the user has used alias flag '--'
-            firstArgument = optionIdentification(commandArr[0]);
-        } else if (supportedSubFlag.indexOf(commandArr[0]) > -1) {
+            firstArgument = identifiedFirstArg;
+        } else if (supportedSubFlags.indexOf(commandArr[0]) > -1) {
             // Catch the sub flag if it is found in the first position
-            if (subFlag.indexOf(commandArr[0]) === -1) {
-                subFlag = subFlag.concat([commandArr[0]]);
+            if (subFlags.indexOf(commandArr[0]) === -1) {
+                subFlags = subFlags.concat([commandArr[0]]);
             }
         } else {
             firstArgument = commandArr[0];
@@ -153,19 +152,19 @@ function commandParse(processArgv) {
 
         if (betweenArgument !== null && betweenArgument.length > 0) {
             betweenArgument.map((item) => {
-                if (supportedSubFlag.indexOf(item) > -1) {
-                    if (subFlag.indexOf(item) === -1) {
-                        subFlag = subFlag.concat([item]);
-                    }
+                if (supportedSubFlags.indexOf(item) > -1 &&
+                    subFlags.indexOf(item) === -1) {
+
+                    subFlags = subFlags.concat([item]);
                 }
             });
         }
 
         return {
             ...defaultReturn,
-            "firstArgument": supportedSubFlag.indexOf(firstArgument) > -1 ? null : firstArgument,
+            "firstArgument": supportedSubFlags.indexOf(firstArgument) > -1 ? null : firstArgument,
             "lastArgument": lastArgument,
-            "subFlag": subFlag,
+            "inputSubFlags": subFlags,
             "commandLength": commandLength
         };
     }
@@ -176,31 +175,33 @@ function commandParse(processArgv) {
 
 /**
  * @param {*} mainFlag = 'string'; // Ex: -g, -c
- * @param {*} subFlagArr = ['string', 'string']; // Ex: --no-install
- * optionList = [{}, {}]; // Object array
+ * @param {*} inputSubFlags = ['string', 'string']; // Ex: --no-install
+ * CTGOptionList = [{}, {}]; // Object array
  * => Return only all the sub flags that belong to the main flag.
  */
 function filterSubFlagByMainFlag(mainFlag) {
-    return function (subFlagArr = []) {
-        let filteredSubFlag = [];
-        const mainFlagIndex = optionList.findIndexByProperty("flag", mainFlag);
+    return function (inputSubFlags = []) {
+        let filteredSubFlags = [];
+        const mainFlagIndex = CTGOptionList.findIndexByProperty("flag", mainFlag);
 
-        if (mainFlagIndex > -1 && optionList[mainFlagIndex].subFlag.length > 0) {
-            if (subFlagArr.length > 0) {
-                subFlagArr.map((inputSubFlag) => {
-                    if (optionList[mainFlagIndex].subFlag.findIndexByProperty("flag", inputSubFlag) > -1) {
-                        filteredSubFlag = filteredSubFlag.concat([inputSubFlag]);
-                    }
-                });
-            }
+        if (mainFlagIndex > -1 &&
+            CTGOptionList[mainFlagIndex].subFlags.length > 0 &&
+            inputSubFlags.length > 0) {
+
+            const subFlags = CTGOptionList[mainFlagIndex].subFlags;
+            inputSubFlags.map((item) => {
+                if (subFlags.findIndexByProperty("flag", item) > -1) {
+                    filteredSubFlags = filteredSubFlags.concat([item]);
+                }
+            });
         }
 
-        return filteredSubFlag;
+        return filteredSubFlags;
     };
 }
 
 module.exports = {
     command: { parse: commandParse },
     option: { parse: optionParse },
-    subflag: { filterByMainFlag: filterSubFlagByMainFlag }
+    subFlag: { filterByMainFlag: filterSubFlagByMainFlag }
 };
