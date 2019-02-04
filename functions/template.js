@@ -155,13 +155,8 @@ function dependencyInstallation(projectName) {
 }
 
 /**
- * Component generation
- * Using Higher-Order Function (HOF)
- * Input data is (argument, function)
- * extraOption = {
- *      subDir: 'string',
- *      fullComponent: false
- * }
+ * Component generation - Using Higher-Order Function (HOF)
+ * Input data is (argument, function, extraOption)
  */
 function generateFile(argFullFileName = null, fnGetAndReplaceFileContent, extraOption = {}) {
     return new Promise(function (resolve, reject) {
@@ -229,9 +224,9 @@ function generateGitignoreFile(subDirectory = "") {
 }
 
 /**
- * Using for both React component and React-Redux component
+ * Using for single component generation
  * @param {*} componentName : <component-name.js>
- * @param {*} option : "-c" or "-r" // React component or React-Redux component
+ * @param {*} option : [-c][-r] // React or React-Redux component
  * option = {
  *      componentType: 'string',
  *      fullComponent: boolean,
@@ -268,7 +263,7 @@ function generateComponent(componentName = null, option = { componentType: "" },
                 option.fullCSSFileName.length > 0) {
                 return replacedContent.replace(/\/\/ImportYourCSS/g, `import './${option.fullCSSFileName}';`);
             } else {
-                return replacedContent.replace(/\/\/ImportYourCSS/g, "");
+                return replacedContent.replace(/\/\/ImportYourCSS/g, ""); // Clear comment in the template file
             }
 
         }, extraOption)
@@ -282,7 +277,7 @@ function generateComponent(componentName = null, option = { componentType: "" },
  * A full component that is a directory with *.js, *.css are within.
  * @param {*} componentName : <component-name> is <diectory-name> now.
  * @param {*} option : {
- *      componentType: '' // "-fc" or "-fr" // React component or React-Redux component
+ *      componentType: [-fc][-fr] // React or React-Redux component
  * }
  */
 function generateFullComponent(componentName = null, option = { componentType: "" }) {
@@ -296,7 +291,7 @@ function generateFullComponent(componentName = null, option = { componentType: "
             const newFullJSFileName = `${componentName}.js`;
             const newFullCSSFileName = `${componentName}.css`;
 
-            // Chosen comonent type - React or React-Redux
+            // Chosen component type - React or React-Redux
             let compType;
             option.componentType === "-fr" ?
                 compType = "-r" : // React-Redux component
@@ -321,7 +316,7 @@ function generateFullComponent(componentName = null, option = { componentType: "
                 return `/* CSS for ${componentName} component */`;
             }, extraOption);
 
-            // Combination all promises
+            // Combination for all promises
             Promise.all([generateJSFile, generateCSSFile])
                 .then(() => resolve(componentName))
                 .catch((err) => reject(err));

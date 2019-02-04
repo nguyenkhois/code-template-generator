@@ -10,19 +10,29 @@ function helpInformation() {
     // "CTGOptionList" is a global () variable is only using for this app.
     CTGOptionList.map((option) => {
         if (option.flag !== "-root") {
+            // Display main flags
             mainFlagContent += `\t${option.flag}\t${option.description}\n`;
+
+            // Display aliases
             aliasContent += `\t${option.flag}\t${option.alias}\n`;
+        }
 
-            if (option.subFlags.length > 0) {
+
+        // Display sub flags
+        if (option.subFlags.length > 0) {
+            if (option.flag !== "-root") {
                 subFlagContent += `\n\t${option.flag}`;
-                option.subFlags.map((subFlag, index) => {
-                    if (index !== 0) {
-                        subFlagContent += `\n\t`;
-                    }
-
-                    subFlagContent += `\t\x1b[90m${subFlag.flag}\x1b[0m   ${subFlag.description}`;
-                });
+            } else {
+                subFlagContent += "\n\t";
             }
+
+            option.subFlags.map((subFlag, index) => {
+                if (index !== 0) {
+                    subFlagContent += `\n\t`;
+                }
+
+                subFlagContent += `\t\x1b[90m${subFlag.flag}\x1b[0m\t${subFlag.description}`;
+            });
         }
     });
 
@@ -32,8 +42,6 @@ function helpInformation() {
         `\n${mainFlagContent}` +
         "\nSUB OPTIONS:" +
         `${subFlagContent}` +
-        /* "\n\t-g" +
-        "\n\t\t--no-install \tNo install dependencies when a project is generated" + */
         "\n\nALIASES:" +
         `\n${aliasContent}` +
         "\nEXAMPLES:" +
@@ -96,15 +104,7 @@ function printOutResolve(resolving) {
     }
 }
 
-/**
- * Custom error object structure
- * @param {*} error = {
- *      "code": "err.message"
- * }
- */
 function printOutReject(error) {
-    console.log(error);
-
     filterByProperty(errorCodeList, "code", error.code)
         .then((result) => {
             if (result.length === 1) {

@@ -41,7 +41,7 @@ const errorCodeList = [
     {
         code: "c002",
         error: "The component name is empty",
-        solution: `You may want to use the command \x1b[33mgenerate [-c][-r] <component-name.js>\x1b[0m for the component generation.
+        solution: `You may want to use the command \x1b[33mgenerate <-c>[<-r>] <component-name.js>\x1b[0m for the component generation.
             \n${helpCommandText}`
     },
 
@@ -55,7 +55,7 @@ const errorCodeList = [
     {
         code: "fu002",
         error: "The component name is empty",
-        solution: `You may want to use the command \x1b[33mgenerate [-fc][-fr] <component-name>\x1b[0m for the component generation.
+        solution: `You may want to use the command \x1b[33mgenerate <-fc>[<-fr>] <component-name>\x1b[0m for the component generation.
             \n${helpCommandText}`
     },
 

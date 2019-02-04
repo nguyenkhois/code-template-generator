@@ -105,8 +105,8 @@ function optionParse() {
     optionDefinition("-u")("--update")("Install the latest stable version");
 
     // Sub flags definition - (<main-flag>)(<sub-flag>)([sub-flag-description])
-    optionSubFlag("-root")("--no-install")("No install git support and dependencies when a project is generated");
-    optionSubFlag("-g")("--no-install")("No install dependencies for generated project");
+    optionSubFlag("-root")("--no-install")("No run git init and no install dependencies");
+    optionSubFlag("-g")("--no-install")("No install dependencies");
 
     // Using for the command analysis -> commandParse()
     getSupportedSubFlagList();
