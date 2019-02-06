@@ -1,30 +1,31 @@
 # code-template-generator
 [![Node.js version](https://img.shields.io/node/v/code-template-generator.svg?style=flat)](https://nodejs.org)   [![code-template-generator](https://img.shields.io/npm/v/code-template-generator.svg?style=flat)](https://www.npmjs.com/package/code-template-generator/)
 
+## Table of contents
+1. Introduction
+    * [Screenshot](#screenshot)
+    * [What's new in version 2.1.x](#whats-new-in-version-21x)
+2. [Main features](#main-features)
+    * [Supported project templates](#supported-project-templates)
+    * [Supported component templates](#supported-component-templates)
+3. [Installation](#installation)
+4. [Using](#using)
+    * [Sub option](#sub-option)
+    * [Aliases](#aliases)
+5. [Examples](#examples)
+6. [Thanks you!](#thank-you)
+
+## 1. Introduction
 This is the lightweight React code template generator that has two main parts in one npm package:
 * Project template generation that has a part of the [Build environments](https://github.com/nguyenkhois/build-environments) project.
 * Code template generation.
 
 You have more choice for your development environment. It makes your life easier.
 
-## Table of contents
-* [Screenshot](#screenshot)
-* [What's new in version 2.1.x](#whats-new-in-version-21x)
-* [Main features](#main-features)
-    * [Supported project templates](#supported-project-templates)
-    * [Supported component templates](#supported-component-templates)
-* [Installation](#installation)
-* [Using](#using)
-    * [Sub option](#sub-option)
-    * [Aliases](#aliases)
-* [Breaking changes](#breaking-changes)
-* [Examples](#examples)
-* [Thanks you!](#thank-you)
+### Screenshot
+![Demo](./assets/screenshot.gif)
 
-## Screenshot
-![Demo](demonew.gif)
-
-## What's new in version 2.1.x
+### What's new in version 2.1.x
 * New features:
     * `generate -u` to check and install automatic the latest stable version.
         * Administrator permission is required when you run this command.
@@ -39,7 +40,7 @@ You have more choice for your development environment. It makes your life easier
     * Resolving handling.
     * Error handling.
 
-## Main features
+## 2. Main features
 * Project template generation:
     * Without Git support.
     * With Git support -> It runs automatically command `git init` and generates a `.gitignore` file while the project is generated.
@@ -59,16 +60,16 @@ You have more choice for your development environment. It makes your life easier
     * You don't need to care about the distribution directory `/dist`. The things you care are only in the source directory `/src`.
     * Anti-caching.
 
-### Supported project templates:
+### Supported project templates
 |Templates|Main dependencies|
 |---|---|
 |react-advance|Babel 7, Babel Loader 8, SplitChunksPlugin for code splitting|
 |react-simple|Babel 7, Babel Loader 8|
 |react-typescript|TypeScript 3, awesome-typescript-loader|
 
-You can view more details about these project templates on this repository [Build environments](https://github.com/nguyenkhois/build-environments).
+You can view more details about these project templates in this repository [Build environments](https://github.com/nguyenkhois/build-environments).
 
-### Supported component templates:
+### Supported component templates
 |Component|React|React-Redux (*)|Description|
 |---|:---:|:---:|---|
 |Single|X|X|A file with these supported extension `*.js, *.jsx`.|
@@ -76,10 +77,14 @@ You can view more details about these project templates on this repository [Buil
 
 _(*) You install and config Redux, React-Redux by yourself._
 
-## Installation
+## 3. Installation
 `$ npm i -g code-template-generator`
 
-## Using
+System requirements:
+* The minimum supported Node.js version is 8.3.0 (Node.js LTS is a good choice for many reasons).
+* Administrator permission is required when you run the command `$ generate -u` for the latest stable version updating.
+
+## 4. Using
 `$ generate [option] <project-name>[<component-name>]`
 
 | Argument | Used with | Description |
@@ -95,9 +100,8 @@ _(*) You install and config Redux, React-Redux by yourself._
 |`-help`|-|View the help information|
 |`-u`|-| Automatic update checking and installation for the latest stable version (*) |
 
-(*) Administrator permission is required for the automatic updating. Here is example for MacOS and Ubuntu:
+(*) Administrator permission is required. Here is an example for MacOS and Ubuntu system:
 * `$ sudo generate -u`
-* `$ sudo generate --update`
 
 ### Sub option
 
@@ -121,14 +125,7 @@ _(*) You install and config Redux, React-Redux by yourself._
 |`-help`|`--help`|
 |`-u`|`--update`|
 
-## Breaking changes:
-- Removed the project template `react-babel-6`.
-- Changed the `git` support option.
-    * Version 1: `$ generate react-counter git`
-    * Version 2: `$ generate -g react-counter`
-- The minimum supported Node.js version is 8.3.0 (Node.js LTS is a good choice for many reasons).
-
-## Examples
+## 5. Examples
 
 ````
 // Project
@@ -148,12 +145,12 @@ $ generate -fr CartComponent
 
 // Other
 $ generate --gitignore  // A .gitignore file
-$ generate -v           // Installed version
-$ generate -help        // Help information
-$ generate --update     // Check and install automatic the latest stable version
+$ generate -v           // View the installed version
+$ generate -help        // View the help information
+$ generate --update     // Check and install the latest stable version
 ````
 
-## Thank you!
+## 6. Thank you!
 Special thanks to [Harriet Ryder](https://medium.com/northcoders/creating-a-project-generator-with-node-29e13b3cd309)!
 
 Many thanks to [Commander.js](https://github.com/tj/commander.js) for the inspiration.
