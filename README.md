@@ -57,7 +57,7 @@ You have more choice for your development environment. It makes your life easier
     * Image handling.
     * CSS, JS code injected automatic into HTML template.
     * Hot Module Replacement (HMR) is enabled.
-    * You don't need to care about the distribution directory `/dist`. The things you care are only in the source directory `/src`.
+    * You don't need to care about the distribution directory `/dist`. The things you care are only the source directory `/src`.
     * Anti-caching.
 
 ### Supported project templates
