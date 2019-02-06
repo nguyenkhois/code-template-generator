@@ -66,10 +66,10 @@ function helpInformation() {
 
 function printUpdateMessage(latestVersion) {
     const message = "\n" +
-        "\t---------------------------------------------------\n" +
-        `\t| \x1b[33mThe latest stable version ${latestVersion} is available\x1b[0m.   |\n` +
-        "\t| Run \x1b[36mnpm i -g code-template-generator\x1b[0m to update. |\n" +
-        "\t---------------------------------------------------\n";
+        "\t---------------------------------------------------------\n" +
+        `\t|    \x1b[33mThe latest stable version ${latestVersion} is available\x1b[0m.\t|\n` +
+        "\t|    Run \x1b[36mnpm i -g code-template-generator\x1b[0m to update.\t|\n" +
+        "\t---------------------------------------------------------\n";
     console.log(message);
 }
 
