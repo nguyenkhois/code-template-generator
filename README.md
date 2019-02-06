@@ -2,18 +2,18 @@
 [![Node.js version](https://img.shields.io/node/v/code-template-generator.svg?style=flat)](https://nodejs.org)   [![code-template-generator](https://img.shields.io/npm/v/code-template-generator.svg?style=flat)](https://www.npmjs.com/package/code-template-generator/)
 
 ## Table of contents
-1. Introduction
+1. [Introduction](#1-introduction)
     * [Screenshot](#screenshot)
     * [What's new in version 2.1.x](#whats-new-in-version-21x)
-2. [Main features](#main-features)
+2. [Main features](#2-main-features)
     * [Supported project templates](#supported-project-templates)
     * [Supported component templates](#supported-component-templates)
-3. [Installation](#installation)
-4. [Using](#using)
+3. [Installation](#3-installation)
+4. [Using](#4-using)
     * [Sub option](#sub-option)
     * [Aliases](#aliases)
-5. [Examples](#examples)
-6. [Thanks you!](#thank-you)
+5. [Examples](#5-examples)
+6. [Thanks you!](#6-thank-you)
 
 ## 1. Introduction
 This is the lightweight React code template generator that has two main parts in one npm package:
