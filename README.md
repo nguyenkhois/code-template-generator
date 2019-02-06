@@ -66,6 +66,8 @@ You have more choice for your development environment. It makes your life easier
 |react-simple|Babel 7, Babel Loader 8|
 |react-typescript|TypeScript 3, awesome-typescript-loader|
 
+You can view more details about these project templates on this repository [Build environments](https://github.com/nguyenkhois/build-environments).
+
 ### Supported component templates:
 |Component|React|React-Redux (*)|Description|
 |---|:---:|:---:|---|
@@ -93,7 +95,7 @@ _(*) You install and config Redux, React-Redux by yourself._
 |`-help`|-|View the help information|
 |`-u`|-| Automatic update checking and installation for the latest stable version (*) |
 
-(*) Administrator permission is required for the automatic updating. Example for MacOS and Ubuntu:
+(*) Administrator permission is required for the automatic updating. Here is example for MacOS and Ubuntu:
 * `$ sudo generate -u`
 * `$ sudo generate --update`
 
@@ -103,8 +105,8 @@ _(*) You install and config Redux, React-Redux by yourself._
 
 |Main flag|Sub flag|Used with|Description|
 |:---:|:---:|:---:|---|
-|`-g`|`--no-install`|`<project-name>`|Generate a project with Git support but without installation of dependencies|
 |-|`--no-install`|`<project-name>`|Generate a project without both Git support and installation of dependencies|
+|`-g`|`--no-install`|`<project-name>`|Generate a project with Git support but without installation of dependencies|
 
 ### Aliases
 |Argument|Alias|

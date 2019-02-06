@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Hello } from './Hello';
+import Hello from './Hello';
 
-export default class App extends Component {
+class App extends Component {
     //Do stuff
     
     //Render
@@ -11,3 +11,5 @@ export default class App extends Component {
         );
     }
 };
+
+export default App;
