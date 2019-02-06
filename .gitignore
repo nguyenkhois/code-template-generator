@@ -7,4 +7,5 @@ package-lock.json
 docs
 
 # Test result's prefix
+_Test*
 _test*
