@@ -4,12 +4,12 @@ const errorCodeList = [
     // For name
     {
         code: "n001",
-        error: "The input name is empty",
+        error: "The input name is invalid",
         solution: ""
     },
     {
         code: "n002",
-        error: "The input name is invalid",
+        error: "The input name is empty",
         solution: ""
     },
 
@@ -98,6 +98,38 @@ const errorCodeList = [
         error: "EACCES: permission denied. The operation was rejected by your operating system",
         solution: "You may want to try again by using administrator permission." +
             "\nExample: \x1b[33msudo generate --update\x1b[0m (Using \x1b[33msudo\x1b[0m on MacOS or Ubuntu system)"
+    },
+
+    // For input asset path
+    {
+        code: "pa001",
+        error: "The input path is invalid",
+        solution: ""
+    },
+    {
+        code: "pa002",
+        error: "The input path is empty",
+        solution: ""
+    },
+    {
+        code: "pa003",
+        error: "Unknown command or missing the sub option",
+        solution: `\n${helpCommandText}`
+    },
+    {
+        code: "pa004",
+        error: "The path is not found",
+        solution: `You may want to check again your path.\n${helpCommandText}`
+    },
+    {
+        code: "pa005",
+        error: "The asset path is not defined",
+        solution: `You may want to check again your path.\n${helpCommandText}`
+    },
+    {
+        code: "pa006",
+        error: "Can not retrieve your assets",
+        solution: `You may want to check again your current work directory and assets.\n${helpCommandText}`
     }
 ];
 

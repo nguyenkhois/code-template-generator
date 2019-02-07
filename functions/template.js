@@ -90,26 +90,24 @@ function generateTemplate(projectName = "", option = { gitSupport: false, subFla
     });
 }
 
-async function createDirectoryContents(templatePath, newProjectPath) {
-    const filesToCreate = fs.readdirSync(templatePath);
+async function createDirectoryContents(sourceDirPath, desDirPath) {
+    const filesToCreate = fs.readdirSync(sourceDirPath);
 
-    filesToCreate.forEach((file) => {
-        const origFilePath = `${templatePath}/${file}`;
+    filesToCreate.forEach((item) => {
+        const sourceItemPath = `${sourceDirPath}/${item}`;
+        const writePath = `${desDirPath}/${item}`;
 
         // get stats about the current file
-        const stats = fs.statSync(origFilePath);
+        const stats = fs.statSync(sourceItemPath);
 
         if (stats.isFile()) {
-            const contents = fs.readFileSync(origFilePath);
-            const writePath = `${newProjectPath}/${file}`;
-
+            const contents = fs.readFileSync(sourceItemPath);
             fs.writeFileSync(writePath, contents);
-
         } else if (stats.isDirectory()) {
-            fs.mkdirSync(`${newProjectPath}/${file}`);
+            fs.mkdirSync(writePath);
 
             // recursive call
-            createDirectoryContents(`${templatePath}/${file}`, `${newProjectPath}/${file}`);
+            createDirectoryContents(sourceItemPath, writePath);
         }
     });
 }

@@ -1,5 +1,6 @@
 const library = require("./library");
-const regularExpression = /^(?![-.])([A-Za-z-_.\d])+([A-Za-z\d])+$/;
+const regularExpression = /^(?![-.])([A-Za-z-_.\d])+([A-Za-z\d])+$/gi;
+const pathRegExr = /^(?![-.])([A-Za-z-_.\d/])+([A-Za-z\d/\\:])+$/gi;
 const supportedTemplate = [
     {
         "name": "react-advance",
@@ -22,5 +23,6 @@ const supportedTemplate = [
 module.exports = {
     ...library,
     regularExpression,
-    supportedTemplate
+    supportedTemplate,
+    pathRegExr
 };

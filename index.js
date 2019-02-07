@@ -3,7 +3,7 @@
 const { installedVersion, autoUpdateCheck, checkAndInstallStableUpdate, validateInputName,
     helpInformation, printUpdateMessage, printOutResolve, printOutReject,
     generateTemplate, generateGitignoreFile, generateComponent, generateFullComponent,
-    errorIdentification
+    errorIdentification, storeConfigs, retrieveAsset
 } = require("./functions/");
 
 const { command, option, subFlag } = require("./functions/commandHandling");
@@ -112,6 +112,28 @@ function MainApp() {
                     checkAndInstallStableUpdate()
                         .then((result) => {
                             resolve({ type: "update", message: result.message });
+                        })
+                        .catch((err) => reject(err));
+
+                    break;
+
+                case "-cf":
+                    const option = {
+                        "subFlags": subFlag.filterByMainFlag("-cf")(inputSubFlags)
+                    };
+
+                    storeConfigs(lastArgument, option)
+                        .then((result) => {
+                            resolve({ type: "config", message: result });
+                        })
+                        .catch((err) => reject(err));
+
+                    break;
+
+                case "-m":
+                    retrieveAsset()
+                        .then((result) => {
+                            resolve({ type: "asset", message: result });
                         })
                         .catch((err) => reject(err));
 

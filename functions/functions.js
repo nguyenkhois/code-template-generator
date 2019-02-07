@@ -77,6 +77,23 @@ function validateInputName(input) {
     });
 }
 
+function validateInputPath(input){
+    const { pathRegExr } = require("../common/");
+
+    return new Promise(function (resolve, reject) {
+        if (input === undefined || input === null || input === "") {
+            reject(new AppError("pa002"));
+            return;
+        }
+
+        if (pathRegExr.test(input)) {
+            resolve(true);
+        } else {
+            reject(new AppError("pa001"));
+        }
+    });
+}
+
 function checkAndInstallStableUpdate() {
     return new Promise((resolve, reject) => {
         let resolvingContent = "";
@@ -119,5 +136,6 @@ module.exports = {
     queryLatestVersion,
     autoUpdateCheck,
     checkAndInstallStableUpdate,
-    validateInputName
+    validateInputName,
+    validateInputPath
 };

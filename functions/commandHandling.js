@@ -103,10 +103,13 @@ function optionParse() {
     optionDefinition("-v")("--version")("View the installed version");
     optionDefinition("-help")("--help")("View the help information");
     optionDefinition("-u")("--update")("Install the latest stable version");
+    optionDefinition("-cf")("--config")("Config for this app");
+    optionDefinition("-m")("--my-asset")("Retrieve assets from a specific directory");
 
     // Sub flags definition - (<main-flag>)(<sub-flag>)([sub-flag-description])
     optionSubFlag("-root")("--no-install")("No run git init and no install dependencies");
     optionSubFlag("-g")("--no-install")("No install dependencies");
+    optionSubFlag("-cf")("--set-asset")("Store asset directory path into config file");
 
     // Using for the command analysis -> commandParse()
     getSupportedSubFlagList();
@@ -125,13 +128,14 @@ function commandParse(processArgv) {
     if (commandLength > 0) {
         let subFlags = [];
         let firstArgument = null;
+        let lastArgument = null;
 
         const betweenArgument =
             commandLength > 2 ?
                 commandArr.slice(1, commandLength - 1) :
                 null;
 
-        const lastArgument =
+        const lastArgumentTemp =
             commandLength > 1 ?
                 commandArr[commandLength - 1] :
                 null;
@@ -150,6 +154,7 @@ function commandParse(processArgv) {
             firstArgument = commandArr[0];
         }
 
+        // Process the between argument
         if (betweenArgument !== null && betweenArgument.length > 0) {
             betweenArgument.map((item) => {
                 if (supportedSubFlags.indexOf(item) > -1 &&
@@ -160,9 +165,16 @@ function commandParse(processArgv) {
             });
         }
 
+        // Process the last argument
+        if (supportedSubFlags.indexOf(lastArgumentTemp) > -1) {
+            subFlags = subFlags.concat([lastArgumentTemp]);
+        } else {
+            lastArgument = lastArgumentTemp;
+        }
+
         return {
             ...defaultReturn,
-            "firstArgument": supportedSubFlags.indexOf(firstArgument) > -1 ? null : firstArgument,
+            "firstArgument": firstArgument,
             "lastArgument": lastArgument,
             "inputSubFlags": subFlags,
             "commandLength": commandLength

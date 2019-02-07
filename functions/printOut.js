@@ -99,6 +99,16 @@ function printOutResolve(resolving) {
             console.log(resolving.message + "\n");
             break;
 
+        case "config":
+            console.log(`\n\x1b[32mDone!\x1b[0m "${resolving.message}" is saved successfully.\n`);
+            break;
+
+        case "asset":
+            console.log(`\n\x1b[32mDone!\x1b[0m You have successfully retrieved your asset(s).` +
+                `\nPassed: ${resolving.message.done.length} ${resolving.message.done.length > 0 ? "(" + resolving.message.done + ")" : ''}` +
+                ` - Fail: ${resolving.message.fail.length} ${resolving.message.fail.length > 0 ? "(" + resolving.message.fail + ")" : ''}\n`);
+            break;
+
         default:
             break;
     }
