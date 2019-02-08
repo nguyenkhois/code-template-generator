@@ -1,8 +1,7 @@
+'use strict';
 const path = require("path");
-const fs = require("fs");
-const inquirer = require("inquirer");
+const { fs, inquirer, CURR_DIR, createDirectoryContents } = require("../common/");
 
-const CURR_DIR = process.cwd();
 const templatePath = path.join(__dirname, "../templates/");
 const templateFilePath = path.join(__dirname, "../templates-files/");
 
@@ -56,7 +55,7 @@ function generateTemplate(projectName = "", option = { gitSupport: false, subFla
                 if (!fs.existsSync(newProjectPath)) {
                     fs.mkdirSync(newProjectPath);
 
-                    createDirectoryContents(chosenTemplatePath, newProjectPath)
+                    createDirectoryContents(fs, chosenTemplatePath, newProjectPath)
                         .then(() => {
                             // Generate .gitignore file and run the "git init" command
                             if (option.gitSupport === true) {
@@ -87,28 +86,6 @@ function generateTemplate(projectName = "", option = { gitSupport: false, subFla
                 }
             })
             .catch((err) => reject(err));
-    });
-}
-
-async function createDirectoryContents(sourceDirPath, desDirPath) {
-    const filesToCreate = fs.readdirSync(sourceDirPath);
-
-    filesToCreate.forEach((item) => {
-        const sourceItemPath = `${sourceDirPath}/${item}`;
-        const writePath = `${desDirPath}/${item}`;
-
-        // get stats about the current file
-        const stats = fs.statSync(sourceItemPath);
-
-        if (stats.isFile()) {
-            const contents = fs.readFileSync(sourceItemPath);
-            fs.writeFileSync(writePath, contents);
-        } else if (stats.isDirectory()) {
-            fs.mkdirSync(writePath);
-
-            // recursive call
-            createDirectoryContents(sourceItemPath, writePath);
-        }
     });
 }
 

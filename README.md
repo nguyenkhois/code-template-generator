@@ -4,7 +4,7 @@
 ## Table of contents
 1. [Introduction](#1-introduction)
     * [Screenshot](#screenshot)
-    * [What's new in version 2.1.x](#whats-new-in-version-21x)
+    * [What's new in version 2.2.x](#whats-new-in-version-22x)
 2. [Main features](#2-main-features)
     * [Supported project templates](#supported-project-templates)
     * [Supported component templates](#supported-component-templates)
@@ -25,16 +25,18 @@ You have more choice for your development environment. It makes your life easier
 ### Screenshot
 ![Demo](./assets/screenshot.gif)
 
-### What's new in version 2.1.x
-* New features:
-    * `generate -u` to check and install automatic the latest stable version.
-        * Administrator permission is required when you run this command.
-        * Example for MacOS and Ubuntu: `$ sudo generate --update`
-    * `simple-express-server` is new project template.
-        * You don't need to use `body-parser` because Express 4.x has a built-in middleware [`express.json([options])`](https://expressjs.com/en/api.html#express.json) that is based on.
-        * CORS is installed by default.
-    * Aliases for the options.
-    * Sub option `--no-install` is used when you don't need to install dependencies for a generated project.
+### What's new in version 2.2.x
+* Why?
+    * You may have your own libraries, code templates and many more like .gitignore, .editorconfig, .eslinttrc.json, .eslintignore,... You need to use them while you are coding or when you start a new project.
+    * You don't want do the same things (copy/ paste) many times.
+    * This feature makes you happy ;-)
+* New feature:
+    * New options: `-cf, --config` and `-m, --my-asset`.
+    * Using:
+        * `generate -cf --set-asset <path-to-your-directory>`: to store the path to your directory that has your files, directories. We say at they are your assets. View examples:
+            * Windows system: `generate -cf --set-asset "C:\MyAssets"`.
+            * Linux system: `generate -cf --set--asset "/home/user/myassets"`
+        * `generate -m`: to retrieve your assets into the current work directory. You can choose them by selecting. That's all.
 * Improvement:
     * Performance.
     * Resolving handling.

@@ -17,7 +17,6 @@ function helpInformation() {
             aliasContent += `\t${option.flag}\t${option.alias}\n`;
         }
 
-
         // Display sub flags
         if (option.subFlags.length > 0) {
             if (option.flag !== "-root") {
@@ -104,9 +103,26 @@ function printOutResolve(resolving) {
             break;
 
         case "asset":
-            console.log(`\n\x1b[32mDone!\x1b[0m You have successfully retrieved your asset(s).` +
-                `\nPassed: ${resolving.message.done.length} ${resolving.message.done.length > 0 ? "(" + resolving.message.done + ")" : ''}` +
-                ` - Fail: ${resolving.message.fail.length} ${resolving.message.fail.length > 0 ? "(" + resolving.message.fail + ")" : ''}\n`);
+            let results = {};
+            if (Object.keys(resolving).length > 0) {
+                if (resolving.message !== undefined &&
+                    resolving.message.passed !== undefined &&
+                    resolving.message.failure !== undefined) {
+                    results = {
+                        "passed": resolving.message.passed || [],
+                        "failure": resolving.message.failure || [],
+                        "passedQuantity": resolving.message.passed.length,
+                        "failureQuantity": resolving.message.failure.length
+                    };
+                }
+            }
+
+            if (Object.keys(results).length > 0) {
+                console.log(`\n\x1b[32mDone!\x1b[0m You have successfully retrieved your asset(s).` +
+                    `\n\x1b[36mPassed:\x1b[0m ${results.passedQuantity} ${results.passedQuantity > 0 ? "(" + results.passed + ")" : ''}` +
+                    `${results.failureQuantity > 0 ? " - \x1b[31mFailure:\x1b[0m " + results.failureQuantity + " (" + results.failure + ")" : ''}\n`);
+            }
+
             break;
 
         default:

@@ -104,12 +104,12 @@ const errorCodeList = [
     {
         code: "pa001",
         error: "The input path is invalid",
-        solution: ""
+        solution: `\n${helpCommandText}`
     },
     {
         code: "pa002",
         error: "The input path is empty",
-        solution: ""
+        solution: `\n${helpCommandText}`
     },
     {
         code: "pa003",
