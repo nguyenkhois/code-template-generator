@@ -34,9 +34,12 @@ You have more choice for your development environment. It makes your life easier
     * New options: `-cf, --config` and `-m, --my-asset`.
     * Using:
         * `generate -cf --set-asset <path-to-your-directory>`: to store the path to a directory that has your files, sub directories. We say at they are your assets. View examples:
-            * Windows system: `generate -cf --set-asset "C:\Users\YourName\MyAssets"`.
-            * Linux system: `generate -cf --set--asset "/home/yourname/myassets"`
+            * Windows: `generate -cf --set-asset "C:\Users\YourName\MyAssets"`.
+            * Ubuntu: `generate -cf --set--asset "/home/yourname/myassets"`
         * `generate -m`: to retrieve your assets into the current work directory. You can choose them by selecting. That's all.
+    * Config file `code-template-generator.json` is stored at your __Home directory__ and it depends on your platform. Examples:
+        * Windows: `C:\Users\<YourName>\code-template-generator.json`.
+        * Ubuntu: `/home/<yourname>/code-template-generator.json`.
 * Improvement:
     * Performance.
     * Resolving handling.
