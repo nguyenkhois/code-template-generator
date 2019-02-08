@@ -30,7 +30,7 @@ You have more choice for your development environment. It makes your life easier
     * You may have your own libraries, code templates and many more like .gitignore, .editorconfig, .eslinttrc.json, .eslintignore,... You need to use them while you are coding or when you start a new project.
     * You don't want do the same things (copy/ paste) many times.
     * This feature makes you happy ;-)
-* New feature:
+* New features:
     * New options: `-cf, --config` and `-m, --my-asset`.
     * Using:
         * `generate -cf --set-asset <path-to-your-directory>`: to store the path to a directory that has your files, sub directories. We say at they are your assets. View examples:
