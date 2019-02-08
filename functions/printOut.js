@@ -53,8 +53,8 @@ function helpInformation() {
         "\n\t$ generate -fc \x1b[33mProductComponent\x1b[0m" +
         "\n\t$ generate -fr \x1b[33mCartComponent\x1b[0m" +
         "\n" +
-        "\n\t$ generate -cf \x1b[90m--set-asset\x1b[0m \x1b[33m'/home/name/myassets'\x1b[0m (Ubuntu)" +
-        "\n\t$ generate -cf \x1b[90m--set-asset\x1b[0m \x1b[33m'C:\\Users\\name\\myassets'\x1b[0m (Windows)" +
+        "\n\t$ generate -cf \x1b[90m--set-asset\x1b[0m \x1b[33m\"/home/name/myassets\"\x1b[0m (Ubuntu)" +
+        "\n\t$ generate -cf \x1b[90m--set-asset\x1b[0m \x1b[33m\"C:\\Users\\name\\myassets\"\x1b[0m (Windows)" +
         "\n\t$ generate -m" +
         "\n" +
         "\n\t$ generate --gitignore" +
@@ -121,8 +121,13 @@ function printOutResolve(resolving) {
 
             if (Object.keys(results).length > 0) {
                 console.log(`\n\x1b[32mDone!\x1b[0m You have successfully retrieved your asset(s).` +
-                    `\n\x1b[36mPassed:\x1b[0m ${results.passedQuantity} ${results.passedQuantity > 0 ? "(" + results.passed + ")" : ''}` +
-                    `${results.failureQuantity > 0 ? " - \x1b[31mFailure:\x1b[0m " + results.failureQuantity + " (" + results.failure + ")" : ''}\n`);
+                    `\n\n\x1b[36mPassed:\x1b[0m ${results.passedQuantity} ${results.passedQuantity > 0 ?
+                        "(" + results.passed + ")" : ''}` +
+
+                    `${results.failureQuantity > 0 ?
+                        "\n\n\x1b[31mFailure:\x1b[0m " + results.failureQuantity + " (" + results.failure + ")" +
+                        "\nIt may be already exist in the current work directory." :
+                        ''}\n`);
             }
 
             break;

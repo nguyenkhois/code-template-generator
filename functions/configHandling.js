@@ -76,7 +76,7 @@ function retrieveAsset(filePath = configFilePath) {
                             .prompt([
                                 {
                                     type: 'checkbox',
-                                    message: 'Choose your assets',
+                                    message: 'Choose your asset(s)',
                                     name: 'userAssetList',
                                     choices: dirContents || [],
                                     validate: function (answer) {

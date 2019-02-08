@@ -19,8 +19,8 @@
   "dependencies": {
     "@types/react": "^16.8.2",
     "@types/react-dom": "^16.8.0",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0"
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1"
   },
   "devDependencies": {
     "awesome-typescript-loader": "^5.2.1",
@@ -30,8 +30,8 @@
     "mini-css-extract-plugin": "^0.5.0",
     "source-map-loader": "^0.2.4",
     "style-loader": "^0.23.1",
-    "typescript": "^3.3.1",
-    "webpack": "^4.29.1",
+    "typescript": "^3.3.3",
+    "webpack": "^4.29.3",
     "webpack-cli": "^3.2.3",
     "webpack-dev-server": "^3.1.14",
     "webpack-merge": "^4.2.1",

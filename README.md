@@ -158,8 +158,8 @@ $ generate -fc ProductComponent
 $ generate -fr CartComponent
 
 // Assets
-$ generate -cf --set-asset '/home/name/myassets' (Ubuntu)
-$ generate -cf --set-asset 'C:\Users\name\myassets' (Windows)
+$ generate -cf --set-asset "/home/name/myassets" (Ubuntu)
+$ generate -cf --set-asset "C:\Users\name\myassets" (Windows)
 $ generate -m   // Retrieve asset(s)
 
 // Other

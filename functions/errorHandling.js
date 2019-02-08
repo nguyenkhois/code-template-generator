@@ -1,4 +1,4 @@
-const helpCommandText = "Tip! Run \x1b[33mgenerate -help\x1b[0m to view more information";
+const helpCommandText = "\nTip! Run \x1b[33mgenerate -help\x1b[0m to view more information";
 
 const errorCodeList = [
     // For name
@@ -70,7 +70,7 @@ const errorCodeList = [
     {
         code: "p001",
         error: "The project name is invalid",
-        solution: `It may only include letters, numbers, underscores and hashes. You may want to choose another project name.
+        solution: `It may only include letters, numbers, underscores and dashes but it does not end with special characters. You may want to choose another project name.
             \n${helpCommandText}`
     },
     {
@@ -84,7 +84,7 @@ const errorCodeList = [
     {
         code: "i001",
         error: "Can not get the installed version",
-        solution: "You may want to install the latest stable version"
+        solution: "You may want to try install the latest stable version to fix it"
     },
     {
         code: "i002",
@@ -103,33 +103,33 @@ const errorCodeList = [
     // For input asset path
     {
         code: "pa001",
-        error: "The input path is invalid",
-        solution: `\n${helpCommandText}`
+        error: "The local path is invalid",
+        solution: `It may only include letters, numbers, underscores and dashes but it does not end with special characters.\n${helpCommandText}`
     },
     {
         code: "pa002",
-        error: "The input path is empty",
-        solution: `\n${helpCommandText}`
+        error: "The local path is empty",
+        solution: `Syntax is \x1b[33mgenerate -cf \x1b[90m--set-asset\x1b[0m \x1b[33m<path>\x1b[0m.\n${helpCommandText}`
     },
     {
         code: "pa003",
         error: "Unknown command or missing the sub option",
-        solution: `\n${helpCommandText}`
+        solution: `Example for syntax: \x1b[33mgenerate -cf \x1b[90m--set-asset\x1b[0m \x1b[33m<path>\x1b[0m. \n${helpCommandText}`
     },
     {
         code: "pa004",
-        error: "The path is not found",
-        solution: `You may want to check again your path.\n${helpCommandText}`
+        error: "The local path is not found",
+        solution: `You may want to check again your local path.\n${helpCommandText}`
     },
     {
         code: "pa005",
-        error: "The asset path is not defined",
-        solution: `You may want to check again your path.\n${helpCommandText}`
+        error: "The local path for your asset(s) is not found",
+        solution: `You need define the path by command \x1b[33mgenerate -cf --set-asset <path>\x1b[0m.\n${helpCommandText}`
     },
     {
         code: "pa006",
-        error: "Can not retrieve your assets",
-        solution: `You may want to check again your current work directory and assets.\n${helpCommandText}`
+        error: "Can not retrieve your asset(s)",
+        solution: `It may be already exist in the current work directory.\n${helpCommandText}`
     }
 ];
 
