@@ -35,7 +35,7 @@ function storeConfigs(data, option = {}) {
                 validateInputPath(data)
                     .then(() => {
                         // Store config
-                        if (fs.existsSync(data)) {
+                        if (fs.existsSync(data) && fs.statSync(data).isDirectory()) {
                             const configFileContents = fs.readFileSync(configFilePath, "utf8");
                             let configs = JSON.parse(configFileContents);
 
