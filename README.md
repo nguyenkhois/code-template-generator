@@ -33,7 +33,7 @@ You have more choice for your development environment. It makes your life easier
 * New feature:
     * New options: `-cf, --config` and `-m, --my-asset`.
     * Using:
-        * `generate -cf --set-asset <path-to-your-directory>`: to store the path to your directory that has your files, directories. We say at they are your assets. View examples:
+        * `generate -cf --set-asset <path-to-your-directory>`: to store the path to a directory that has your files, sub directories. We say at they are your assets. View examples:
             * Windows system: `generate -cf --set-asset "C:\MyAssets"`.
             * Linux system: `generate -cf --set--asset "/home/user/myassets"`
         * `generate -m`: to retrieve your assets into the current work directory. You can choose them by selecting. That's all.
