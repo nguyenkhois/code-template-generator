@@ -107,18 +107,22 @@ System requirements:
 |`-v`|-|View the installed version|
 |`-help`|-|View the help information|
 |`-u`|-| Automatic update checking and installation for the latest stable version (*) |
+|`-cf`|`--set-asset <path>`|Store the asset path into config file|
+|`-m`|-|Retrieve asset(s) into the current work directory|
 
 (*) Administrator permission is required. Here is an example for MacOS and Ubuntu system:
 * `$ sudo generate -u`
 
-### Sub option
+### Sub options
 
-* `--no-install`: no install dependencies when a project is generated.
+* `--no-install` (No install dependencies)
+* `--set-asset`
 
 |Main flag|Sub flag|Used with|Description|
 |:---:|:---:|:---:|---|
 |-|`--no-install`|`<project-name>`|Generate a project without both Git support and installation of dependencies|
 |`-g`|`--no-install`|`<project-name>`|Generate a project with Git support but without installation of dependencies|
+|`-cf`|`--set-asset`|`<path>`|Store the asset directory path into config file|
 
 ### Aliases
 |Argument|Alias|
@@ -132,6 +136,8 @@ System requirements:
 |`-v`|`--version`|
 |`-help`|`--help`|
 |`-u`|`--update`|
+|`-cf`|`--config`|
+|`-m`|`--my-asset`|
 
 ## 5. Examples
 
@@ -150,6 +156,11 @@ $ generate -r ReviewComponent.jsx  // React-Redux component
 // Full component -> A directory
 $ generate -fc ProductComponent
 $ generate -fr CartComponent
+
+// Assets
+$ generate -cf --set-asset '/home/name/myassets' (Ubuntu)
+$ generate -cf --set-asset 'C:\Users\name\myassets' (Windows)
+$ generate -m   // Retrieve asset(s)
 
 // Other
 $ generate --gitignore  // A .gitignore file
