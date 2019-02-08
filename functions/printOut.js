@@ -46,18 +46,20 @@ function helpInformation() {
         "\nEXAMPLES:" +
         "\n\t$ generate \x1b[33mfirst-project\x1b[0m" +
         "\n\t$ generate -g \x1b[33msecondproject\x1b[0m" +
-        "\n\t$ generate --git \x1b[33mThirdProject\x1b[0m" +
-        "\n\t$ generate -g \x1b[90m--no-install\x1b[0m \x1b[33mOtherProject\x1b[0m" +
-        "\n\t$ generate \x1b[90m--no-install\x1b[0m \x1b[33mLastProject\x1b[0m" +
+        "\n\t$ generate \x1b[90m--no-install\x1b[0m \x1b[33mOtherProject\x1b[0m" +
         "\n" +
         "\n\t$ generate -c \x1b[33mSearchComponent.js\x1b[0m" +
         "\n\t$ generate -r \x1b[33mReviewComponent.jsx\x1b[0m" +
         "\n\t$ generate -fc \x1b[33mProductComponent\x1b[0m" +
         "\n\t$ generate -fr \x1b[33mCartComponent\x1b[0m" +
         "\n" +
+        "\n\t$ generate -cf \x1b[90m--set-asset\x1b[0m \x1b[33m'/home/name/myassets'\x1b[0m (Ubuntu)" +
+        "\n\t$ generate -cf \x1b[90m--set-asset\x1b[0m \x1b[33m'C:\\Users\\name\\myassets'\x1b[0m (Windows)" +
+        "\n\t$ generate -m" +
+        "\n" +
         "\n\t$ generate --gitignore" +
-        "\n\t$ generate -v" +
-        "\n\t$ generate -help" +
+        "\n\t$ generate --version" +
+        "\n\t$ generate --help" +
         "\n\t$ generate --update";
 
     return helpContent;
