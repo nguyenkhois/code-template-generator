@@ -53,7 +53,6 @@ function configHandling(data, option = {}) {
 
 function storeConfig(data) {
     return new Promise((resolve) => {
-        // Store config
         const configFileContents = fs.readFileSync(configFilePath, "utf8");
         let configs = JSON.parse(configFileContents);
 
