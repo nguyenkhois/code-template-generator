@@ -74,52 +74,56 @@ function retrieveAsset(filePath = configFilePath) {
                     const assetPath = configs.userAssetPath;
                     getDirectoryContents(assetPath)
                         .then((dirContents) => {
-                            inquirer
-                                .prompt([
-                                    {
-                                        type: 'checkbox',
-                                        message: 'Choose your asset(s)',
-                                        name: 'userAssetList',
-                                        choices: dirContents || [],
-                                        validate: function (answer) {
-                                            if (answer.length < 1) {
-                                                return 'You must choose at least one asset or using Ctrl-C to break.';
-                                            }
+                            if (dirContents.length > 0){
+                                inquirer
+                                    .prompt([
+                                        {
+                                            type: 'checkbox',
+                                            message: 'Choose your asset(s)',
+                                            name: 'userAssetList',
+                                            choices: dirContents || [],
+                                            validate: function (answer) {
+                                                if (answer.length < 1) {
+                                                    return 'You must choose at least one asset or using Ctrl-C to break.';
+                                                }
 
-                                            return true;
+                                                return true;
+                                            }
                                         }
-                                    }
-                                ])
-                                .then((answers) => {
-                                    let passedArr = [];
-                                    let failureArr = [];
+                                    ])
+                                    .then((answers) => {
+                                        let passedArr = [];
+                                        let failureArr = [];
 
-                                    answers.userAssetList.map((item) => {
-                                        const itemFullPath = `${assetPath}/${item}`;
-                                        const writePath = `${CURR_DIR}/${item}`;
+                                        answers.userAssetList.map((item) => {
+                                            const itemFullPath = `${assetPath}/${item}`;
+                                            const writePath = `${CURR_DIR}/${item}`;
 
-                                        const stats = fs.statSync(itemFullPath);
+                                            const stats = fs.statSync(itemFullPath);
 
-                                        if (!fs.existsSync(writePath)) {
-                                            if (stats.isFile()) {
-                                                const contents = fs.readFileSync(itemFullPath);
-                                                fs.writeFileSync(writePath, contents);
-                                            } else if (stats.isDirectory()) {
-                                                fs.mkdirSync(writePath);
-                                                createDirectoryContents(fs, itemFullPath, writePath);
+                                            if (!fs.existsSync(writePath)) {
+                                                if (stats.isFile()) {
+                                                    const contents = fs.readFileSync(itemFullPath);
+                                                    fs.writeFileSync(writePath, contents);
+                                                } else if (stats.isDirectory()) {
+                                                    fs.mkdirSync(writePath);
+                                                    createDirectoryContents(fs, itemFullPath, writePath);
+                                                }
+                                                passedArr = [...passedArr, item];
+                                            } else {
+                                                failureArr = [...failureArr, item];
                                             }
-                                            passedArr = [...passedArr, item];
+                                        });
+
+                                        if (passedArr.length > 0) {
+                                            resolve({ "passed": passedArr, "failure": failureArr });
                                         } else {
-                                            failureArr = [...failureArr, item];
+                                            reject(new AppError("pa006")); // Can not retrieve asset
                                         }
                                     });
-
-                                    if (passedArr.length > 0) {
-                                        resolve({ "passed": passedArr, "failure": failureArr });
-                                    } else {
-                                        reject(new AppError("pa006")); // Can not retrieve asset
-                                    }
-                                });
+                            } else {
+                                reject(new AppError("pa007")); // Empty directory
+                            }
                         })
                         .catch((err) => reject(err));
                 } else {

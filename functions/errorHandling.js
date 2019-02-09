@@ -129,7 +129,12 @@ const errorCodeList = [
     {
         code: "pa006",
         error: "Can not retrieve your asset(s)",
-        solution: `It may be already exist in the current work directory.\n${helpCommandText}`
+        solution: `It may be already exist in the current work directory`
+    },
+    {
+        code: "pa007",
+        error: "Asset directory is empty",
+        solution: `You need have your files or sub directories in this directory`
     }
 ];
 
