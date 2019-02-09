@@ -107,22 +107,26 @@ System requirements:
 |`-v`|-|View the installed version|
 |`-help`|-|View the help information|
 |`-u`|-| Automatic update checking and installation for the latest stable version (*) |
-|`-cf`|`--set-asset <path>`|Store the asset path into config file|
-|`-m`|-|Retrieve asset(s) into the current work directory|
+|`-cf`| (**) |Using with these sub options: `--set-asset`, `--view-asset`|
+|`-m`|-|Retrieve your own asset(s) into the current work directory|
 
 (*) Administrator permission is required. Here is an example for MacOS and Ubuntu system:
 * `$ sudo generate -u`
+
+(**) View how to use with sub options that is below.
 
 ### Sub options
 
 * `--no-install` (No install dependencies)
 * `--set-asset`
+* `--view-asset`
 
 |Main flag|Sub flag|Used with|Description|
 |:---:|:---:|:---:|---|
 |-|`--no-install`|`<project-name>`|Generate a project without both Git support and installation of dependencies|
 |`-g`|`--no-install`|`<project-name>`|Generate a project with Git support but without installation of dependencies|
 |`-cf`|`--set-asset`|`<path>`|Store the asset directory path into config file|
+|`-cf`|`--view-asset`|-|View the current asset directory path|
 
 ### Aliases
 |Argument|Alias|
@@ -160,6 +164,7 @@ $ generate -fr CartComponent
 // Assets
 $ generate -cf --set-asset "/home/name/myassets" (Ubuntu)
 $ generate -cf --set-asset "C:\Users\name\myassets" (Windows)
+$ generate -cf --view-asset   // View the current asset location
 $ generate -m   // Retrieve asset(s)
 
 // Other

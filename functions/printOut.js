@@ -55,6 +55,7 @@ function helpInformation() {
         "\n" +
         "\n\t$ generate -cf \x1b[90m--set-asset\x1b[0m \x1b[33m\"/home/name/myassets\"\x1b[0m (Ubuntu)" +
         "\n\t$ generate -cf \x1b[90m--set-asset\x1b[0m \x1b[33m\"C:\\Users\\name\\myassets\"\x1b[0m (Windows)" +
+        "\n\t$ generate -cf \x1b[90m--view-asset\x1b[0m" +
         "\n\t$ generate -m" +
         "\n" +
         "\n\t$ generate --gitignore" +
