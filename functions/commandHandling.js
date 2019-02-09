@@ -110,6 +110,7 @@ function optionParse() {
     optionSubFlag("-root")("--no-install")("No run git init and no install dependencies");
     optionSubFlag("-g")("--no-install")("No install dependencies");
     optionSubFlag("-cf")("--set-asset")("Store the asset directory path");
+    optionSubFlag("-cf")("--view-asset")("View the asset directory path");
 
     // Using for the command analysis -> commandParse()
     getSupportedSubFlagList();

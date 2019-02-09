@@ -28,16 +28,34 @@ function configHandling(data, option = {}) {
     return new Promise((resolve, reject) => {
         if (Object.keys(option).length > 0 && option.subFlags !== undefined) {
 
-            // --set-asset -> Store the asset path
             if (option.subFlags.indexOf("--set-asset") > -1) {
+                // --set-asset -> Store the asset path
                 validateInputPath(data) // Local path validation
                     .then(() => {
                         if (fs.existsSync(data) && fs.statSync(data).isDirectory()) {
                             storeConfig({ "userAssetPath": data })
-                                .then(() => resolve(data))
+                                .then((result) => resolve({
+                                    "subFlag": "--set-asset",
+                                    "result": result.userAssetPath
+                                }))
                                 .catch((err) => reject(err));
                         } else {
                             reject(new AppError("pa004")); // The path is not found
+                        }
+                    })
+                    .catch((err) => reject(err));
+
+            } else if (option.subFlags.indexOf("--view-asset") > -1) {
+                // --view-asset -> View the current asset path
+                readConfigFile()
+                    .then((configs) => {
+                        if (configs.userAssetPath !== undefined) {
+                            resolve({
+                                "subFlag": "--view-asset",
+                                "result": configs.userAssetPath
+                            });
+                        } else {
+                            reject(new AppError("pa005")); // The asset path is not defined
                         }
                     })
                     .catch((err) => reject(err));
@@ -74,7 +92,7 @@ function retrieveAsset(filePath = configFilePath) {
                     const assetPath = configs.userAssetPath;
                     getDirectoryContents(assetPath)
                         .then((dirContents) => {
-                            if (dirContents.length > 0){
+                            if (dirContents.length > 0) {
                                 inquirer
                                     .prompt([
                                         {
@@ -154,9 +172,11 @@ function readConfigFile(filePath = configFilePath) {
     return new Promise((resolve, reject) => {
         if (fs.existsSync(filePath)) {
             const fileContents = fs.readFileSync(filePath, "utf8");
-            const configs = JSON.parse(fileContents);
-
-            resolve(configs);
+            if (fileContents.length > 0) {
+                resolve(JSON.parse(fileContents));
+            } else {
+                reject(new Error("File is empty"));
+            }
         } else {
             reject(new Error("Config file is not found"));
         }

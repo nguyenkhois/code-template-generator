@@ -101,7 +101,21 @@ function printOutResolve(resolving) {
             break;
 
         case "config":
-            console.log(`\n\x1b[32mDone!\x1b[0m "${resolving.message}" is saved successfully.\n`);
+            const receivedConfigInfo = resolving.message;
+            switch (receivedConfigInfo.subFlag) {
+                case "--set-asset":
+                    console.log(`\n\x1b[32mDone!\x1b[0m "\x1b[36m${receivedConfigInfo.result}\x1b[0m" is saved successfully.\n`);
+                    break;
+
+                case "--view-asset":
+                    console.log(`\nYour current asset location is ${receivedConfigInfo.result !== "" ?
+                        `\x1b[36m${receivedConfigInfo.result}\x1b[0m` : "not defined"} \n`);
+                    break;
+
+                default:
+                    break;
+            }
+
             break;
 
         case "asset":
@@ -122,10 +136,10 @@ function printOutResolve(resolving) {
             if (Object.keys(results).length > 0) {
                 console.log(`\n\x1b[32mDone!\x1b[0m You have successfully retrieved your asset(s).` +
                     `\n\n\x1b[36mPassed:\x1b[0m ${results.passedQuantity} ${results.passedQuantity > 0 ?
-                        "(" + results.passed + ")" : ''}` +
+                        `(${results.passed})` : ''}` +
 
                     `${results.failureQuantity > 0 ?
-                        "\n\n\x1b[31mFailure:\x1b[0m " + results.failureQuantity + " (" + results.failure + ")" +
+                        `\n\n\x1b[31mFailure:\x1b[0m ${results.failureQuantity} (${results.failure})` +
                         "\nIt may be already exist in the current work directory." :
                         ''}\n`);
             }
