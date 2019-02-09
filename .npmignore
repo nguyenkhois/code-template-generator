@@ -2,6 +2,7 @@
 .idea
 
 .editorconfig
+.eslintignore
 .eslintrc.json
 package-lock.json
 
