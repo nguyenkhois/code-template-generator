@@ -3,7 +3,7 @@
 const { installedVersion, autoUpdateCheck, checkAndInstallStableUpdate, validateInputName,
     helpInformation, printUpdateMessage, printOutResolve, printOutReject,
     generateTemplate, generateGitignoreFile, generateComponent, generateFullComponent,
-    errorIdentification, storeConfigs, retrieveAsset
+    errorIdentification, configHandling, retrieveAsset
 } = require("./functions/");
 
 const { command, option, subFlag } = require("./functions/commandHandling");
@@ -122,7 +122,7 @@ function MainApp() {
                         "subFlags": subFlag.filterByMainFlag("-cf")(inputSubFlags)
                     };
 
-                    storeConfigs(lastArgument, option)
+                    configHandling(lastArgument, option)
                         .then((result) => {
                             resolve({ type: "config", message: result });
                         })

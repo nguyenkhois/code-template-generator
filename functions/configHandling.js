@@ -24,26 +24,18 @@ function initialConfigFile() {
     });
 }
 
-function storeConfigs(data, option = {}) {
+function configHandling(data, option = {}) {
     return new Promise((resolve, reject) => {
-        if (Object.keys(option).length > 0) {
+        if (Object.keys(option).length > 0 && option.subFlags !== undefined) {
 
-            // Store asset path
-            if (option.subFlags !== undefined &&
-                option.subFlags.indexOf("--set-asset") > -1) {
-
-                validateInputPath(data)
+            // --set-asset -> Store the asset path
+            if (option.subFlags.indexOf("--set-asset") > -1) {
+                validateInputPath(data) // Local path validation
                     .then(() => {
-                        // Store config
                         if (fs.existsSync(data) && fs.statSync(data).isDirectory()) {
-                            const configFileContents = fs.readFileSync(configFilePath, "utf8");
-                            let configs = JSON.parse(configFileContents);
-
-                            configs = { ...configs, "userAssetPath": data };
-                            fs.writeFileSync(configFilePath, JSON.stringify(configs, null, '   '));
-
-                            resolve(data);
-
+                            storeConfig({ "userAssetPath": data })
+                                .then(() => resolve(data))
+                                .catch((err) => reject(err));
                         } else {
                             reject(new AppError("pa004")); // The path is not found
                         }
@@ -54,76 +46,88 @@ function storeConfigs(data, option = {}) {
                 reject(new AppError("pa003")); // Unknown command or missing the sub option
             }
         } else {
-            reject(new Error("Option is empty"));
+            reject(new Error("Option is empty or subFlags variable is undefined"));
         }
+    });
+}
+
+function storeConfig(data) {
+    return new Promise((resolve) => {
+        // Store config
+        const configFileContents = fs.readFileSync(configFilePath, "utf8");
+        let configs = JSON.parse(configFileContents);
+
+        configs = { ...configs, ...data };
+        fs.writeFileSync(configFilePath, JSON.stringify(configs, null, '   '));
+
+        resolve(data);
     });
 }
 
 function retrieveAsset(filePath = configFilePath) {
     return new Promise((resolve, reject) => {
-        if (fs.existsSync(filePath)) {
-            const fileContents = fs.readFileSync(filePath, "utf8");
-            const configs = JSON.parse(fileContents);
+        readConfigFile(filePath)
+            .then((configs) => {
+                if (Object.keys(configs).length > 0 &&
+                    configs.userAssetPath !== undefined &&
+                    configs.userAssetPath !== "") {
 
-            if (Object.keys(configs).length > 0 &&
-                configs.userAssetPath !== undefined &&
-                configs.userAssetPath !== "") {
+                    const assetPath = configs.userAssetPath;
+                    getDirectoryContents(assetPath)
+                        .then((dirContents) => {
+                            inquirer
+                                .prompt([
+                                    {
+                                        type: 'checkbox',
+                                        message: 'Choose your asset(s)',
+                                        name: 'userAssetList',
+                                        choices: dirContents || [],
+                                        validate: function (answer) {
+                                            if (answer.length < 1) {
+                                                return 'You must choose at least one asset or using Ctrl-C to break.';
+                                            }
 
-                const assetPath = configs.userAssetPath;
-                getDirectoryContents(assetPath)
-                    .then((dirContents) => {
-                        inquirer
-                            .prompt([
-                                {
-                                    type: 'checkbox',
-                                    message: 'Choose your asset(s)',
-                                    name: 'userAssetList',
-                                    choices: dirContents || [],
-                                    validate: function (answer) {
-                                        if (answer.length < 1) {
-                                            return 'You must choose at least one asset or using Ctrl-C to break.';
+                                            return true;
                                         }
-
-                                        return true;
                                     }
-                                }
-                            ])
-                            .then((answers) => {
-                                let passedArr = [];
-                                let failureArr = [];
+                                ])
+                                .then((answers) => {
+                                    let passedArr = [];
+                                    let failureArr = [];
 
-                                answers.userAssetList.map((item) => {
-                                    const itemFullPath = `${assetPath}/${item}`;
-                                    const writePath = `${CURR_DIR}/${item}`;
+                                    answers.userAssetList.map((item) => {
+                                        const itemFullPath = `${assetPath}/${item}`;
+                                        const writePath = `${CURR_DIR}/${item}`;
 
-                                    const stats = fs.statSync(itemFullPath);
+                                        const stats = fs.statSync(itemFullPath);
 
-                                    if (!fs.existsSync(writePath)) {
-                                        if (stats.isFile()) {
-                                            const contents = fs.readFileSync(itemFullPath);
-                                            fs.writeFileSync(writePath, contents);
-                                        } else if (stats.isDirectory()) {
-                                            fs.mkdirSync(writePath);
-                                            createDirectoryContents(fs, itemFullPath, writePath);
+                                        if (!fs.existsSync(writePath)) {
+                                            if (stats.isFile()) {
+                                                const contents = fs.readFileSync(itemFullPath);
+                                                fs.writeFileSync(writePath, contents);
+                                            } else if (stats.isDirectory()) {
+                                                fs.mkdirSync(writePath);
+                                                createDirectoryContents(fs, itemFullPath, writePath);
+                                            }
+                                            passedArr = [...passedArr, item];
+                                        } else {
+                                            failureArr = [...failureArr, item];
                                         }
-                                        passedArr = [...passedArr, item];
+                                    });
+
+                                    if (passedArr.length > 0) {
+                                        resolve({ "passed": passedArr, "failure": failureArr });
                                     } else {
-                                        failureArr = [...failureArr, item];
+                                        reject(new AppError("pa006")); // Can not retrieve asset
                                     }
                                 });
-
-                                if (passedArr.length > 0) {
-                                    resolve({ "passed": passedArr, "failure": failureArr });
-                                } else {
-                                    reject(new AppError("pa006")); // Can not retrieve asset
-                                }
-                            });
-                    })
-                    .catch((err) => reject(err));
-            } else {
-                reject(new AppError("pa005")); // The asset path is not defined
-            }
-        }
+                        })
+                        .catch((err) => reject(err));
+                } else {
+                    reject(new AppError("pa005")); // The asset path is not defined
+                }
+            })
+            .catch((err) => reject(err));
     });
 }
 
@@ -143,7 +147,20 @@ function getDirectoryContents(sPath) {
     });
 }
 
+function readConfigFile(filePath = configFilePath) {
+    return new Promise((resolve, reject) => {
+        if (fs.existsSync(filePath)) {
+            const fileContents = fs.readFileSync(filePath, "utf8");
+            const configs = JSON.parse(fileContents);
+
+            resolve(configs);
+        } else {
+            reject(new Error("Config file is not found"));
+        }
+    });
+}
+
 module.exports = {
-    storeConfigs,
+    configHandling,
     retrieveAsset
 };
