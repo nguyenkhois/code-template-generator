@@ -100,6 +100,7 @@ function retrieveAsset(filePath = configFilePath) {
                                             message: 'Choose your asset(s)',
                                             name: 'userAssetList',
                                             choices: dirContents || [],
+                                            pageSize: 10,
                                             validate: function (answer) {
                                                 if (answer.length < 1) {
                                                     return 'You must choose at least one asset or using Ctrl-C to break.';
