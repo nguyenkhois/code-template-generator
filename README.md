@@ -27,7 +27,7 @@ You have more choice for your development environment. It makes your life easier
 
 ### What's new in version 2.2.x
 
-![Chosen assets](./assets/userasset.jpg)
+![Assets](./assets/userasset.jpg)
 
 * Why?
     * You may have your own libraries, code templates and many more like .gitignore, .editorconfig, .eslinttrc.json, .eslintignore,... You need to use them while you are coding or when you start a new project.
