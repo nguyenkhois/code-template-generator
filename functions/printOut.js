@@ -109,8 +109,7 @@ function printOutResolve(resolving) {
                     break;
 
                 case "--view-asset":
-                    console.log(`\nYour current asset location is ${receivedConfigInfo.result !== "" ?
-                        `\x1b[36m${receivedConfigInfo.result}\x1b[0m` : "not defined"} \n`);
+                    console.log(`\nYour current asset location is \x1b[36m${receivedConfigInfo.result}\x1b[0m\n`);
                     break;
 
                 default:

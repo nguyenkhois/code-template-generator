@@ -9,7 +9,7 @@ const errorCodeList = [
     },
     {
         code: "n002",
-        error: "The input name is empty",
+        error: "The input name is missing",
         solution: ""
     },
 
@@ -22,7 +22,7 @@ const errorCodeList = [
     },
     {
         code: "f002",
-        error: "The file name is empty",
+        error: "The file name is missing",
         solution: ""
     },
     {
@@ -40,7 +40,7 @@ const errorCodeList = [
     },
     {
         code: "c002",
-        error: "The component name is empty",
+        error: "The component name is missing",
         solution: `You may want to use the command \x1b[33mgenerate <-c>[<-r>] <component-name.js>\x1b[0m for the component generation.
             \n${helpCommandText}`
     },
@@ -54,7 +54,7 @@ const errorCodeList = [
     },
     {
         code: "fu002",
-        error: "The component name is empty",
+        error: "The component name is missing",
         solution: `You may want to use the command \x1b[33mgenerate <-fc>[<-fr>] <component-name>\x1b[0m for the component generation.
             \n${helpCommandText}`
     },
@@ -75,7 +75,7 @@ const errorCodeList = [
     },
     {
         code: "p002",
-        error: "The project name is empty",
+        error: "The project name is missing",
         solution: `You may want to use the command \x1b[33mgenerate [-g] <project-name>\x1b[0m for the project generation.
             \n${helpCommandText}`
     },
@@ -103,38 +103,38 @@ const errorCodeList = [
     // For input asset path
     {
         code: "pa001",
-        error: "The local path is invalid",
+        error: "You have entered an invalid local path",
         solution: `It may only include letters, numbers, underscores and dashes but it does not end with special characters.\n${helpCommandText}`
     },
     {
         code: "pa002",
-        error: "The local path is empty",
+        error: "The local path is missing",
         solution: `Syntax is \x1b[33mgenerate -cf \x1b[90m--set-asset\x1b[0m \x1b[33m<path>\x1b[0m.\n${helpCommandText}`
     },
     {
         code: "pa003",
-        error: "Unknown command or missing the sub option",
+        error: "Unknown command or you are missing the sub option",
         solution: `Example for syntax: \x1b[33mgenerate -cf \x1b[90m--set-asset\x1b[0m \x1b[33m<path>\x1b[0m. \n${helpCommandText}`
     },
     {
         code: "pa004",
-        error: "The local path is not found",
+        error: "The local path for your asset(s) is not found",
         solution: `You may want to check again your local path.\n${helpCommandText}`
     },
     {
         code: "pa005",
-        error: "The local path for your asset(s) is not found",
+        error: "The local path for your asset(s) is not defined",
         solution: `You need define the path by command \x1b[33mgenerate -cf --set-asset <path>\x1b[0m.\n${helpCommandText}`
     },
     {
         code: "pa006",
         error: "Can not retrieve your asset(s)",
-        solution: `It may be already exist in the current work directory`
+        solution: `Your asset(s) may be already exist in the current work directory`
     },
     {
         code: "pa007",
         error: "Asset directory is empty",
-        solution: `You need have your files or sub directories in this directory`
+        solution: `You need have your asset(s) (files or sub directories) in this location`
     }
 ];
 

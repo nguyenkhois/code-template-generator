@@ -46,19 +46,25 @@ function configHandling(data, option = {}) {
                     .catch((err) => reject(err));
 
             } else if (option.subFlags.indexOf("--view-asset") > -1) {
-                // --view-asset -> View the current asset path
-                readConfigFile()
-                    .then((configs) => {
-                        if (configs.userAssetPath !== undefined) {
+                // --view-asset -> View the asset path
+                getConfigInfo("userAssetPath", (err, assetPath) => {
+                    if (!err) {
+                        if (assetPath !== "") {
                             resolve({
                                 "subFlag": "--view-asset",
-                                "result": configs.userAssetPath
+                                "result": assetPath
                             });
                         } else {
+                            reject(new AppError("pa005")); // The asset path is null = not defined
+                        }
+                    } else {
+                        if (err.message === "undefined") {
                             reject(new AppError("pa005")); // The asset path is not defined
                         }
-                    })
-                    .catch((err) => reject(err));
+
+                        reject(err);
+                    }
+                });
 
             } else {
                 reject(new AppError("pa003")); // Unknown command or missing the sub option
@@ -81,15 +87,11 @@ function storeConfig(data) {
     });
 }
 
-function retrieveAsset(filePath = configFilePath) {
+function retrieveAsset() {
     return new Promise((resolve, reject) => {
-        readConfigFile(filePath)
-            .then((configs) => {
-                if (Object.keys(configs).length > 0 &&
-                    configs.userAssetPath !== undefined &&
-                    configs.userAssetPath !== "") {
-
-                    const assetPath = configs.userAssetPath;
+        getConfigInfo("userAssetPath", (err, assetPath) => {
+            if (!err) {
+                if (assetPath !== "") {
                     getDirectoryContents(assetPath)
                         .then((dirContents) => {
                             if (dirContents.length > 0) {
@@ -145,11 +147,18 @@ function retrieveAsset(filePath = configFilePath) {
                             }
                         })
                         .catch((err) => reject(err));
+
                 } else {
+                    reject(new AppError("pa005")); // The asset path is null = not defined
+                }
+            } else {
+                if (err.message === "undefined") {
                     reject(new AppError("pa005")); // The asset path is not defined
                 }
-            })
-            .catch((err) => reject(err));
+
+                reject(err);
+            }
+        });
     });
 }
 
@@ -169,19 +178,33 @@ function getDirectoryContents(sPath) {
     });
 }
 
-function readConfigFile(filePath = configFilePath) {
-    return new Promise((resolve, reject) => {
+/**
+ * Using callback
+ * @param {*} name is property name in config file
+ * @param {*} fnResult is callback function => (err, result)
+ * @param {*} filePath is local file path
+ */
+function getConfigInfo(name, fnResult, filePath = configFilePath) {
+    try {
         if (fs.existsSync(filePath)) {
             const fileContents = fs.readFileSync(filePath, "utf8");
-            if (fileContents.length > 0) {
-                resolve(JSON.parse(fileContents));
+            const configs = JSON.parse(fileContents);
+
+            if (Object.keys(configs).length > 0) {
+                if (configs[name] !== undefined) {
+                    fnResult(null, configs[name]);
+                } else {
+                    fnResult(new Error("undefined"));
+                }
             } else {
-                reject(new Error("File is empty"));
+                fnResult(new Error("File is empty"));
             }
         } else {
-            reject(new Error("Config file is not found"));
+            fnResult(new Error("File is not found"));
         }
-    });
+    } catch (err) {
+        fnResult(err);
+    }
 }
 
 module.exports = {
