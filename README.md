@@ -43,6 +43,9 @@ You have more choice for your development environment. It makes your life easier
     * Config file `code-template-generator.json` is stored at your __Home directory__ and it depends on your platform. Examples:
         * Windows: `C:\Users\<YourName>\code-template-generator.json`.
         * Ubuntu: `/home/<yourname>/code-template-generator.json`.
+* New main command is added - You can run a command with both `generate` and `gen`
+    * `generate -v`
+    * `gen -v` -> It is shorter and more quickly.
 * Improvement:
     * Performance.
     * Resolving handling.

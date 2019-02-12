@@ -1,13 +1,14 @@
 {
     "name": "code-template-generator",
-    "version": "2.2.0-beta.1.0.0",
+    "version": "2.2.0-beta.1.0.1",
     "description": "The lightweight React code template generator",
     "main": "index.js",
     "scripts": {
         "test": "mocha --watch --recursive"
     },
     "bin": {
-        "generate": "./index.js"
+        "generate": "./index.js",
+        "gen": "./index.js"
     },
     "engines": {
         "node": ">=8.3.0"
