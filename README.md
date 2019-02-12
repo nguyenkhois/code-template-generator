@@ -41,8 +41,9 @@ You have more choice for your development environment. It makes your life easier
             * Ubuntu: `generate -cf --set--asset "/home/yourname/myassets"`
         * `generate -m`: to retrieve your assets into the current work directory. You can choose them by selecting. That's all.
     * Config file `code-template-generator.json` is stored at your __Home directory__ and it depends on your platform. Examples:
-        * Windows: `C:\Users\<YourName>\code-template-generator.json`
-        * Ubuntu: `/home/<yourname>/code-template-generator.json`
+        * Windows: `C:\Users\<yourname>`
+        * Ubuntu: `/home/<yourname>`
+        * MacOS: `/Users/<yourname>`
 * A new main command is added - You can start to run a command by one of them `generate` or `gen`. Examples:
     * `generate -v`
     * `gen -v`   => It is shorter and more quickly when you type the command.
