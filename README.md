@@ -32,7 +32,7 @@ You have more choice for your development environment. It makes your life easier
 * Why?
     * You may have your own libraries, code templates and many more like .gitignore, .editorconfig, .eslinttrc.json, .eslintignore,... You need to use them while you are coding or when you start a new project.
     * You don't want do the same things (copy/ paste) many times.
-    * This feature makes you happy ;-)
+    * It makes you happy with these new features `-cf`, `-m` and a new short command `gen`. ;-)
 * New features:
     * New options: `-cf, --config` and `-m, --my-asset`.
     * Using:
@@ -43,7 +43,7 @@ You have more choice for your development environment. It makes your life easier
     * Config file `code-template-generator.json` is stored at your __Home directory__ and it depends on your platform. Examples:
         * Windows: `C:\Users\<YourName>\code-template-generator.json`.
         * Ubuntu: `/home/<yourname>/code-template-generator.json`.
-* New main command is added - You can run a command with both `generate` and `gen`
+* A new main command is added - You can start to run a command by one of them `generate` or `gen`. Examples:
     * `generate -v`
     * `gen -v` -> It is shorter and more quickly.
 * Improvement:
