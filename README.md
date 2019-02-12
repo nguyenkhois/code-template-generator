@@ -36,16 +36,16 @@ You have more choice for your development environment. It makes your life easier
 * New features:
     * New options: `-cf, --config` and `-m, --my-asset`.
     * Using:
-        * `generate -cf --set-asset <path-to-your-directory>`: to store the path to a directory that has your files and sub directories. We say at they are your assets. View examples:
-            * Windows: `generate -cf --set-asset "C:\Users\YourName\MyAssets"`.
+        * `generate -cf --set-asset <path-to-your-directory>`: to store the path to a directory that has your own files and sub directories. We say at they are your assets. View examples:
+            * Windows: `generate -cf --set-asset "C:\Users\YourName\MyAssets"`
             * Ubuntu: `generate -cf --set--asset "/home/yourname/myassets"`
         * `generate -m`: to retrieve your assets into the current work directory. You can choose them by selecting. That's all.
     * Config file `code-template-generator.json` is stored at your __Home directory__ and it depends on your platform. Examples:
-        * Windows: `C:\Users\<YourName>\code-template-generator.json`.
-        * Ubuntu: `/home/<yourname>/code-template-generator.json`.
+        * Windows: `C:\Users\<YourName>\code-template-generator.json`
+        * Ubuntu: `/home/<yourname>/code-template-generator.json`
 * A new main command is added - You can start to run a command by one of them `generate` or `gen`. Examples:
     * `generate -v`
-    * `gen -v` -> It is shorter and more quickly.
+    * `gen -v`   => It is shorter and more quickly when you type the command.
 * Improvement:
     * Performance.
     * Resolving handling.
@@ -70,6 +70,7 @@ You have more choice for your development environment. It makes your life easier
     * Hot Module Replacement (HMR) is enabled.
     * You don't need to care about the distribution directory `/dist`. The things you care are only the source directory `/src`.
     * Anti-caching.
+* Your own asset(s) generation.
 
 ### Supported project templates
 |Templates|Main dependencies|
@@ -98,6 +99,8 @@ System requirements:
 ## 4. Using
 `$ generate [option] <project-name>[<component-name>]`
 
+__Tip!__ You can use also `gen` instead for `generate` from version 2.2.0.
+
 | Argument | Used with | Description |
 |:---:|:---:|---|
 | `<project-name>` | - |  Generate a new project by the chosen template (without Git support) |
@@ -116,7 +119,7 @@ System requirements:
 (*) Administrator permission is required. Here is an example for MacOS and Ubuntu system:
 * `$ sudo generate -u`
 
-(**) View how to use with sub options that is below.
+(**) View how to use with its sub options that is below.
 
 ### Sub options
 
@@ -164,13 +167,13 @@ $ generate -r ReviewComponent.jsx  // React-Redux component
 $ generate -fc ProductComponent
 $ generate -fr CartComponent
 
-// Assets
+// Asset
 $ generate -cf --set-asset "/home/name/myassets" (Ubuntu)
 $ generate -cf --set-asset "C:\Users\name\myassets" (Windows)
 $ generate -cf --view-asset   // View the current asset location
 $ generate -m   // Retrieve asset(s)
 
-// Other
+// Others
 $ generate --gitignore  // A .gitignore file
 $ generate -v           // View the installed version
 $ generate -help        // View the help information
