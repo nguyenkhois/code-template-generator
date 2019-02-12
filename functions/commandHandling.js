@@ -123,13 +123,15 @@ function commandParse(processArgv) {
         firstArgument: null,
         lastArgument: null,
         inputSubFlags: [],
-        commandLength: 0
+        commandLength: 0,
+        unknownArguments: []
     };
 
     if (commandLength > 0) {
         let subFlags = [];
         let firstArgument = null;
         let lastArgument = null;
+        let unknownArguments = [];
 
         const betweenArgument =
             commandLength > 2 ?
@@ -162,6 +164,8 @@ function commandParse(processArgv) {
                     subFlags.indexOf(item) === -1) {
 
                     subFlags = subFlags.concat([item]);
+                } else {
+                    unknownArguments = unknownArguments.concat([item]);
                 }
             });
         }
@@ -178,7 +182,8 @@ function commandParse(processArgv) {
             "firstArgument": firstArgument,
             "lastArgument": lastArgument,
             "inputSubFlags": subFlags,
-            "commandLength": commandLength
+            "commandLength": commandLength,
+            "unknownArguments": unknownArguments
         };
     }
 
