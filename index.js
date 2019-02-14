@@ -1,37 +1,56 @@
 #!/usr/bin/env node
 
+const { Command } = require("command-handling");
+
 const { installedVersion, autoUpdateCheck, checkAndInstallStableUpdate, validateInputName,
     helpInformation, printUpdateMessage, printOutResolve, printOutReject,
     generateTemplate, generateGitignoreFile, generateComponent, generateFullComponent,
     errorIdentification, configHandling, retrieveAsset
 } = require("./functions/");
 
-const { command, option, subFlag } = require("./functions/commandHandling");
-
-option.parse();
+// Option and sub option definitions
+const command = new Command();
+command
+    .option("-root", "", "Root for the command") // Special case
+    .option("-g", "--git", "Run git init and generate a .gitignore file")
+    .option("-c", "--component", "Generate a React component file (*.js, *.jsx)")
+    .option("-r", "--redux-component", "Generate a React-Redux component file (*.js, *.jsx)")
+    .option("-fc", "--full-component", "Generate a full React component (*.css, *.js)")
+    .option("-fr", "--full-redux-component", "Generate a full React-Redux component (*.css, *.js)")
+    .option("-i", "--gitignore", "Generate a .gitignore file")
+    .option("-v", "--version", "View the installed version")
+    .option("-help", "--help", "View the help information")
+    .option("-u", "--update", "Install the latest stable version")
+    .option("-cf", "--config", "Config for this app")
+    .option("-m", "--my-asset", "Retrieve assets from a specific directory")
+    .subOption("-root", "--no-install", "No run git init and no install dependencies")
+    .subOption("-g", "--no-install", "No install dependencies")
+    .subOption("-cf", "--set-asset", "Store the asset directory path")
+    .subOption("-cf", "--view-asset", "View the asset directory path");
+// End of definitions
 
 function MainApp() {
     return new Promise((resolve, reject) => {
-        const { firstArgument, lastArgument, inputSubFlags, commandLength } = command.parse(process.argv);
+        const { mainFlag, subFlags, argument, commandLength } = command.parse(process.argv);
 
         if (commandLength > 0) {
             // Default
             let projectOption = {
                 "gitSupport": false,
-                "subFlags": inputSubFlags
+                "subFlags": subFlags
             };
 
-            switch (firstArgument) {
+            switch (mainFlag) {
                 case "-g":
-                    validateInputName(lastArgument)
+                    validateInputName(argument)
                         .then(() => {
                             projectOption = {
                                 ...projectOption,
                                 "gitSupport": true,
-                                "subFlags": subFlag.filterByMainFlag("-g")(inputSubFlags)
+                                "subFlags": subFlags
                             };
 
-                            generateTemplate(lastArgument, projectOption) // It must be (projectName, option)
+                            generateTemplate(argument, projectOption) // It must be (projectName, option)
                                 .then((result) => resolve({
                                     type: "project",
                                     name: result.name,
@@ -52,9 +71,9 @@ function MainApp() {
                 // Both React component and React-Redux component
                 case "-c":
                 case "-r":
-                    validateInputName(lastArgument)
+                    validateInputName(argument)
                         .then(() => {
-                            generateComponent(lastArgument, { componentType: firstArgument })
+                            generateComponent(argument, { componentType: mainFlag })
                                 .then((fullFileName) => resolve({ type: "component", name: fullFileName }))
                                 .catch((err) => reject(err));
                         })
@@ -70,9 +89,9 @@ function MainApp() {
 
                 case "-fc":
                 case "-fr":
-                    validateInputName(lastArgument)
+                    validateInputName(argument)
                         .then(() => {
-                            generateFullComponent(lastArgument, { componentType: firstArgument })
+                            generateFullComponent(argument, { componentType: mainFlag })
                                 .then((fullDirName) => resolve({ type: "component", name: fullDirName }))
                                 .catch((err) => reject(err));
                         })
@@ -104,7 +123,8 @@ function MainApp() {
                     break;
 
                 case "-help":
-                    resolve({ type: "info", message: helpInformation() });
+                    const optionList = command.showOptions();
+                    resolve({ type: "info", message: helpInformation(optionList) });
 
                     break;
 
@@ -119,10 +139,10 @@ function MainApp() {
 
                 case "-cf":
                     const option = {
-                        "subFlags": subFlag.filterByMainFlag("-cf")(inputSubFlags)
+                        "subFlags": subFlags
                     };
 
-                    configHandling(lastArgument, option)
+                    configHandling(argument, option)
                         .then((result) => {
                             resolve({ type: "config", message: result });
                         })
@@ -140,17 +160,9 @@ function MainApp() {
                     break;
 
                 default:
-                    let projectName;
-
-                    if (commandLength === 1) {
-                        projectName = firstArgument;
-                    } else {
-                        projectName = lastArgument;
-                    }
-
-                    validateInputName(projectName)
+                    validateInputName(argument)
                         .then(() => {
-                            generateTemplate(projectName, projectOption)
+                            generateTemplate(argument, projectOption)
                                 .then((result) => resolve({
                                     type: "project",
                                     name: result.name,

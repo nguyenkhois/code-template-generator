@@ -2,13 +2,12 @@ const { filterByProperty, supportedTemplate } = require("../common/");
 const { errorCodeList } = require("./errorHandling");
 
 // Print out the information
-function helpInformation() {
+function helpInformation(optionList) {
     let mainFlagContent = "";
     let aliasContent = "";
     let subFlagContent = "";
 
-    // "CTGOptionList" is a global () variable is only using for this app.
-    CTGOptionList.map((option) => {
+    optionList.map((option) => {
         if (option.flag !== "-root") {
             // Display main flags
             mainFlagContent += `\t${option.flag}\t${option.description}\n`;

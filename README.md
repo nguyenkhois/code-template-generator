@@ -30,23 +30,24 @@ You have more choice for your development environment. It makes your life easier
 ![Assets](./assets/userasset.jpg)
 
 * Why?
-    * You may have your own libraries, code templates and many more like .gitignore, .editorconfig, .eslinttrc.json, .eslintignore,... You need to use them while you are coding or when you start a new project.
-    * You don't want do the same things (copy/ paste) many times.
+    * You may have your own libraries, code templates and many more like .gitignore, .editorconfig, .eslinttrc.json, .eslintignore,... You need to use them while you are coding or when you start a new project. We say at they are your assets.
+    * You don't want do the same things (copy/ paste) many times. You want to have them whenever you need.
     * It makes you happy with these new features `-cf`, `-m` and a new short command `gen`. ;-)
 * New features:
-    * New options: `-cf, --config` and `-m, --my-asset`.
-    * Using:
-        * `generate -cf --set-asset <path-to-your-directory>`: to store the path to a directory that has your own files and sub directories. We say at they are your assets. View examples:
-            * Windows: `generate -cf --set-asset "C:\Users\YourName\MyAssets"`
-            * Ubuntu: `generate -cf --set--asset "/home/yourname/myassets"`
-        * `generate -m`: to retrieve your assets into the current work directory. You can choose them by selecting. That's all.
+    * New options:
+        * `-cf, --config`
+        * `-m, --my-asset`
+    * Syntaxes (You can also view [how to use](#4-using) or [examples](#5-examples) are below):
+        * `generate -cf --set-asset <path-to-your-directory>`
+        * `generate -cf --view-asset`
+        * `generate -m`
     * Config file `code-template-generator.json` is stored at your __Home directory__ and it depends on your platform. Examples:
         * Windows: `C:\Users\<yourname>`
         * Ubuntu: `/home/<yourname>`
         * MacOS: `/Users/<yourname>`
-* A new main command is added - You can start to run a command by one of them `generate` or `gen`. Examples:
-    * `generate -v`
-    * `gen -v`   => It is shorter and more quickly when you type the command.
+* A new command is added - You can start a command line by using one of them `generate` or `gen`. Examples:
+    * `generate --version` -> Original command.
+    * `gen --version` -> It is shorter and more quickly when you type a command line.
 * Improvement:
     * Performance.
     * Resolving handling.
@@ -55,7 +56,7 @@ You have more choice for your development environment. It makes your life easier
 ## 2. Main features
 * Project template generation:
     * Without Git support.
-    * With Git support -> It runs automatically command `git init` and generates a `.gitignore` file while the project is generated.
+    * With Git support -> It runs automatically the `git init` command and generates a `.gitignore` file while the project is generated.
 * Component generation:
     * Two kinds of generated components: React and React-Redux.
     * It can become a single component that is a file `*.js, *.jsx` or a full component that is a directory with two files `*.js, *.css` are within.
@@ -64,7 +65,7 @@ You have more choice for your development environment. It makes your life easier
 * [Project templates](https://github.com/nguyenkhois/build-environments):
     * It's simple for:
         * Configuration and installation for the dependencies you need.
-        * Using together with or moving to/from an other React build environment.
+        * Using together or moving to/from an other React build environment.
     * Code splitting.
     * Image handling.
     * CSS, JS code injected automatic into HTML template.
@@ -88,34 +89,34 @@ You can view more details about these project templates in this repository [Buil
 |Single|X|X|A file with these supported extension `*.js, *.jsx`.|
 |Full|X|X|A directory with two files `*.js, *.css` that are generated within.|
 
-_(*) You install and config Redux, React-Redux by yourself._
+_(*) You can install and config Redux, React-Redux by yourself._
 
 ## 3. Installation
 `$ npm i -g code-template-generator`
 
 System requirements:
 * The minimum supported Node.js version is 8.3.0 (Node.js LTS is a good choice for many reasons).
-* Administrator permission is required when you run the command `$ generate -u` for the latest stable version updating.
+* Administrator permission is required when you run the command `$ generate -u` for the latest stable version installation.
 
 ## 4. Using
-`$ generate [option] <project-name>[<component-name>]`
+`$ generate [-option] [--sub-option] [<project-name>|<component-name>|<path>]`
 
-__Tip!__ You can use also `gen` instead for `generate` from version 2.2.0.
+__Tip!__ You can use command `gen` instead of `generate` from version 2.2.0.
 
 | Argument | Used with | Description |
 |:---:|:---:|---|
 | `<project-name>` | - |  Generate a new project by the chosen template (without Git support) |
-|`-g`|`<project-name>`| Git support is installed automatically by `git init` and a `.gitignore` file is also created on the root of work directory while a new project is generated|
-|`-c`|`<component-name.js>`|It will be generate a single React component `(*.js or *.jsx)` in the current directory|
-|`-r`|`<component-name.js>`|It will be generate a single React-Redux component `(*.js or *.jsx)` in the current directory|
-|`-fc`|`<component-name>`|It will be generate a full React component that is a directory with `*.js, *.css` files in the current directory|
-|`-fr`|`<component-name>`|It will be generate a full React-Redux component that is a directory with `*.js, *.css` files in the current directory|
+|`-g`|`<project-name>`| Run automatically the `git init` command and generate a `.gitignore` file on the root of project directory during generation|
+|`-c`|`<component-name.js>`|Generate a single React component `(*.js or *.jsx)` in the current directory|
+|`-r`|`<component-name.js>`|Generate a single React-Redux component `(*.js or *.jsx)` in the current directory|
+|`-fc`|`<component-name>`|Generate a full React component that is a directory with `*.js, *.css` files in the current directory|
+|`-fr`|`<component-name>`|Generate a full React-Redux component that is a directory with `*.js, *.css` files in the current directory|
 | `-i` |-| A `.gitignore` file will be generated in the current directory |
 |`-v`|-|View the installed version|
 |`-help`|-|View the help information|
 |`-u`|-| Automatic update checking and installation for the latest stable version (*) |
-|`-cf`| (**) |Using with these sub options: `--set-asset`, `--view-asset`|
-|`-m`|-|Retrieve your own asset(s) into the current work directory|
+|`-cf`| (**) |Using with one of these sub options: `--set-asset`, `--view-asset`|
+|`-m`|-|Show a list to retrieve chosen asset(s) into the current work directory|
 
 (*) Administrator permission is required. Here is an example for MacOS and Ubuntu system:
 * `$ sudo generate -u`
@@ -132,7 +133,7 @@ __Tip!__ You can use also `gen` instead for `generate` from version 2.2.0.
 |:---:|:---:|:---:|---|
 |-|`--no-install`|`<project-name>`|Generate a project without both Git support and installation of dependencies|
 |`-g`|`--no-install`|`<project-name>`|Generate a project with Git support but without installation of dependencies|
-|`-cf`|`--set-asset`|`<path>`|Store the asset directory path into config file|
+|`-cf`|`--set-asset`|`<path>`|Store the local path to your asset(s) directory|
 |`-cf`|`--view-asset`|-|View the current asset directory path|
 
 ### Aliases
@@ -169,10 +170,11 @@ $ generate -fc ProductComponent
 $ generate -fr CartComponent
 
 // Asset
-$ generate -cf --set-asset "/home/name/myassets" (Ubuntu)
-$ generate -cf --set-asset "C:\Users\name\myassets" (Windows)
+$ generate -cf --set-asset "C:\Users\name\myassets"   // Windows
+$ generate -cf --set-asset "/home/name/myassets"      // Ubuntu
+$ generate -cf --set-asset "/Users/name/myassets"     // MacOS
 $ generate -cf --view-asset   // View the current asset location
-$ generate -m   // Retrieve asset(s)
+$ generate -m                 // Show asset list
 
 // Others
 $ generate --gitignore  // A .gitignore file
