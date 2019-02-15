@@ -130,9 +130,9 @@ function retrieveAsset() {
                                                     fs.mkdirSync(writePath);
                                                     createDirectoryContents(fs, itemFullPath, writePath);
                                                 }
-                                                passedArr = [...passedArr, item];
+                                                passedArr = passedArr.concat([item]);
                                             } else {
-                                                failureArr = [...failureArr, item];
+                                                failureArr = failureArr.concat([item]);
                                             }
                                         });
 
@@ -168,10 +168,7 @@ function getDirectoryContents(sPath) {
         let directoryContents = [];
 
         filesToCreate.forEach((item) => {
-            directoryContents = [
-                ...directoryContents,
-                { "name": item }
-            ];
+            directoryContents = directoryContents.concat([{ "name": item }]);
         });
 
         resolve(directoryContents);

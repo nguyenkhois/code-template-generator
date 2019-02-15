@@ -8,7 +8,7 @@ const { installedVersion, autoUpdateCheck, checkAndInstallStableUpdate, validate
     errorIdentification, configHandling, retrieveAsset
 } = require("./functions/");
 
-// Option and sub option definitions
+// Definitions for main options and sub options
 const command = new Command();
 command
     .option("-root", "", "Root for the command") // Special case
@@ -46,8 +46,7 @@ function MainApp() {
                         .then(() => {
                             projectOption = {
                                 ...projectOption,
-                                "gitSupport": true,
-                                "subFlags": subFlags
+                                "gitSupport": true
                             };
 
                             generateTemplate(argument, projectOption) // It must be (projectName, option)
@@ -68,7 +67,7 @@ function MainApp() {
 
                     break;
 
-                // Both React component and React-Redux component
+                // Using for both React component and React-Redux component
                 case "-c":
                 case "-r":
                     validateInputName(argument)
@@ -113,7 +112,7 @@ function MainApp() {
                     break;
 
                 case "-v":
-                    // Get installed version
+                    // Show installed version
                     installedVersion()
                         .then((version) => {
                             resolve({ type: "info", message: version });
