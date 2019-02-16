@@ -29,8 +29,9 @@ function configHandling(data, option = {}) {
         if (Object.keys(option).length > 0 && option.subFlags !== undefined) {
 
             if (option.subFlags.indexOf("--set-asset") > -1) {
-                // --set-asset -> Store the asset path
-                validateInputPath(data) // Local path validation
+                // --set-asset -> Store the local path
+                // Validation and checking directory existence
+                validateInputPath(data)
                     .then(() => {
                         if (fs.existsSync(data) && fs.statSync(data).isDirectory()) {
                             storeConfig({ "userAssetPath": data })
@@ -40,13 +41,13 @@ function configHandling(data, option = {}) {
                                 }))
                                 .catch((err) => reject(err));
                         } else {
-                            reject(new AppError("pa004")); // The path is not found
+                            reject(new AppError("pa004")); // The local path is not found
                         }
                     })
                     .catch((err) => reject(err));
 
             } else if (option.subFlags.indexOf("--view-asset") > -1) {
-                // --view-asset -> View the asset path
+                // --view-asset -> Show the asset local path
                 getConfigInfo("userAssetPath", (err, assetPath) => {
                     if (!err) {
                         if (assetPath !== "") {
@@ -55,11 +56,11 @@ function configHandling(data, option = {}) {
                                 "result": assetPath
                             });
                         } else {
-                            reject(new AppError("pa005")); // The asset path is null = not defined
+                            reject(new AppError("pa005")); // The local path is null = not defined
                         }
                     } else {
                         if (err.message === "undefined") {
-                            reject(new AppError("pa005")); // The asset path is not defined
+                            reject(new AppError("pa005")); // The local path is not defined
                         }
 
                         reject(err);
@@ -75,13 +76,13 @@ function configHandling(data, option = {}) {
     });
 }
 
-function storeConfig(data) {
+function storeConfig(data, sPath = configFilePath) {
     return new Promise((resolve) => {
-        const configFileContents = fs.readFileSync(configFilePath, "utf8");
+        const configFileContents = fs.readFileSync(sPath, "utf8");
         let configs = JSON.parse(configFileContents);
 
-        configs = { ...configs, ...data };
-        fs.writeFileSync(configFilePath, JSON.stringify(configs, null, '   '));
+        configs = Object.assign(configs, data);
+        fs.writeFileSync(sPath, JSON.stringify(configs, null, '   '));
 
         resolve(data);
     });
@@ -163,15 +164,19 @@ function retrieveAsset() {
 }
 
 function getDirectoryContents(sPath) {
-    return new Promise((resolve) => {
-        const filesToCreate = fs.readdirSync(sPath);
-        let directoryContents = [];
+    return new Promise((resolve, reject) => {
+        if (fs.existsSync(sPath) && fs.statSync(sPath).isDirectory()) {
+            const filesToCreate = fs.readdirSync(sPath);
+            let directoryContents = [];
 
-        filesToCreate.forEach((item) => {
-            directoryContents = directoryContents.concat([{ "name": item }]);
-        });
+            filesToCreate.forEach((item) => {
+                directoryContents = directoryContents.concat([{ "name": item }]);
+            });
 
-        resolve(directoryContents);
+            resolve(directoryContents);
+        }
+
+        reject(new AppError("pa004"));
     });
 }
 
@@ -183,7 +188,7 @@ function getDirectoryContents(sPath) {
  */
 function getConfigInfo(name, fnResult, filePath = configFilePath) {
     try {
-        if (fs.existsSync(filePath)) {
+        if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
             const fileContents = fs.readFileSync(filePath, "utf8");
             const configs = JSON.parse(fileContents);
 
