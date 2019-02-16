@@ -178,7 +178,7 @@ function generateFile(argFullFileName = null, fnGetAndReplaceFileContent, extraO
             }
 
         } else {
-            reject(new AppError("f002")); // The file name can not empty
+            reject(new AppError("f002")); // The file name is missing
         }
     });
 }

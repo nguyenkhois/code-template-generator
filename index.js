@@ -44,12 +44,9 @@ function MainApp() {
                 case "-g":
                     validateInputName(argument)
                         .then(() => {
-                            projectOption = {
-                                ...projectOption,
-                                "gitSupport": true
-                            };
+                            projectOption = Object.assign(projectOption, { "gitSupport": true });
 
-                            generateTemplate(argument, projectOption) // It must be (projectName, option)
+                            generateTemplate(argument, projectOption)
                                 .then((result) => resolve({
                                     type: "project",
                                     name: result.name,
@@ -61,7 +58,7 @@ function MainApp() {
                             if (err.code === "n001") {
                                 reject({ code: "p001" }); // The project name is invalid
                             } else if (err.code === "n002") {
-                                reject({ code: "p002" }); // The project name is empty
+                                reject({ code: "p002" }); // The project name is missing
                             }
                         });
 
@@ -72,7 +69,9 @@ function MainApp() {
                 case "-r":
                     validateInputName(argument)
                         .then(() => {
-                            generateComponent(argument, { componentType: mainFlag })
+                            const componentOption = { componentType: mainFlag };
+
+                            generateComponent(argument, componentOption)
                                 .then((fullFileName) => resolve({ type: "component", name: fullFileName }))
                                 .catch((err) => reject(err));
                         })
@@ -90,7 +89,9 @@ function MainApp() {
                 case "-fr":
                     validateInputName(argument)
                         .then(() => {
-                            generateFullComponent(argument, { componentType: mainFlag })
+                            const componentOption = { componentType: mainFlag };
+
+                            generateFullComponent(argument, componentOption)
                                 .then((fullDirName) => resolve({ type: "component", name: fullDirName }))
                                 .catch((err) => reject(err));
                         })
@@ -112,7 +113,7 @@ function MainApp() {
                     break;
 
                 case "-v":
-                    // Show installed version
+                    // Show the installed version
                     installedVersion()
                         .then((version) => {
                             resolve({ type: "info", message: version });
@@ -137,11 +138,9 @@ function MainApp() {
                     break;
 
                 case "-cf":
-                    const option = {
-                        "subFlags": subFlags
-                    };
+                    const configOption = { "subFlags": subFlags };
 
-                    configHandling(argument, option)
+                    configHandling(argument, configOption)
                         .then((result) => {
                             resolve({ type: "config", message: result });
                         })
