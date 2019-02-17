@@ -1,4 +1,4 @@
-const helpCommandText = "\nTip! Run \x1b[33mgenerate -help\x1b[0m to view more information";
+const helpCommandText = "\nTip! You can run \x1b[33mgenerate -help\x1b[0m to view more information";
 
 const errorCodeList = [
     // For name
@@ -41,7 +41,7 @@ const errorCodeList = [
     {
         code: "c002",
         error: "The component name is missing",
-        solution: `You may want to use the command \x1b[33mgenerate <-c>[<-r>] <component-name.js>\x1b[0m for the component generation.
+        solution: `You may want to use the command \x1b[33mgenerate <[-c][-r]> <component-name.js>\x1b[0m for the component generation.
             \n${helpCommandText}`
     },
 
@@ -55,7 +55,7 @@ const errorCodeList = [
     {
         code: "fu002",
         error: "The component name is missing",
-        solution: `You may want to use the command \x1b[33mgenerate <-fc>[<-fr>] <component-name>\x1b[0m for the component generation.
+        solution: `You may want to use the command \x1b[33mgenerate <[-fc][-fr]> <component-name>\x1b[0m for the component generation.
             \n${helpCommandText}`
     },
 
@@ -91,13 +91,18 @@ const errorCodeList = [
         error: "Can not connect to registry.npmjs.com for the latest stable version checking",
         solution: "You may want to check again the internet connection"
     },
+    {
+        code: "i003",
+        error: "Unknown command",
+        solution: `${helpCommandText}`
+    },
 
     // For Node.js environment
     {
         code: "n243",
         error: "EACCES: permission denied. The operation was rejected by your operating system",
         solution: "You may want to try again by using administrator permission." +
-            "\nExample: \x1b[33msudo generate --update\x1b[0m (Using \x1b[33msudo\x1b[0m on MacOS or Ubuntu system)"
+            "\nExample: \x1b[33msudo generate --update\x1b[0m (MacOS or Ubuntu system)"
     },
 
     // For input asset path
@@ -119,12 +124,12 @@ const errorCodeList = [
     {
         code: "pa004",
         error: "The local path for your asset(s) is not found",
-        solution: `You may want to check again your local path.\n${helpCommandText}`
+        solution: `You may want to check again the local path.\n${helpCommandText}`
     },
     {
         code: "pa005",
         error: "The local path for your asset(s) is not defined",
-        solution: `You need define the path by command \x1b[33mgenerate -cf --set-asset <path>\x1b[0m.\n${helpCommandText}`
+        solution: `You need define the local path by command \x1b[33mgenerate -cf --set-asset <path>\x1b[0m.\n${helpCommandText}`
     },
     {
         code: "pa006",
@@ -134,7 +139,7 @@ const errorCodeList = [
     {
         code: "pa007",
         error: "Asset directory is empty",
-        solution: `You need have your asset(s) (files or sub directories) in this location`
+        solution: `You need have your files or sub directories are in this location`
     }
 ];
 

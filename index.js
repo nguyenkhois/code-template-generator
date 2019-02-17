@@ -5,7 +5,7 @@ const { Command } = require("command-handling");
 const { installedVersion, autoUpdateCheck, checkAndInstallStableUpdate, validateInputName,
     helpInformation, printUpdateMessage, printOutResolve, printOutReject,
     generateTemplate, generateGitignoreFile, generateComponent, generateFullComponent,
-    errorIdentification, configHandling, retrieveAsset
+    errorIdentification, AppError, configHandling, retrieveAsset
 } = require("./functions/");
 
 // Definitions for main options and sub options
@@ -31,10 +31,9 @@ command
 
 function MainApp() {
     return new Promise((resolve, reject) => {
-        const { mainFlag, subFlags, argument, commandLength } = command.parse(process.argv);
+        const { mainFlag, subFlags, argument, commandLength, unknowns } = command.parse(process.argv);
 
-        if (commandLength > 0) {
-            // Default
+        if (commandLength > 0 && unknowns.length === 0){
             let projectOption = {
                 "gitSupport": false,
                 "subFlags": subFlags
@@ -56,9 +55,9 @@ function MainApp() {
                         })
                         .catch((err) => {
                             if (err.code === "n001") {
-                                reject({ code: "p001" }); // The project name is invalid
+                                reject(new AppError("p001"));
                             } else if (err.code === "n002") {
-                                reject({ code: "p002" }); // The project name is missing
+                                reject(new AppError("p002"));
                             }
                         });
 
@@ -77,9 +76,9 @@ function MainApp() {
                         })
                         .catch((err) => {
                             if (err.code === "n001") {
-                                reject({ code: "c001" });
+                                reject(new AppError("c001"));
                             } else if (err.code === "n002") {
-                                reject({ code: "c002" });
+                                reject(new AppError("c002"));
                             }
                         });
 
@@ -97,9 +96,9 @@ function MainApp() {
                         })
                         .catch((err) => {
                             if (err.code === "n001") {
-                                reject({ code: "fu001" });
+                                reject(new AppError("fu001"));
                             } else if (err.code === "n002") {
-                                reject({ code: "fu002" });
+                                reject(new AppError("fu002"));
                             }
                         });
 
@@ -170,15 +169,15 @@ function MainApp() {
                         })
                         .catch((err) => {
                             if (err.code === "n001") {
-                                reject({ code: "p001" }); // Error code mapping
+                                reject(new AppError("p001")); // Error code mapping
                             } else if (err.code === "n002") {
-                                reject({ code: "p002" });
+                                reject(new AppError("p002"));
                             }
                         });
 
                     break;
             }
-        } else {
+        } else if (commandLength === 0) {
             generateTemplate()
                 .then((result) => resolve({
                     type: "project",
@@ -186,6 +185,8 @@ function MainApp() {
                     template: result.template
                 }))
                 .catch((err) => reject(err));
+        } else {
+            reject(new AppError("i003")); // Unknown command
         }
     });
 }
@@ -197,9 +198,7 @@ function MainApp() {
  *      ...
  * };
  *
- * reject = error = {
- *      code: "err.message"
- * };
+ * reject = error object
  */
 MainApp()
     .then((resolving) => {
