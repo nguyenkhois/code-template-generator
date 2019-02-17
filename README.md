@@ -16,9 +16,11 @@
 6. [Thanks you!](#6-thank-you)
 
 ## 1. Introduction
-This is the lightweight React code template generator that has two main parts in one npm package:
+This is the lightweight React code template generator that has these parts in one npm package:
 * Project template generation that has a part of the [Build environments](https://github.com/nguyenkhois/build-environments) project.
-* Code template generation.
+* Component generation.
+* Asset generation.
+* Utility.
 
 You have more choice for your development environment. It makes your life easier.
 
@@ -99,7 +101,7 @@ System requirements:
 * Administrator permission is required when you run the command `$ generate -u` for the latest stable version installation.
 
 ## 4. Using
-`$ generate [-option] [--sub-option] [<project-name>|<component-name>|<path>]`
+`$ generate [-option] [--sub-option] [project-name][component-name][path]`
 
 __Tip!__ You can use command `gen` instead of `generate` from version 2.2.0.
 
