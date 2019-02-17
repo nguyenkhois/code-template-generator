@@ -35,7 +35,7 @@ function helpInformation(optionList) {
     });
 
     const helpContent = "USAGE:" +
-        "\n\t$ generate [option] \x1b[33m<project-name>[<component-name>]\x1b[0m" +
+        "\n\t$ generate [-option] \x1b[90m[--sub-option]\x1b[0m \x1b[33m[project-name][component-name][path]\x1b[0m" +
         "\n\nOPTIONS:" +
         `\n${mainFlagContent}` +
         "\nSUB OPTIONS:" +

@@ -1,7 +1,7 @@
 const supportFunctions = require("./functions");
 const templateFunctions = require("./template");
 const printOutFunctions = require("./printOut");
-const { errorIdentification } = require("./errorHandling");
+const { errorIdentification, AppError } = require("./errorHandling");
 const configFunctions = require("./configHandling");
 
 module.exports = {
@@ -9,5 +9,6 @@ module.exports = {
     ...templateFunctions,
     ...printOutFunctions,
     errorIdentification,
+    AppError,
     ...configFunctions
 };
