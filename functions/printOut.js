@@ -45,6 +45,7 @@ function helpInformation(optionList) {
         "\nEXAMPLES:" +
         "\n\t$ generate \x1b[33mfirst-project\x1b[0m" +
         "\n\t$ generate -g \x1b[33msecondproject\x1b[0m" +
+        "\n\t$ generate -g \x1b[90m--no-install\x1b[0m \x1b[33mThirdProject\x1b[0m" +
         "\n\t$ generate \x1b[90m--no-install\x1b[0m \x1b[33mOtherProject\x1b[0m" +
         "\n" +
         "\n\t$ generate -c \x1b[33mSearchComponent.js\x1b[0m" +
