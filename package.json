@@ -39,7 +39,7 @@
     },
     "homepage": "https://github.com/nguyenkhois/code-template-generator",
     "dependencies": {
-        "command-handling": "^1.0.2",
+        "command-handling": "^1.0.3",
         "inquirer": "^6.2.2"
     }
 }
