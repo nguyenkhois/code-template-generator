@@ -144,10 +144,7 @@ function generateFile(argFullFileName = null, fnGetAndReplaceFileContent, extraO
 
             if (seekingExtension.length > 1) {
                 fileExtension = seekingExtension[seekingExtension.length - 1];
-
-                for (let i = 0; i < seekingExtension.length - 1; i++) {
-                    filteredName += seekingExtension[i];
-                }
+                filteredName = seekingExtension.slice(0, seekingExtension.length - 1).join("");
             }
 
             if (supportedExtension.indexOf(fileExtension) > -1) {
