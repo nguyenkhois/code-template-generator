@@ -1,82 +1,79 @@
 const helpCommandText = "\nTip! You can run \x1b[33mgenerate -help\x1b[0m to view more information";
+const inputNameText = "It may only include letters, numbers, underscores, dashes and does not has special characters";
 
 const errorCodeList = [
     // For name
     {
         code: "n001",
-        error: "The input name is invalid",
+        error: "Input name is invalid",
         solution: ""
     },
     {
         code: "n002",
-        error: "The input name is missing",
+        error: "Input name is missing",
         solution: ""
     },
 
-    // For file - single component
+    // For file
     {
         code: "f001",
-        error: "The file extension is not supported",
-        solution: `The supported file extensions are  *.js, *.jsx.
-            \n${helpCommandText}`
+        error: "File extension is not supported",
+        solution: `The supported file extensions are  *.js, *.jsx. \n${helpCommandText}`
     },
     {
         code: "f002",
-        error: "The file name is missing",
-        solution: ""
+        error: "File name is missing",
+        solution: "You need enter a file name"
     },
     {
         code: "f003",
-        error: "The file already exists",
+        error: "File already exists",
         solution: "You may want to choose another file name"
     },
 
     // For single component
     {
         code: "c001",
-        error: "The component name is invalid",
-        solution: `It may only include letters, numbers, underscores and hashes. You may want to choose another component name.
-            \n${helpCommandText}`
+        error: "Component name is invalid",
+        solution: `${inputNameText}.\n${helpCommandText}`
     },
     {
         code: "c002",
-        error: "The component name is missing",
-        solution: `You may want to use the command \x1b[33mgenerate <[-c][-r]> <component-name.js>\x1b[0m for the component generation.
+        error: "Component name is missing",
+        solution: `You may want to use command \x1b[33mgenerate <[-c][-r]> <component-name.js>\x1b[0m for component generation.
             \n${helpCommandText}`
     },
 
     // For full component
     {
         code: "fu001",
-        error: "The component name is invalid",
-        solution: `It may only include letters, numbers, underscores and hashes. You may want to choose another component name.
-            \n${helpCommandText}`
+        error: "Component name is invalid",
+        solution: `${inputNameText}.\n${helpCommandText}`
     },
     {
         code: "fu002",
-        error: "The component name is missing",
-        solution: `You may want to use the command \x1b[33mgenerate <[-fc][-fr]> <component-name>\x1b[0m for the component generation.
+        error: "Component name is missing",
+        solution: `You may want to use command \x1b[33mgenerate <[-fc][-fr]> <component-name>\x1b[0m for component generation.
             \n${helpCommandText}`
     },
 
     // For directory
     {
         code: "d001",
-        error: "The directory already exists",
+        error: "Directory already exists",
         solution: "You may want to choose another directory name"
     },
 
     // For project
     {
         code: "p001",
-        error: "The project name is invalid",
-        solution: `It may only include letters, numbers, underscores and dashes but it does not end with special characters. You may want to choose another project name.
-            \n${helpCommandText}`
+        error: "Project name is invalid",
+        solution: `${inputNameText}.\n${helpCommandText}`
     },
     {
         code: "p002",
-        error: "The project name is missing",
-        solution: `You may want to use the command \x1b[33mgenerate [-g] <project-name>\x1b[0m for the project generation.
+        error: "Project name is missing",
+        solution: `You may want to use command \x1b[33mgenerate [-g] <project-name>\x1b[0m for project generation.
             \n${helpCommandText}`
     },
 
@@ -84,16 +81,16 @@ const errorCodeList = [
     {
         code: "i001",
         error: "Can not get the installed version",
-        solution: "You may want to try install the latest stable version to fix it"
+        solution: "You may be to try reinstall the latest stable version to fix it"
     },
     {
         code: "i002",
         error: "Can not connect to registry.npmjs.com for the latest stable version checking",
-        solution: "You may want to check again the internet connection"
+        solution: "You may want to check again your internet connection"
     },
     {
         code: "i003",
-        error: "Unknown command",
+        error: "Unknown command. Command structure may be failing.",
         solution: `${helpCommandText}`
     },
 
@@ -102,18 +99,18 @@ const errorCodeList = [
         code: "n243",
         error: "EACCES: permission denied. The operation was rejected by your operating system",
         solution: "You may want to try again by using administrator permission." +
-            "\nExample: \x1b[33msudo generate --update\x1b[0m (MacOS or Ubuntu system)"
+            "\nExample: \x1b[33msudo generate --update\x1b[0m \x1b[90m(MacOS or Ubuntu system)\x1b[0m"
     },
 
     // For input asset path
     {
         code: "pa001",
         error: "You have entered an invalid local path",
-        solution: `It may only include letters, numbers, underscores and dashes but it does not end with special characters.\n${helpCommandText}`
+        solution: `${inputNameText}.\n${helpCommandText}`
     },
     {
         code: "pa002",
-        error: "The local path is missing",
+        error: "Local path to your asset directory is missing",
         solution: `Syntax is \x1b[33mgenerate -cf \x1b[90m--set-asset\x1b[0m \x1b[33m<path>\x1b[0m.\n${helpCommandText}`
     },
     {
@@ -123,18 +120,18 @@ const errorCodeList = [
     },
     {
         code: "pa004",
-        error: "The local path for your asset(s) is not found",
+        error: "Local path to your asset directory is not found",
         solution: `You may want to check again the local path.\n${helpCommandText}`
     },
     {
         code: "pa005",
-        error: "The local path for your asset(s) is not defined",
+        error: "Local path to your asset directory is not defined",
         solution: `You need define the local path by command \x1b[33mgenerate -cf --set-asset <path>\x1b[0m.\n${helpCommandText}`
     },
     {
         code: "pa006",
         error: "Can not retrieve your asset(s)",
-        solution: `Your asset(s) may be already exist in the current work directory`
+        solution: `Your asset(s) may be already exist in current work directory`
     },
     {
         code: "pa007",
