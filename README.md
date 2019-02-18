@@ -94,7 +94,7 @@ You can view more details about these project templates in this repository [Buil
 _(*) You can install and config Redux, React-Redux by yourself._
 
 ## 3. Installation
-`$ npm i -g code-template-generator`
+`$ npm install -g code-template-generator`
 
 System requirements:
 * The minimum supported Node.js version is 8.3.0 (Node.js LTS is a good choice for many reasons).
