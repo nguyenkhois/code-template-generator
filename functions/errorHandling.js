@@ -27,8 +27,8 @@ const errorCodeList = [
     },
     {
         code: "f003",
-        error: "File already exists",
-        solution: "You may want to choose another file name"
+        error: "A subdirectory or file already exists",
+        solution: "You may want to choose another name"
     },
 
     // For single component
@@ -60,8 +60,8 @@ const errorCodeList = [
     // For directory
     {
         code: "d001",
-        error: "Directory already exists",
-        solution: "You may want to choose another directory name"
+        error: "A subdirectory or file already exists",
+        solution: "You may want to choose another name"
     },
 
     // For project
@@ -90,7 +90,7 @@ const errorCodeList = [
     },
     {
         code: "i003",
-        error: "Unknown command. Command structure may be failing.",
+        error: "Unknown command. Command structure may be a failure.",
         solution: `${helpCommandText}`
     },
 
@@ -163,6 +163,12 @@ function errorIdentification(error) {
             }
             return error;
 
+        case "EEXIST":
+            if (/file already exists/g.test(errorMessage)){
+                return new AppError("f003", "A subdirectory or file already exists");
+            }
+            return error;
+
         default:
             return error;
     }
@@ -170,13 +176,13 @@ function errorIdentification(error) {
 
 // Custom Error object
 class AppError extends Error {
-    constructor(code = "UNKNOWN", message = "") {
+    constructor(code, message) {
         super();
 
         Error.captureStackTrace(this, this.constructor);
         this.name = this.constructor.name;
-        this.code = code;
-        this.message = message;
+        this.code = code || "UNKNOWN";
+        this.message = message || "";
     }
 }
 

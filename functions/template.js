@@ -82,7 +82,7 @@ function generateTemplate(projectName = "", option = { gitSupport: false, subFla
                         })
                         .catch((err) => reject(err));
                 } else {
-                    reject(new AppError("d001")); // The directory already exists
+                    reject(new AppError("d001")); // A subdirectory or file already exists
                 }
             })
             .catch((err) => reject(err));
@@ -170,7 +170,7 @@ function generateFile(argFullFileName = null, fnGetAndReplaceFileContent, extraO
                         }
                     });
                 } else {
-                    reject(new AppError("f003")); // The file already exists
+                    reject(new AppError("f003")); // A subdirectory or file already exists
                 }
 
             } else {
@@ -228,8 +228,7 @@ function generateComponent(componentName = null, option = { componentType: "" },
             const originalContent = fs.readFileSync(componentTemplatePath, "utf8");
 
             const className = filteredName.replace(/-/g, "");
-            let replacedContent = originalContent
-                .replace(/YourClassName/g, className);
+            let replacedContent = originalContent.replace(/YourClassName/g, className);
 
             // Return file content
             if (option.fullComponent !== undefined &&
@@ -297,7 +296,7 @@ function generateFullComponent(componentName = null, option = { componentType: "
                 .catch((err) => reject(err));
 
         } else {
-            reject(new AppError("d001")); // The directory already exists
+            reject(new AppError("d001")); // A subdirectory or file already exists
         }
     });
 }
