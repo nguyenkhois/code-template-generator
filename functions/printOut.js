@@ -69,8 +69,8 @@ function helpInformation(optionList) {
 function printUpdateMessage(latestVersion) {
     const message = "\n" +
         "\t---------------------------------------------------------\n" +
-        `\t|    \x1b[33mThe latest stable version ${latestVersion} is available\x1b[0m.\t|\n` +
-        "\t|    Run \x1b[36mnpm i -g code-template-generator\x1b[0m to update.\t|\n" +
+        `\t|   \x1b[33mLatest stable version ${latestVersion} is available\x1b[0m.\t\t|\n` +
+        "\t|   Run \x1b[36mnpm i -g code-template-generator\x1b[0m to update.\t|\n" +
         "\t---------------------------------------------------------\n";
     console.log(message);
 }
@@ -140,7 +140,7 @@ function printOutResolve(resolving) {
 
                     `${results.failureQuantity > 0 ?
                         `\n\n\x1b[31mFailure:\x1b[0m ${results.failureQuantity} (${results.failure})` +
-                        "\nIt may be already exist in the current work directory." :
+                        "\nIt may be already exist in current work directory." :
                         ''}\n`);
             }
 
@@ -159,7 +159,7 @@ function printOutReject(error) {
                 console.log(`${result[0].solution}.\n`);
             } else {
                 // For general error
-                console.log("\n\x1b[31mError!\x1b[0m Error is found and the process is interrupted.\n");
+                console.log("\n\x1b[31mError!\x1b[0m Error is found and process is interrupted.\n");
             }
         })
         .catch((err) => console.log(err.message));
@@ -167,7 +167,7 @@ function printOutReject(error) {
 
 function printOutGuideAfterGeneration(projectName, templateName) {
     const beginMessage = "\n\x1b[32mSUCCESS! \x1b[0m" +
-        `Your project ${projectName} is generated successfully by the template ${templateName}.` +
+        `Your project ${projectName} is generated successfully by template ${templateName}.` +
         `\n\n\t\x1b[36mcd ${projectName}\x1b[0m\tto change into your project directory`;
 
     let detailMessage = "\n";
@@ -180,12 +180,12 @@ function printOutGuideAfterGeneration(projectName, templateName) {
             if (result.length === 1) {
                 switch (result[0].type) {
                     case "react": // React project
-                        detailMessage += "\n\t\x1b[36mnpm start\x1b[0m\tto start the local web server at http://localhost:9000" +
+                        detailMessage += "\n\t\x1b[36mnpm start\x1b[0m\tto start your local web server at http://localhost:9000" +
                             "\n\t\x1b[36mnpm run build\x1b[0m\tto compile your code";
                         break;
 
                     case "express": // Express project
-                        detailMessage += "\n\t\x1b[36mnpm start\x1b[0m\tto start the local web server at http://localhost:8000";
+                        detailMessage += "\n\t\x1b[36mnpm start\x1b[0m\tto start your local web server at http://localhost:8000";
                         break;
 
                     default:
