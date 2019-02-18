@@ -10,7 +10,7 @@
     * [Supported component templates](#supported-component-templates)
 3. [Installation](#3-installation)
 4. [Using](#4-using)
-    * [Sub option](#sub-option)
+    * [Sub options](#sub-options)
     * [Aliases](#aliases)
 5. [Examples](#5-examples)
 6. [Thanks you!](#6-thank-you)
@@ -156,12 +156,12 @@ __Tip!__ You can use command `gen` instead of `generate` from version 2.2.0.
 ## 5. Examples
 
 ````
-// Project
-$ generate first-project                 // Without Git support
-$ generate -g secondproject              // With Git support
-$ generate --git ThirdProject            // Using alias --git instead of -g
-$ generate -g --no-install OtherProject  // Without installation of dependencies
-$ generate --no-install LastProject
+// Project generation
+$ generate first-project             // Without options
+$ generate -g secondproject          // Run git init
+$ generate --git ThirdProject        // Using alias --git instead of -g
+$ generate -g --no-install OtherProject
+$ generate --no-install LastProject  // Without installation of dependencies
 
 // Single component -> A file
 $ generate -c SearchComponent.js   // React component
@@ -171,17 +171,17 @@ $ generate -r ReviewComponent.jsx  // React-Redux component
 $ generate -fc ProductComponent
 $ generate -fr CartComponent
 
-// Asset
-$ generate -cf --set-asset "C:\Users\name\myassets"   // Windows
-$ generate -cf --set-asset "/home/name/myassets"      // Ubuntu
-$ generate -cf --set-asset "/Users/name/myassets"     // MacOS
+// Asset generation
+$ generate -cf --set-asset "C:\Users\name\myassets"  // Windows
+$ generate -cf --set-asset "/home/name/myassets"     // Ubuntu
+$ generate -cf --set-asset "/Users/name/myassets"    // MacOS
 $ generate -cf --view-asset   // View the current asset location
 $ generate -m                 // Show asset list
 
 // Others
-$ generate --gitignore  // A .gitignore file
-$ generate -v           // View the installed version
-$ generate -help        // View the help information
+$ generate --gitignore  // Generate a .gitignore file
+$ generate --version    // View the installed version
+$ generate --help       // View the help information
 $ generate --update     // Check and install the latest stable version
 ````
 
