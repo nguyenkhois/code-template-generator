@@ -1,9 +1,9 @@
 const { expect } = require("chai");
 
-const { errorIdentification } = require("../functions/");
+const { errorIdentification, AppError } = require("../functions/");
 
-describe("FUNCTIONS/errorHandling.js - errorIdentification()", function () {
+describe("FUNCTIONS/errorHandling.js - errorIdentification(), AppError object", function () {
     it("Internet connection should not found", function () {
-        expect(errorIdentification(Error("ENOTFOUND")), Error("i002"));
+        expect(errorIdentification(new Error("ENOTFOUND"), new AppError("i002")));
     });
 });

@@ -4,12 +4,9 @@ const chaiAsPromised = require("chai-as-promised");
 
 chai.use(chaiAsPromised);
 
-const { generateGitignoreFile,
-    generateComponent,
-    generateFullComponent
+const { generateGitignoreFile, generateComponent,
+    generateFullComponent, AppError
 } = require("../functions/");
-
-const { AppError } = require("../functions/errorHandling");
 
 describe("FUNCTIONS/template.js - File generation", function () {
     describe("Generate .gitignore file", function () {
