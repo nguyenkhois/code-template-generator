@@ -16,7 +16,7 @@
 6. [Thanks you!](#6-thank-you)
 
 ## 1. Introduction
-This is a Node.js CLI application that’s a lightweight React code template generator with these main features:
+This is a lightweight React code template generator that is a Node.js CLI application with these main features:
 * Project template generation that has a part of the [Build environments](https://github.com/nguyenkhois/build-environments) project.
 * Component generation.
 * User asset generation.
