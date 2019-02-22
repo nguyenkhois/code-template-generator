@@ -69,7 +69,7 @@ function helpInformation(optionList) {
 function printUpdateMessage(latestVersion) {
     const message = "\n" +
         "\t---------------------------------------------------------\n" +
-        `\t|   \x1b[33mLatest stable version ${latestVersion} is available\x1b[0m.\t\t|\n` +
+        `\t|   \x1b[33mThe latest stable version ${latestVersion} is available\x1b[0m.\t|\n` +
         "\t|   Run \x1b[36mnpm i -g code-template-generator\x1b[0m to update.\t|\n" +
         "\t---------------------------------------------------------\n";
     console.log(message);
@@ -124,12 +124,12 @@ function printOutResolve(resolving) {
                 if (resolving.message !== undefined &&
                     resolving.message.passed !== undefined &&
                     resolving.message.failure !== undefined) {
-                    results = {
+                    results = Object.assign(results, {
                         "passed": resolving.message.passed || [],
                         "failure": resolving.message.failure || [],
                         "passedQuantity": resolving.message.passed.length,
                         "failureQuantity": resolving.message.failure.length
-                    };
+                    });
                 }
             }
 

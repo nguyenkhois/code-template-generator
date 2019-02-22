@@ -11,7 +11,7 @@ const { installedVersion, autoUpdateCheck, checkAndInstallStableUpdate, validate
 // Definitions for main options and sub options
 const command = new Command();
 command
-    .option("-root", "", "Root for the command") // Special case
+    .option("-root", "", "Root of a command") // Special case
     .option("-g", "--git", "Run git init and generate a .gitignore file")
     .option("-c", "--component", "Generate a React component file (*.js, *.jsx)")
     .option("-r", "--redux-component", "Generate a React-Redux component file (*.js, *.jsx)")
@@ -19,9 +19,9 @@ command
     .option("-fr", "--full-redux-component", "Generate a full React-Redux component (*.css, *.js)")
     .option("-i", "--gitignore", "Generate a .gitignore file")
     .option("-v", "--version", "View the installed version")
-    .option("-help", "--help", "View the help information")
+    .option("-help", "--help", "View help documentation")
     .option("-u", "--update", "Install the latest stable version")
-    .option("-cf", "--config", "Config for this app")
+    .option("-cf", "--config", "Config for this application")
     .option("-m", "--my-asset", "Retrieve assets from a specific directory")
     .subOption("-root", "--no-install", "No run git init and no install dependencies")
     .subOption("-g", "--no-install", "No install dependencies")
