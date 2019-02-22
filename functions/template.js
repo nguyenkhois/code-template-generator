@@ -149,7 +149,7 @@ function generateFile(argFullFileName = null, fnGetAndReplaceFileContent, extraO
 
             if (supportedExtension.indexOf(fileExtension) > -1) {
                 // Check if the file will be created in a sub directory
-                let newFullFilePath = `${CURR_DIR}/${argFullFileName}`; // Default is in current directory
+                let newFullFilePath = `${CURR_DIR}/${argFullFileName}`; // Default is in the current directory
 
                 if (Object.keys(extraOption).length > 0) {
                     if (extraOption.subDir !== undefined && extraOption.subDir !== "") {

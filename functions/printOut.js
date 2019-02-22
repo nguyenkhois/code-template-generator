@@ -140,7 +140,7 @@ function printOutResolve(resolving) {
 
                     `${results.failureQuantity > 0 ?
                         `\n\n\x1b[31mFailure:\x1b[0m ${results.failureQuantity} (${results.failure})` +
-                        "\nIt may be already exist in current work directory." :
+                        "\nIt may be already exist in the current work directory." :
                         ''}\n`);
             }
 
