@@ -45,7 +45,7 @@ You have more choices for your frontend development environment. It makes your l
         * `generate -cf --set-asset <path-to-your-local-directory>`
         * `generate -cf --view-asset`
         * `generate -m`
-    * Config file `code-template-generator.json` is stored at your __Home directory__ and it depends on your platform. Examples:
+    * The config file `code-template-generator.json` is stored at your __Home directory__ and it depends on your platform. Examples:
         * Windows: `C:\Users\<yourname>`
         * Ubuntu: `/home/<yourname>`
         * MacOS: `/Users/<yourname>`
