@@ -1,11 +1,9 @@
 .vscode
 .idea
 
-node_modules
+/node_modules
 package-lock.json
 
-docs
-
-# Test result's prefix
+# Test prefix
 _Test*
 _test*
