@@ -94,8 +94,8 @@ You can view more details about these project templates in the repository [Build
 ### Supported component templates
 |Component|React|React-Redux (*)|Description|
 |---|:---:|:---:|---|
-|Single|X|X|A file with these supported extension `*.js, *.jsx`.|
-|Full|X|X|A directory with two files `*.js, *.css` that are generated within.|
+|Single|X|X|A file with these supported extension `*.js` or `*.jsx`.|
+|Full|X|X|A directory with two files `*.js` and `*.css` that are generated within.|
 
 _(*) You need install and config Redux, React-Redux by yourself._
 
