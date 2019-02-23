@@ -31,29 +31,32 @@ You have more choices for your frontend development environment. It makes your l
 
 ![Assets](./assets/userasset.jpg)
 
-* Reasons:
-    * You may have your own libraries, code templates and many more like .gitignore, .editorconfig, .eslinttrc.json, .eslintignore,... You need use them while you are coding or when you start a new project. We say at they are your assets.
-    * You don't want to do same things (search/ copy/ paste) many times. You want have your assets whenever you need.
-    * It makes you happy by these new features. ;-)
-* New features:
-    * New options and their aliases:
-        * `-cf, --config` is used with its sub options:
-            * `--set-asset`
-            * `--view-asset`
-        * `-m, --my-asset`
-    * Syntaxes (You can also view [how to use](#4-usage) or [examples](#5-examples) are below):
-        * `generate -cf --set-asset <path-to-your-local-directory>`
-        * `generate -cf --view-asset`
-        * `generate -m`
+1. Reasons:
+    * You may have your own libraries, code templates and many more like .gitignore, .editorconfig, .eslinttrc.json, .eslintignore, ect. You need use them while you are coding or when you start a new project. We say at they are your assets.
+    * You don't want to do the same things (search/ copy/ paste) many times. You want have your assets whenever you need.
+    * It makes you happy by the new feature "User asset generation" and another things are below. ;-)
+2. New features:
+    * User asset generation:
+        * The new options, sub options and their respective aliases:
+            * `-cf, --config` is used with its sub options:
+                * `--set-asset`
+                * `--view-asset`
+            * `-m, --my-asset`
+        * Syntaxes:
+            * `generate -cf --set-asset <path-to-your-local-directory>`
+            * `generate -cf --view-asset`
+            * `generate -m`
     * The config file `code-template-generator.json` is stored at your __Home directory__ and it depends on your platform. Examples:
         * Windows: `C:\Users\<yourname>`
         * Ubuntu: `/home/<yourname>`
         * MacOS: `/Users/<yourname>`
-* The new command `gen` is added - You can start a command line by using one of them `generate` or `gen`.
-* Improvements for:
+    * The new short command `gen` is added - You can start a command line by using one of them `generate` or `gen`.
+3. Improvements for:
     * Performance.
     * Resolving handling.
     * Error handling.
+
+_(You can view [how to use](#4-usage) and [examples](#5-examples) are below for more details)_
 
 ## 2. Main features
 * Project template generation:
@@ -61,7 +64,9 @@ You have more choices for your frontend development environment. It makes your l
     * With running the `git init` command and generation of a `.gitignore` file while a project is generated from a chosen template.
 * Component generation:
     * There are two kinds of generated components: React and React-Redux.
-    * It can become a single component that is a file `*.js, *.jsx` or a full component that is a directory with two files `*.js, *.css` are within.
+    * It can become:
+        * A single component that is a file `*.js` or `*.jsx`.
+        * A full component that is a directory with two files `*.js` and `*.css` are within.
 * `.gitignore` file generation.
 * Automatic update checking for the latest stable version.
 * [Project templates](https://github.com/nguyenkhois/build-environments):
@@ -82,8 +87,9 @@ You have more choices for your frontend development environment. It makes your l
 |react-advance|Babel 7, Babel Loader 8, SplitChunksPlugin for code splitting|
 |react-simple|Babel 7, Babel Loader 8|
 |react-typescript|TypeScript 3, awesome-typescript-loader|
+|simple-express-server|Express, cors|
 
-You can view more details about these project templates in this repository [Build environments](https://github.com/nguyenkhois/build-environments).
+You can view more details about these project templates in the repository [Build environments](https://github.com/nguyenkhois/build-environments).
 
 ### Supported component templates
 |Component|React|React-Redux (*)|Description|
@@ -109,8 +115,8 @@ __Tip!__ You can use the command `gen` instead of `generate` from version 2.2.0.
 
 Examples:
 
-* `generate --version` -> Original command.
-* `gen --version` -> It is shorter.
+* `generate --version` -> Main command.
+* `gen --version` -> Short command.
 
 ### Options
 | Option | Used with | Description |
@@ -128,7 +134,7 @@ Examples:
 |`-cf`| (**) |Using with one of these sub options: `--set-asset`, `--view-asset`|
 |`-m`|-|Show a list to retrieve chosen asset(s) into the current work directory|
 
-(*) Administrator permission is required by your operating system. Here is an example for MacOS and Ubuntu systems:
+(*) Administrator permission is required by your operating system. Here are the examples for MacOS and Ubuntu systems by using `sudo`:
 * `$ sudo generate -u`
 * `$ sudo generate --update` (Using alias)
 
@@ -159,7 +165,7 @@ Examples:
 |:---:|:---:|:---:|---|
 |-|`--no-install`|`<project-name>`|Generate a project without running `git init` and installation of dependencies|
 |`-g`|`--no-install`|`<project-name>`|Generate a project with running `git init` but without installation of dependencies|
-|`-cf`|`--set-asset`|`<path>`|Store a local path to your own asset directory|
+|`-cf`|`--set-asset`|`<path>`|Store a local path to your own asset directory into the application config file|
 |`-cf`|`--view-asset`|-|View the current asset path|
 
 ## 5. Examples
@@ -182,8 +188,8 @@ $ generate -fr CartComponent
 
 // Asset generation
 $ generate -cf --set-asset "C:\Users\name\myassets"  // Windows
-$ generate -cf --set-asset "/home/name/myassets"     // Ubuntu
 $ generate -cf --set-asset "/Users/name/myassets"    // MacOS
+$ generate -cf --set-asset "/home/name/myassets"     // Ubuntu
 $ generate -cf --view-asset   // View the current asset location
 $ generate -m                 // Show the asset list
 
