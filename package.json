@@ -28,7 +28,7 @@
         "chai": "^4.2.0",
         "chai-as-promised": "^7.1.1",
         "eslint": "^5.14.1",
-        "mocha": "^6.0.0"
+        "mocha": "^6.0.1"
     },
     "repository": {
         "type": "git",
@@ -39,7 +39,7 @@
     },
     "homepage": "https://github.com/nguyenkhois/code-template-generator",
     "dependencies": {
-        "command-handling": "^1.0.3",
+        "command-handling": "^1.0.4",
         "inquirer": "^6.2.2"
     }
 }
