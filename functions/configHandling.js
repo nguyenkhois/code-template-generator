@@ -152,14 +152,14 @@ function retrieveAsset() {
                         .catch((err) => reject(err));
 
                 } else {
-                    if (isWithinCurrentDir) {
+                    if (assetPath !== "" && isWithinCurrentDir) {
                         reject(new AppError("pa008")); // The asset path is within the current path
                     }
 
                     reject(new AppError("pa005")); // The asset path is null = not defined
                 }
             } else {
-                if (err.message === "undefined") {
+                if (err.message !== undefined && err.message === "undefined") {
                     reject(new AppError("pa005")); // The asset path is not defined
                 }
 
