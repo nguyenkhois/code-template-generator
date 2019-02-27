@@ -43,13 +43,17 @@ function autoUpdateCheck() {
     return new Promise((resolve, reject) => {
         Promise.all([installedVersion(), queryLatestVersion()])
             .then((result) => {
-                const versionInfo = {
-                    isUpdateFound: result[0] === result[1] ? false : true,
-                    installed: result[0],
-                    latest: result[1]
-                };
+                if (result[0] !== undefined && result[1] !== undefined){
+                    const versionInfo = {
+                        isUpdateFound: result[0] === result[1] ? false : true,
+                        installed: result[0],
+                        latest: result[1]
+                    };
 
-                resolve(versionInfo);
+                    resolve(versionInfo);
+                } else {
+                    reject(new AppError("i002"));
+                }
             })
             .catch((err) => reject(err));
     });
