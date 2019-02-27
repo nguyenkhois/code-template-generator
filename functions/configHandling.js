@@ -92,7 +92,7 @@ function retrieveAsset() {
     return new Promise((resolve, reject) => {
         getConfigInfo("userAssetPath", (err, assetPath) => {
             if (!err) {
-                const isWithinCurrentDir = findWithinDirectory(assetPath);
+                const isWithinCurrentDir = findWithinCurrentDir(assetPath);
 
                 if (assetPath !== "" && !isWithinCurrentDir) {
                     getDirectoryContents(assetPath)
@@ -211,11 +211,15 @@ function getConfigInfo(name, fnResult, filePath = configFilePath) {
             fnResult(new Error("File is not found"));
         }
     } catch (err) {
-        fnResult(err);
+        if (err === null) {
+            fnResult(new Error("Unknown error is corrupted"));
+        } else {
+            fnResult(err);
+        }
     }
 }
 
-function findWithinDirectory(inputDir, currentDir = CURR_DIR) {
+function findWithinCurrentDir(inputDir, currentDir = CURR_DIR) {
     if (inputDir.length < currentDir.length) {
         if (currentDir.indexOf(inputDir) > -1) {
             return true;
