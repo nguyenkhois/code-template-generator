@@ -92,7 +92,9 @@ function retrieveAsset() {
     return new Promise((resolve, reject) => {
         getConfigInfo("userAssetPath", (err, assetPath) => {
             if (!err) {
-                if (assetPath !== "") {
+                const isWithinCurrentDir = findWithinDirectory(assetPath);
+
+                if (assetPath !== "" && !isWithinCurrentDir) {
                     getDirectoryContents(assetPath)
                         .then((dirContents) => {
                             if (dirContents.length > 0) {
@@ -150,6 +152,10 @@ function retrieveAsset() {
                         .catch((err) => reject(err));
 
                 } else {
+                    if (isWithinCurrentDir) {
+                        reject(new AppError("pa008")); // The asset path is within the current path
+                    }
+
                     reject(new AppError("pa005")); // The asset path is null = not defined
                 }
             } else {
@@ -207,6 +213,18 @@ function getConfigInfo(name, fnResult, filePath = configFilePath) {
     } catch (err) {
         fnResult(err);
     }
+}
+
+function findWithinDirectory(inputDir, currentDir = CURR_DIR) {
+    if (inputDir.length < currentDir.length) {
+        if (currentDir.indexOf(inputDir) > -1) {
+            return true;
+        }
+    } else if (inputDir.length === currentDir.length) {
+        return true;
+    }
+
+    return false;
 }
 
 module.exports = {

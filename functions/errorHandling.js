@@ -137,6 +137,11 @@ const errorCodeList = [
         code: "pa007",
         error: "Asset directory is empty",
         solution: `You need have your files or sub directories are in this location`
+    },
+    {
+        code: "pa008",
+        error: "The asset directory in the current work directory is not allow",
+        solution: `You need choose another local path that is outside for your asset directory`
     }
 ];
 
