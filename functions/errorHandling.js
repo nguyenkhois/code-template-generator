@@ -90,7 +90,7 @@ const errorCodeList = [
     },
     {
         code: "i003",
-        error: "The unknown command. It may be a failure.",
+        error: "The unknown command. It may be a failure",
         solution: `${helpCommandText}`
     },
 
