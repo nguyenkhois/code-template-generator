@@ -167,7 +167,7 @@ $ generate first-project             // Without any options
 $ generate -g secondproject          // Running the `git init` command
 $ generate --git ThirdProject        // Using alias --git instead of -g
 $ generate -g --no-install OtherProject
-$ generate --no-install LastProject  // Without installation of dependencies
+$ generate --no-install LastProject  // No install dependencies
 
 // Single component -> A file
 $ generate -c SearchComponent.js   // React component
@@ -188,7 +188,7 @@ $ generate -m                 // Show the asset list
 $ generate --gitignore  // Generate a .gitignore file
 $ generate --version    // View the installed version
 $ generate --help       // View help documentation
-$ generate --update     // Check and install the latest stable version
+$ generate --update     // Install the latest stable version
 ````
 
 ## 6. Thank you!
