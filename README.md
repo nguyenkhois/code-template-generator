@@ -17,7 +17,7 @@
 6. [Thanks you!](#6-thank-you)
 
 ## 1. Introduction
-The application is a lightweight Node.js CLI tool that is most using for frontend web development with  [React](https://reactjs.org/). The main features:
+The application is a lightweight Node.js CLI tool that is most using for frontend web development with  [React](https://reactjs.org/). Main features:
 * Project generation that has a part of the [Build environments](https://github.com/nguyenkhois/build-environments) project.
 * Component generation.
 * User asset generation.
@@ -48,7 +48,7 @@ You have more choices for your frontend development. It makes your life easier. 
     * Image handling.
     * CSS, JS code injected automatic into the HTML template `/src/index.html`.
     * Hot Module Replacement (HMR) is enabled.
-    * You don't need to care about the distribution directory `/dist`. The things you care are only the source directory `/src`.
+    * You don't need to care about the distribution directory `/dist`. The things you care are only the directory `/src`.
     * Anti-caching.
 * User asset generation.
 
@@ -95,14 +95,14 @@ _(You can view [how to use](#4-usage) and the [examples](#5-examples) are below 
 
 System requirements:
 * The minimum supported Node.js version is 8.3.0 (Node.js LTS version is a good choice for the stability).
-* Administrator permission is required by your operating system when:
-    * You install `code-template-generator` on global by the option `--global`.
-    * You run the command `$ generate -u` for the latest stable version updating.
+* Administrator permission is required by your operating system for:
+    * Installation of `code-template-generator` on global by the option `--global`.
+    * Running the command `$ generate -u` for the latest stable version updating.
 
 ## 4. Usage
 `$ generate [-option] [--sub-option] [project-name][component-name][path]`
 
-__Tip!__ You can use the command `gen` instead of `generate` in version 2.2.0 or later. It's more quickly when you enter a command line.
+__Tip!__ You can use the command `gen` instead of `generate` in version 2.2.x. It's more quickly when you enter a command line.
 
 Examples:
 
