@@ -6,8 +6,9 @@
     * [Screenshot](#screenshot)
     * [What's new in version 2.2.x](#whats-new-in-version-22x)
 2. [Main features](#2-main-features)
-    * [Supported project templates](#supported-project-templates)
-    * [Supported component templates](#supported-component-templates)
+    * [Project templates](#project-templates)
+    * [Component templates](#component-templates)
+    * [User asset generation](#user-asset-generation)
 3. [Installation](#3-installation)
 4. [Usage](#4-usage)
     * [Aliases](#aliases)
@@ -16,63 +17,33 @@
 6. [Thanks you!](#6-thank-you)
 
 ## 1. Introduction
-This is a lightweight React code template generator that is a Node.js CLI application with these main features:
-* Project template generation that has a part of the [Build environments](https://github.com/nguyenkhois/build-environments) project.
+The application is a lightweight Node.js CLI tool that is most using for frontend web development with  [React](https://reactjs.org/). The main features:
+* Project generation that has a part of the [Build environments](https://github.com/nguyenkhois/build-environments) project.
 * Component generation.
 * User asset generation.
-* Utility.
 
-You have more choices for your frontend development environment. It makes your life easier.
+You have more choices for your frontend development. It makes your life easier. (^_~)
 
 ### Screenshot
 ![Demo](./assets/screenshot.gif)
 
-### What's new in version 2.2.x
-
-![Assets](./assets/userasset.jpg)
-
-1. Reasons:
-    * You may have your own libraries, code templates and many more like .gitignore, .editorconfig, .eslinttrc.json, .eslintignore, ect. You need use them while you are coding or when you start a new project. We say at they are your assets.
-    * You don't want to do the same things (search/ copy/ paste) many times. You want have your assets whenever you need.
-    * It makes you happy by the new feature "User asset generation" and another things are below. ;-)
-2. New features:
-    * User asset generation:
-        * The new options, sub options and their respective aliases:
-            * `-cf, --config` is used with its sub options:
-                * `--set-asset`
-                * `--view-asset`
-            * `-m, --my-asset`
-        * Syntaxes:
-            * `generate -cf --set-asset <path-to-your-local-directory>`
-            * `generate -cf --view-asset`
-            * `generate -m`
-    * The config file `code-template-generator.json` is stored at your __Home directory__ and it depends on your platform. Examples:
-        * Windows: `C:\Users\<yourname>`
-        * Ubuntu: `/home/<yourname>`
-        * MacOS: `/Users/<yourname>`
-    * The new short command `gen` is added - You can start a command line by using one of them `generate` or `gen`.
-3. Improvements for:
-    * Performance.
-    * Resolving handling.
-    * Error handling.
-
-_(You can view [how to use](#4-usage) and [examples](#5-examples) are below for more details)_
-
 ## 2. Main features
-* Project template generation:
+* Project generation:
     * Without running the `git init` command.
-    * With running the `git init` command and generation of a `.gitignore` file while a project is generated from a chosen template.
+    * With running the `git init` command and generation of a `.gitignore` file while the project is generated from a chosen template.
 * Component generation:
     * There are two kinds of generated components: React and React-Redux.
-    * It can become:
-        * A single component that is a file `*.js` or `*.jsx`.
-        * A full component that is a directory with two files `*.js` and `*.css` are within.
+    * It can be:
+        * A single React component that is a file `*.js` or `*.jsx`.
+        * A full React component that is a directory with two files `*.js` and `*.css` are within.
 * `.gitignore` file generation.
 * Automatic update checking for the latest stable version.
 * [Project templates](https://github.com/nguyenkhois/build-environments):
-    * It's simple for:
-        * Configuration and installation for dependencies you need.
-        * Using together or moving to/from another React build environment.
+    * It's simple for configuration and installation of dependencies you need.
+        * Work fast and flexible.
+        * Only the minimum needed dependencies are installed and preconfigured.
+        * Easy to change the build environment.
+        * Compatibility with a project that is generated from [create-react-app](https://facebook.github.io/create-react-app/).
     * Code splitting.
     * Image handling.
     * CSS, JS code injected automatic into the HTML template `/src/index.html`.
@@ -81,7 +52,7 @@ _(You can view [how to use](#4-usage) and [examples](#5-examples) are below for 
     * Anti-caching.
 * User asset generation.
 
-### Supported project templates
+### Project templates
 |Templates|Main dependencies|
 |---|---|
 |react-advance|Babel 7, Babel Loader 8, SplitChunksPlugin for code splitting|
@@ -91,7 +62,7 @@ _(You can view [how to use](#4-usage) and [examples](#5-examples) are below for 
 
 You can view more details about these project templates in the repository [Build environments](https://github.com/nguyenkhois/build-environments).
 
-### Supported component templates
+### Component templates
 |Component|React|React-Redux (*)|Description|
 |---|:---:|:---:|---|
 |Single|X|X|A file with these supported extension `*.js` or `*.jsx`.|
@@ -99,11 +70,28 @@ You can view more details about these project templates in the repository [Build
 
 _(*) You need install and config Redux, React-Redux by yourself._
 
+### User asset generation
+1. Reasons
+    * You may have your own libraries, code templates and many more like .gitignore, .editorconfig, .eslinttrc.json, .eslintignore, ect.
+    * You don't want to do the same things as search-copy-paste the assets many times while you are coding or starting a new project.
+2. Details
+    * The options, sub options and their respective aliases:
+        * `-cf, --config` is used with its sub options:
+            * `--set-asset`
+            * `--view-asset`
+        * `-m, --my-asset`
+    * Syntaxes:
+        * `generate -cf --set-asset <local-path-to-your-asset-directory>`
+        * `generate -cf --view-asset`
+        * `generate -m`
+
+_(You can view [how to use](#4-usage) and the [examples](#5-examples) are below for more details)_
+
 ## 3. Installation
 `$ npm install --global code-template-generator`
 
 System requirements:
-* The minimum supported Node.js version is 8.3.0 (Node.js LTS is a good choice for the stability).
+* The minimum supported Node.js version is 8.3.0 (Node.js LTS version is a good choice for the stability).
 * Administrator permission is required by your operating system when:
     * You install `code-template-generator` on global by the option `--global`.
     * You run the command `$ generate -u` for the latest stable version updating.
@@ -111,7 +99,7 @@ System requirements:
 ## 4. Usage
 `$ generate [-option] [--sub-option] [project-name][component-name][path]`
 
-__Tip!__ You can use the command `gen` instead of `generate` from version 2.2.0. It's more quickly when you enter a command line.
+__Tip!__ You can use the command `gen` instead of `generate` in version 2.2.0 or later. It's more quickly when you enter a command line.
 
 Examples:
 
@@ -121,8 +109,8 @@ Examples:
 ### Options
 | Option | Used with | Description |
 |:---:|:---:|---|
-| - | `<project-name>` |  Generate a new project from a chosen template (without Git support) |
-|`-g`|`<project-name>`| Run automatically the `git init` command and generate a `.gitignore` file on the root of project directory during generation|
+| - | `<project-name>` |  Generate a new project from a chosen template without running the `git init` command |
+|`-g`|`<project-name>`| Run automatically the `git init` command and generate a `.gitignore` file on the root of project directory during the generation|
 |`-c`|`<component-name.js>`|Generate a single React component `(*.js or *.jsx)` in the current directory|
 |`-r`|`<component-name.js>`|Generate a single React-Redux component `(*.js or *.jsx)` in the current directory|
 |`-fc`|`<component-name>`|Generate a full React component that is a directory with `*.js, *.css` files in the current directory|
@@ -163,9 +151,9 @@ Examples:
 
 |Option|Sub option|Used with|Description|
 |:---:|:---:|:---:|---|
-|-|`--no-install`|`<project-name>`|Generate a project without running `git init` and installation of dependencies|
-|`-g`|`--no-install`|`<project-name>`|Generate a project with running `git init` but without installation of dependencies|
-|`-cf`|`--set-asset`|`<path>`|Store a local path to your own asset directory into the application config file|
+|-|`--no-install`|`<project-name>`|Generate a project without running the `git init` command and installation of dependencies|
+|`-g`|`--no-install`|`<project-name>`|Generate a project with running the `git init` command but without installation of dependencies|
+|`-cf`|`--set-asset`|`<path>`|Store a local path to the asset directory into the application config file|
 |`-cf`|`--view-asset`|-|View the current asset path|
 
 ## 5. Examples
@@ -173,7 +161,7 @@ Examples:
 ````
 // Project generation
 $ generate first-project             // Without any options
-$ generate -g secondproject          // Running `git init`
+$ generate -g secondproject          // Running the `git init` command
 $ generate --git ThirdProject        // Using alias --git instead of -g
 $ generate -g --no-install OtherProject
 $ generate --no-install LastProject  // Without installation of dependencies

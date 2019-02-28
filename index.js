@@ -8,7 +8,7 @@ const { installedVersion, autoUpdateCheck, checkAndInstallStableUpdate, validate
     errorIdentification, AppError, configHandling, retrieveAsset
 } = require("./functions/");
 
-// Definitions for main options and sub options
+// Option definitions
 const command = new Command();
 command
     .option("-root", "", "Root of a command") // Special case
@@ -63,7 +63,7 @@ function MainApp() {
 
                     break;
 
-                // Using for both React component and React-Redux component
+                // Single component generation
                 case "-c":
                 case "-r":
                     validateInputName(argument)
@@ -84,6 +84,7 @@ function MainApp() {
 
                     break;
 
+                // Full component generation
                 case "-fc":
                 case "-fr":
                     validateInputName(argument)
@@ -112,7 +113,6 @@ function MainApp() {
                     break;
 
                 case "-v":
-                    // Show the installed version
                     installedVersion()
                         .then((version) => {
                             resolve({ type: "info", message: version });
@@ -147,6 +147,7 @@ function MainApp() {
 
                     break;
 
+                // User asset generation
                 case "-m":
                     retrieveAsset()
                         .then((result) => {
