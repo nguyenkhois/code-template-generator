@@ -81,7 +81,7 @@ const errorCodeList = [
     {
         code: "i001",
         error: "Can not get the installed version",
-        solution: "You may be to try reinstall the latest stable version to fix it"
+        solution: "You may be to try reinstall the latest stable version to fix the problem"
     },
     {
         code: "i002",
@@ -90,7 +90,7 @@ const errorCodeList = [
     },
     {
         code: "i003",
-        error: "Unknown command. Command structure may be a failure.",
+        error: "The unknown command. It may be a failure.",
         solution: `${helpCommandText}`
     },
 
@@ -110,38 +110,38 @@ const errorCodeList = [
     },
     {
         code: "pa002",
-        error: "Local path to your asset directory is missing",
+        error: "A local path to your asset directory is missing",
         solution: `Syntax is \x1b[33mgenerate -cf \x1b[90m--set-asset\x1b[0m \x1b[33m<path>\x1b[0m.\n${helpCommandText}`
     },
     {
         code: "pa003",
-        error: "Unknown command or you are missing the sub option",
+        error: "The unknown command or you are missing the sub option",
         solution: `Example for syntax: \x1b[33mgenerate -cf \x1b[90m--set-asset\x1b[0m \x1b[33m<path>\x1b[0m. \n${helpCommandText}`
     },
     {
         code: "pa004",
-        error: "Local path to your asset directory is not found",
+        error: "The local path to your asset directory is not found",
         solution: `You may want to check again the local path.\n${helpCommandText}`
     },
     {
         code: "pa005",
-        error: "Local path to your asset directory is not defined",
+        error: "A local path to your asset directory is not defined",
         solution: `You need define the local path by command \x1b[33mgenerate -cf --set-asset <path>\x1b[0m.\n${helpCommandText}`
     },
     {
         code: "pa006",
-        error: "Can not retrieve your asset(s)",
-        solution: `Your asset(s) may be already exist in the current work directory`
+        error: "Can not retrieve your assets",
+        solution: `Your assets may be already exist in the current work directory`
     },
     {
         code: "pa007",
-        error: "Asset directory is empty",
+        error: "The asset directory is empty",
         solution: `You need have your files or sub directories are in this location`
     },
     {
         code: "pa008",
         error: "The asset directory in the current work directory is not allow",
-        solution: `You need choose another local path that is outside for your asset directory`
+        solution: `You need choose another local path that is outside the current work directory for your asset directory`
     }
 ];
 

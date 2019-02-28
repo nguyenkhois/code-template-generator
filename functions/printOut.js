@@ -153,17 +153,24 @@ function printOutResolve(resolving) {
 }
 
 function printOutReject(error) {
-    filterByProperty(errorCodeList, "code", error.code)
-        .then((result) => {
-            if (result.length === 1) {
-                console.log(`\n\x1b[31mError!\x1b[0m ${result[0].error}.`);
-                console.log(`${result[0].solution}.\n`);
-            } else {
-                // For general error
-                console.log("\n\x1b[31mError!\x1b[0m Error is found and process is interrupted.\n");
-            }
-        })
-        .catch((err) => console.log(err.message));
+    const generalErrorMessage = "\n\x1b[31mError!\x1b[0m Error is found and process is interrupted.\n";
+
+    if (error.code) {
+        filterByProperty(errorCodeList, "code", error.code)
+            .then((result) => {
+                if (result.length === 1) {
+                    console.log(`\n\x1b[31mError!\x1b[0m ${result[0].error}.`);
+                    console.log(`${result[0].solution}.\n`);
+                } else {
+                    console.log(generalErrorMessage);
+                }
+            })
+            .catch((err) => {
+                console.log(`${generalErrorMessage}\n${err.message ? err.message : ''}`);
+            });
+    } else {
+        console.log(generalErrorMessage);
+    }
 }
 
 function printOutGuideAfterGeneration(projectName, templateName) {

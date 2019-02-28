@@ -151,15 +151,13 @@ function retrieveAsset() {
                         })
                         .catch((err) => reject(err));
 
+                } else if (assetPath !== "" && isWithinCurrentDir) {
+                    reject(new AppError("pa008")); // The asset directory in the current directory is not allow
                 } else {
-                    if (assetPath !== "" && isWithinCurrentDir) {
-                        reject(new AppError("pa008")); // The asset path is within the current path
-                    }
-
                     reject(new AppError("pa005")); // The asset path is null = not defined
                 }
             } else {
-                if (err.message !== undefined && err.message === "undefined") {
+                if (err.message && err.message === "undefined") {
                     reject(new AppError("pa005")); // The asset path is not defined
                 }
 
@@ -199,8 +197,8 @@ function getConfigInfo(name, fnResult, filePath = configFilePath) {
             const configs = JSON.parse(fileContents);
 
             if (Object.keys(configs).length > 0) {
-                if (configs[name] !== undefined) {
-                    fnResult(null, configs[name]);
+                if (configs[name]) {
+                    fnResult(undefined, configs[name]);
                 } else {
                     fnResult(new Error("undefined"));
                 }
@@ -211,11 +209,7 @@ function getConfigInfo(name, fnResult, filePath = configFilePath) {
             fnResult(new Error("File is not found"));
         }
     } catch (err) {
-        if (err === null) {
-            fnResult(new Error("Unknown error is corrupted"));
-        } else {
-            fnResult(err);
-        }
+        fnResult(err);
     }
 }
 
