@@ -92,7 +92,7 @@ function generateTemplate(projectName = "", option = { gitSupport: false, subFla
 // Dependency installation
 function gitInstallation(projectName) {
     return new Promise((resolve, reject) => {
-        console.log("\nStarting the installation for Git support...");
+        console.log("\nRunning the git init command...");
         const exec = require("child_process").exec;
 
         exec(`cd ${projectName} && git init`, (error) => {
@@ -111,7 +111,7 @@ function dependencyInstallation(projectName) {
     return new Promise((resolve, reject) => {
         const exec = require("child_process").exec;
 
-        console.log("\nStarting the installation for all needed dependencies...");
+        console.log("\nStarting the installation of all needed dependencies...");
         exec(`cd ${projectName} && npm i`, (error, stdout, stderr) => {
             if (error) {
                 reject(error);
