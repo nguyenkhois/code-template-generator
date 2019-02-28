@@ -71,6 +71,9 @@ You can view more details about these project templates in the repository [Build
 _(*) You need install and config Redux, React-Redux by yourself._
 
 ### User asset generation
+
+![User asset generation](./assets/userasset.jpg)
+
 1. Reasons
     * You may have your own libraries, code templates and many more like .gitignore, .editorconfig, .eslinttrc.json, .eslintignore, ect.
     * You don't want to do the same things as search-copy-paste the assets many times while you are coding or starting a new project.
