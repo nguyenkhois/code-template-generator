@@ -4,7 +4,6 @@
 ## Table of contents
 1. [Introduction](#1-introduction)
     * [Screenshot](#screenshot)
-    * [What's new in version 2.2.x](#whats-new-in-version-22x)
 2. [Main features](#2-main-features)
     * [Project templates](#project-templates)
     * [Component templates](#component-templates)
