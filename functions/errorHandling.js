@@ -1,4 +1,4 @@
-const helpCommandText = "\nTip! You can run \x1b[33mgenerate -help\x1b[0m to view more information";
+const helpCommandText = "\nTip! You can run the command \x1b[33mgenerate -help\x1b[0m to view more information";
 const inputNameText = "It may only include letters, numbers, underscores, dashes and does not has special characters";
 
 const errorCodeList = [
@@ -18,7 +18,7 @@ const errorCodeList = [
     {
         code: "f001",
         error: "File extension is not supported",
-        solution: `The supported file extensions are  *.js, *.jsx. \n${helpCommandText}`
+        solution: `The supported file extensions are only *.js, *.jsx. \n${helpCommandText}`
     },
     {
         code: "f002",
@@ -40,7 +40,7 @@ const errorCodeList = [
     {
         code: "c002",
         error: "Component name is missing",
-        solution: `You may want to use command \x1b[33mgenerate <[-c][-r]> <component-name.js>\x1b[0m for component generation.
+        solution: `You may want to enter the command \x1b[33mgenerate <[-c][-r]> <component-name.js>\x1b[0m for component generation.
             \n${helpCommandText}`
     },
 
@@ -53,7 +53,7 @@ const errorCodeList = [
     {
         code: "fu002",
         error: "Component name is missing",
-        solution: `You may want to use command \x1b[33mgenerate <[-fc][-fr]> <component-name>\x1b[0m for component generation.
+        solution: `You may want to enter the command \x1b[33mgenerate <[-fc][-fr]> <component-name>\x1b[0m for component generation.
             \n${helpCommandText}`
     },
 
@@ -73,7 +73,7 @@ const errorCodeList = [
     {
         code: "p002",
         error: "Project name is missing",
-        solution: `You may want to use command \x1b[33mgenerate [-g] <project-name>\x1b[0m for project generation.
+        solution: `You may want to enter the command \x1b[33mgenerate [-g] <project-name>\x1b[0m for project generation.
             \n${helpCommandText}`
     },
 
@@ -86,11 +86,11 @@ const errorCodeList = [
     {
         code: "i002",
         error: "Can not connect to registry.npmjs.com for the latest stable version checking",
-        solution: "You may want to check again your internet connection"
+        solution: "You may want to check again the internet connection"
     },
     {
         code: "i003",
-        error: "The unknown command. It may be a failure",
+        error: "Unknown command. It may be a failure",
         solution: `${helpCommandText}`
     },
 
@@ -98,7 +98,7 @@ const errorCodeList = [
     {
         code: "n243",
         error: "EACCES: permission denied. The operation was rejected by your operating system",
-        solution: "You may want to try again by using administrator permission." +
+        solution: "You may want to try again by using the administrator permission." +
             "\nExample: \x1b[33msudo generate --update\x1b[0m \x1b[90m(MacOS or Ubuntu system)\x1b[0m"
     },
 
@@ -115,8 +115,8 @@ const errorCodeList = [
     },
     {
         code: "pa003",
-        error: "The unknown command or you are missing the sub option",
-        solution: `Example for syntax: \x1b[33mgenerate -cf \x1b[90m--set-asset\x1b[0m \x1b[33m<path>\x1b[0m. \n${helpCommandText}`
+        error: "Unknown command. You may be missing a sub option",
+        solution: `Example for the syntax: \x1b[33mgenerate -cf \x1b[90m--set-asset\x1b[0m \x1b[33m<path>\x1b[0m. \n${helpCommandText}`
     },
     {
         code: "pa004",
@@ -126,7 +126,7 @@ const errorCodeList = [
     {
         code: "pa005",
         error: "A local path to your asset directory is not defined",
-        solution: `You need define the local path by command \x1b[33mgenerate -cf --set-asset <path>\x1b[0m.\n${helpCommandText}`
+        solution: `You need define the local path by the command \x1b[33mgenerate -cf --set-asset <path>\x1b[0m.\n${helpCommandText}`
     },
     {
         code: "pa006",
@@ -136,17 +136,17 @@ const errorCodeList = [
     {
         code: "pa007",
         error: "The asset directory is empty",
-        solution: `You need have your files or sub directories are in this location`
+        solution: `You need have your files or sub directories in the asset location`
     },
     {
         code: "pa008",
-        error: "The asset directory in the current work directory is not allow",
+        error: "An asset directory in the current work directory is not allow",
         solution: `You need choose another local path that is outside the current work directory for your asset directory`
     }
 ];
 
 /**
- * Return always an Error object
+ * Return always an error object
  * @param {*} error
  */
 function errorIdentification(error) {
@@ -179,7 +179,7 @@ function errorIdentification(error) {
     }
 }
 
-// Custom Error object
+// Custom AppError object
 class AppError extends Error {
     constructor(code, message) {
         super();

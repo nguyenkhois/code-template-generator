@@ -1,7 +1,7 @@
 const https = require("https");
 const { AppError, errorIdentification } = require("./errorHandling");
 
-// Automatic update check
+// Automatic update checking
 function queryLatestVersion() {
     return new Promise(function (resolve, reject) {
         const url = "https://registry.npmjs.com/code-template-generator/latest";

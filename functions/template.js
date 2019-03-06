@@ -89,7 +89,7 @@ function generateTemplate(projectName = "", option = { gitSupport: false, subFla
     });
 }
 
-// Dependency installation
+// Git support installation
 function gitInstallation(projectName) {
     return new Promise((resolve, reject) => {
         console.log("\nRunning the git init command...");
@@ -196,7 +196,7 @@ function generateGitignoreFile(subDirectory = "") {
 }
 
 /**
- * Using for single component generation
+ * Using for a single component generation
  * @param {*} componentName : <component-name.js>
  * @param {*} option : [-c][-r] // React or React-Redux component
  * option = {
@@ -246,7 +246,7 @@ function generateComponent(componentName = null, option = { componentType: "" },
 
 /**
  * A full component that is a directory with *.js, *.css are within.
- * @param {*} componentName : <component-name> is <diectory-name> now.
+ * @param {*} componentName : <component-name> is <directory-name> now.
  * @param {*} option : {
  *      componentType: [-fc][-fr] // React or React-Redux component
  * }

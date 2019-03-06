@@ -30,7 +30,7 @@ function configHandling(data, option = {}) {
 
             if (option.subFlags.indexOf("--set-asset") > -1) {
                 // --set-asset -> Store the local path
-                // Validation and checking directory existence
+                // Validation and checking for the directory existence
                 validateInputPath(data)
                     .then(() => {
                         if (fs.existsSync(data) && fs.statSync(data).isDirectory()) {

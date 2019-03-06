@@ -8,4 +8,5 @@ package-lock.json
 
 node_modules
 *test*
-docs
+_Test*
+_test*
