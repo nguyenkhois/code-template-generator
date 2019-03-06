@@ -8,8 +8,7 @@
   },
   "keywords": [
     "express",
-    "server",
-    "cors"
+    "server"
   ],
   "author": "",
   "license": "ISC",

@@ -30,7 +30,7 @@ module.exports = {
     plugins: [
         new WebpackNotifierPlugin({ alwaysNotify: true }),
         new HtmlWebpackPlugin({ template: customConfigs.htmlTemplate }),
-        new CleanWebpackPlugin(customConfigs.distDir),
+        new CleanWebpackPlugin(),
         new WriteFilePlugin({
             test: /\.(png|jpg|gif|svg)$/i
         }),

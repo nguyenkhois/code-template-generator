@@ -28,6 +28,6 @@ module.exports = {
     plugins: [
         new WebpackNotifierPlugin({ alwaysNotify: true }),
         new HtmlWebpackPlugin({ template: './src/index.html' }),
-        new CleanWebpackPlugin(customConfigs.distDir)
+        new CleanWebpackPlugin()
     ]
 };
