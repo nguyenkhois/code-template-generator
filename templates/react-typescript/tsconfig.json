@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        //"outDir": "./dist/",
+        "outDir": "./dist/",
         "module": "commonjs",
         "noImplicitAny": true,
         "removeComments": true,
@@ -8,14 +8,10 @@
         "sourceMap": true,
         "moduleResolution": "node",
         "allowJs": true,
-        "target": "es5",
+        "target": "es6",
         "jsx": "react"
     },
     "include": [
-        "src/**/*"
-    ],
-    "exclude": [
-        "node_modules",
-        "**/*.spec.ts"
+        "./src/**/*"
     ]
 }
