@@ -62,12 +62,15 @@ You have more choices for your frontend development. It makes your life easier. 
 You can view more details about these project templates in the repository [Build environments](https://github.com/nguyenkhois/build-environments).
 
 ### Component templates
-|Component|React|React-Redux (*)|Description|
+|Component|Single (*)|Full (**)|Description|
 |---|:---:|:---:|---|
-|Single|X|X|A file with these supported extension `*.js` or `*.jsx`.|
-|Full|X|X|A directory with two files `*.js` and `*.css` that are generated within.|
+|React|X|X||
+|React-Redux|X|X|_You have only a component template and you need install and config Redux, React-Redux by yourself._|
+|React hooks|X|X||
 
-_(*) You need install and config Redux, React-Redux by yourself._
+(*) A file with these supported extension `*.js` or `*.jsx`.
+
+(**) A directory with two files `*.js` and `*.css` that are generated within.
 
 ### User asset generation
 
@@ -137,9 +140,11 @@ Examples:
 |:---:|:---|
 |`-g`|`--git`|
 |`-c`|`--component`|
-|`-r`|`--redux-component`|
 |`-fc`|`--full-component`|
+|`-r`|`--redux-component`|
 |`-fr`|`--full-redux-component`|
+|`-h`|`--hooks`|
+|`-fh`|`--full-hooks-component`|
 | `-i` |`--gitignore`|
 |`-v`|`--version`|
 |`-help`|`--help`|
@@ -173,10 +178,12 @@ $ generate --no-install LastProject  // No install dependencies
 // Single component -> A file
 $ generate -c SearchComponent.js   // React component
 $ generate -r ReviewComponent.jsx  // React-Redux component
+$ generate -h Count.js             // React hooks component
 
 // Full component -> A directory
 $ generate -fc ProductComponent
 $ generate -fr CartComponent
+$ generate -fh Counter
 
 // Asset generation
 $ generate -cf --set-asset "C:\Users\name\myassets"  // Windows
