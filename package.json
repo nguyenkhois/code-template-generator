@@ -1,6 +1,6 @@
 {
     "name": "code-template-generator",
-    "version": "2.2.11",
+    "version": "2.3.0-alpha.1.0.0",
     "description": "The lightweight React code template generator",
     "main": "index.js",
     "scripts": {
