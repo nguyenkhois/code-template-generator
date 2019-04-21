@@ -65,7 +65,7 @@ You can view more details about these project templates in the repository [Build
 |Component|Single (*)|Full (**)|Description|
 |---|:---:|:---:|---|
 |React|X|X||
-|React-Redux|X|X|_You have only a component template and you need install and config Redux, React-Redux by yourself._|
+|React-Redux|X|X|_You need install and config Redux, React-Redux by yourself._|
 |React hooks|X|X||
 
 (*) A file with these supported extension `*.js` or `*.jsx`.
