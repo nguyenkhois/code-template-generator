@@ -1,0 +1,18 @@
+import React, { useState, useEffect } from 'react';
+
+
+function YourComponentName() {
+    const [count, setCount] = useState(null);
+
+    useEffect(() => {
+
+    }, [count]);
+
+    return(
+        <div>
+
+        </div>
+    );
+}
+
+export default YourComponentName;

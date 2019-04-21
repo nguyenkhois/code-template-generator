@@ -14,9 +14,11 @@ command
     .option("-root", "", "Root of a command") // Special case
     .option("-g", "--git", "Run git init and generate a .gitignore file")
     .option("-c", "--component", "Generate a React component file (*.js, *.jsx)")
-    .option("-r", "--redux-component", "Generate a React-Redux component file (*.js, *.jsx)")
     .option("-fc", "--full-component", "Generate a full React component (*.css, *.js)")
-    .option("-fr", "--full-redux-component", "Generate a full React-Redux component (*.css, *.js)")
+    .option("-r", "--redux-component", "Generate a React-Redux component file")
+    .option("-fr", "--full-redux-component", "Generate a full React-Redux component")
+    .option("-h","--hooks","Generate a React hooks component file")
+    .option("-fh","--full-hooks-component","Generate a full React hooks component")
     .option("-i", "--gitignore", "Generate a .gitignore file")
     .option("-v", "--version", "View the installed version")
     .option("-help", "--help", "View help documentation")
@@ -66,6 +68,7 @@ function MainApp() {
                 // Single component generation
                 case "-c":
                 case "-r":
+                case "-h":
                     validateInputName(argument)
                         .then(() => {
                             const componentOption = { componentType: mainFlag };
@@ -87,6 +90,7 @@ function MainApp() {
                 // Full component generation
                 case "-fc":
                 case "-fr":
+                case "-fh":
                     validateInputName(argument)
                         .then(() => {
                             const componentOption = { componentType: mainFlag };

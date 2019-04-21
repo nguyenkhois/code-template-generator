@@ -215,26 +215,36 @@ function generateComponent(componentName = null, option = { componentType: "" },
         // Call an other Promise function -> input data is (argument, function)
         generateFile(componentName, function (filteredName) {
             let templateName;
+            const { componentType, fullComponent, fullCSSFileName } = option;
+            const componentRegExp = /YourComponentName/g;
+            const cssRegExp = /\/\/ImportYourCSS/g;
 
             // Chosen template file
-            option.componentType === "-r" ?
-                templateName = "/js-redux-component.template" :
-                templateName = "/js-component.template";
+            switch (componentType) {
+                case "-r":
+                    templateName = "/js-redux-component.template";
+                    break;
+                case "-h":
+                    templateName = "/js-hooks-component.template";
+                    break;
+
+                default:
+                    templateName = "/js-component.template";
+                    break;
+            }
 
             const componentTemplatePath = path.join(templateFilePath, templateName);
             const originalContent = fs.readFileSync(componentTemplatePath, "utf8");
 
             const className = filteredName.replace(/-/g, "");
-            let replacedContent = originalContent.replace(/YourClassName/g, className);
+            let replacedContent = originalContent.replace(componentRegExp, className);
 
             // Return file content
-            if (option.fullComponent !== undefined &&
-                option.fullCSSFileName !== undefined &&
-                option.fullComponent === true &&
-                option.fullCSSFileName.length > 0) {
-                return replacedContent.replace(/\/\/ImportYourCSS/g, `import './${option.fullCSSFileName}';`);
+            if (fullComponent && fullCSSFileName &&
+                fullComponent === true && fullCSSFileName.length > 0) {
+                return replacedContent.replace(cssRegExp, `import './${fullCSSFileName}';`);
             } else {
-                return replacedContent.replace(/\/\/ImportYourCSS/g, ""); // Clear comment in the template file
+                return replacedContent.replace(cssRegExp, ""); // Clear comment in the template file
             }
 
         }, extraOption)
@@ -253,6 +263,7 @@ function generateComponent(componentName = null, option = { componentType: "" },
  */
 function generateFullComponent(componentName = null, option = { componentType: "" }) {
     return new Promise((resolve, reject) => {
+        const { componentType } = option;
         const newFullDirectoryPath = `${CURR_DIR}/${componentName}`;
 
         if (!fs.existsSync(newFullDirectoryPath)) {
@@ -262,13 +273,23 @@ function generateFullComponent(componentName = null, option = { componentType: "
             const newFullJSFileName = `${componentName}.js`;
             const newFullCSSFileName = `${componentName}.css`;
 
-            // Chosen component type - React or React-Redux
+            // Chosen component type - React - React-Redux - React hooks
             let compType;
-            option.componentType === "-fr" ?
-                compType = "-r" : // React-Redux component
-                compType = "-c"; // React component
+            switch (componentType) {
+                case "-fr":
+                    compType = "-r"; // React-Redux component
+                    break;
 
-            // Create options
+                case "-fh":
+                    compType = "-h"; // React hooks component
+                    break;
+
+                default:
+                    compType = "-c"; // React component
+                    break;
+            }
+
+            // Create the new option
             const newOption = {
                 componentType: compType,
                 fullComponent: true,
