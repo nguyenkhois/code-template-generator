@@ -64,13 +64,13 @@ You can view more details about these project templates in the repository [Build
 ### Component templates
 |Component|Single (*)|Full (**)|Description|
 |---|:---:|:---:|---|
-|React|X|X||
-|React-Redux|X|X|_You need install and config Redux, React-Redux by yourself._|
-|React hooks|X|X||
+|React|✓|✓||
+|React-Redux|✓|✓|_You need install and config Redux, React-Redux by yourself._|
+|React hooks|✓|✓||
 
-(*) A file with these supported extension `*.js` or `*.jsx`.
+(*) Single component is a file with these supported extension `*.js` or `*.jsx`.
 
-(**) A directory with two files `*.js` and `*.css` that are generated within.
+(**) Full component is a directory with two files `*.js` and `*.css` that are generated within.
 
 ### User asset generation
 
