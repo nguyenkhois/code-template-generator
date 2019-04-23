@@ -51,7 +51,7 @@ You have more choices for your frontend development. It makes your life easier. 
     * Anti-caching.
 * User asset generation.
 
-### Project templates
+### 2.1 Project templates
 |Templates|Main dependencies|
 |---|---|
 |react-advance|Babel 7, Babel Loader 8, SplitChunksPlugin for code splitting|
@@ -61,7 +61,7 @@ You have more choices for your frontend development. It makes your life easier. 
 
 You can view more details about these project templates in the repository [Build environments](https://github.com/nguyenkhois/build-environments).
 
-### Component templates
+### 2.2 Component templates
 |Component|Single (*)|Full (**)|Description|
 |---|:---:|:---:|---|
 |React|✓|✓||
@@ -72,7 +72,7 @@ You can view more details about these project templates in the repository [Build
 
 (**) Full component is a directory with two files `*.js` and `*.css` that are generated within.
 
-### User asset generation
+### 2.3 User asset generation
 
 ![User asset generation](./assets/userasset.jpg)
 
@@ -111,7 +111,7 @@ Examples:
 * `generate --version` -> Main command.
 * `gen --version` -> Short command.
 
-### Options
+### 4.1 Options
 | Option | Used with | Description |
 |:---:|:---:|---|
 | - | `<project-name>` |  Generate a new project from a chosen template without running the `git init` command |
@@ -135,7 +135,7 @@ Examples:
 
 (**) View how to use with its sub options that are below.
 
-### Aliases
+### 4.2 Aliases
 |Option|Alias|
 |:---:|:---|
 |`-g`|`--git`|
@@ -152,7 +152,7 @@ Examples:
 |`-cf`|`--config`|
 |`-m`|`--my-asset`|
 
-### Sub options
+### 4.3 Sub options
 
 * `--no-install` (No install dependencies)
 * `--set-asset` (Set a local path to the asset directory)
