@@ -224,6 +224,7 @@ function generateComponent(componentName = null, option = { componentType: "" },
                 case "-r":
                     templateName = "/js-redux-component.template";
                     break;
+
                 case "-h":
                     templateName = "/js-hooks-component.template";
                     break;
