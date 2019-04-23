@@ -5,13 +5,14 @@
 1. [Introduction](#1-introduction)
     * [Screenshot](#screenshot)
 2. [Main features](#2-main-features)
-    * [Project templates](#project-templates)
-    * [Component templates](#component-templates)
-    * [User asset generation](#user-asset-generation)
+    * [Project templates](#21-project-templates)
+    * [Component templates](#22-component-templates)
+    * [User asset generation](#23-user-asset-generation)
 3. [Installation](#3-installation)
 4. [Usage](#4-usage)
-    * [Aliases](#aliases)
-    * [Sub options](#sub-options)
+    * [Options](#41-options)
+    * [Sub options](#42-sub-options)
+    * [Aliases](#43-aliases)
 5. [Examples](#5-examples)
 6. [Thanks you!](#6-thank-you)
 
@@ -135,7 +136,19 @@ Examples:
 
 (**) View how to use with its sub options that are below.
 
-### 4.2 Aliases
+### 4.2 Sub options
+* `--no-install` (No install dependencies)
+* `--set-asset` (Set a local path to the asset directory)
+* `--view-asset` (View the current local path to the asset directory)
+
+|Option|Sub option|Used with|Description|
+|:---:|:---:|:---:|---|
+|-|`--no-install`|`<project-name>`|Generate a project without running the `git init` command and installation of dependencies|
+|`-g`|`--no-install`|`<project-name>`|Generate a project with running the `git init` command but without installation of dependencies|
+|`-cf`|`--set-asset`|`<path>`|Store a local path to the asset directory into the application config file|
+|`-cf`|`--view-asset`|-|View the current asset path|
+
+### 4.3 Aliases
 |Option|Alias|
 |:---:|:---|
 |`-g`|`--git`|
@@ -151,19 +164,6 @@ Examples:
 |`-u`|`--update`|
 |`-cf`|`--config`|
 |`-m`|`--my-asset`|
-
-### 4.3 Sub options
-
-* `--no-install` (No install dependencies)
-* `--set-asset` (Set a local path to the asset directory)
-* `--view-asset` (View the current local path to the asset directory)
-
-|Option|Sub option|Used with|Description|
-|:---:|:---:|:---:|---|
-|-|`--no-install`|`<project-name>`|Generate a project without running the `git init` command and installation of dependencies|
-|`-g`|`--no-install`|`<project-name>`|Generate a project with running the `git init` command but without installation of dependencies|
-|`-cf`|`--set-asset`|`<path>`|Store a local path to the asset directory into the application config file|
-|`-cf`|`--view-asset`|-|View the current asset path|
 
 ## 5. Examples
 
