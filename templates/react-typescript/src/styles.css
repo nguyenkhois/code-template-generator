@@ -1,5 +1,7 @@
 .welcome {
-    background-color: rgb(43, 63, 10);
+    background-color: #294e80;
+    font-family: "wf_segoe-ui_normal", Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 300;
     color: white;
     font-size: 20px;
     padding: 20px;

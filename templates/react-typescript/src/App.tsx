@@ -6,7 +6,7 @@ import Hello from './Hello';
 class App extends React.Component<{}> {
     render() {
         return (
-            <Hello compiler="TypeScript" framework="React"/>
+            <Hello compiler="TypeScript" framework="React" />
         );
     }
 }
