@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Hello from './Hello';
 
 // 'HelloProps' describes the shape of props.

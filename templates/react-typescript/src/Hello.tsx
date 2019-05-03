@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { HelloProps } from './app.interfaces';
 
 class Hello extends React.Component<HelloProps, {}> {

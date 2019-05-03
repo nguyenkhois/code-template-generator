@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "outDir": "./dist/",
+        //"outDir": "./dist/",
         "module": "commonjs",
         "noImplicitAny": true,
         "removeComments": true,
@@ -11,6 +11,7 @@
         "target": "es5",
         "lib": ["es5","es6","dom"],
         "jsx": "react",
+        "esModuleInterop": true
     },
     "include": [
         "./src/**/*"
