@@ -6,13 +6,12 @@ const templatePath = path.join(__dirname, "../templates/");
 const templateFilePath = path.join(__dirname, "../templates-files/");
 
 const { AppError } = require("./errorHandling");
+const { stringHelper } = require('../helpers/stringHelper');
 
 // Project generation
 /**
  * @param {*} projectName
- * @param {*} option = {
- *      gitSupport: false
- * }
+ * @param {*} option = { gitSupport: false }
  */
 function generateTemplate(projectName = "", option = { gitSupport: false, subFlags: [] }) {
     return new Promise((resolve, reject) => {
@@ -29,10 +28,8 @@ function generateTemplate(projectName = "", option = { gitSupport: false, subFla
                 type: "input",
                 message: "Project name:",
                 validate: function (input) {
-                    if (/^(?![-.])([A-Za-z-_.\d])+([A-Za-z\d])+$/.test(input))
-                        return true;
-                    else
-                        return false;
+                    const regExr = /^(?![-.])([A-Za-z-_.\d])+([A-Za-z\d])+$/;
+                    return regExr.test(input);
                 }
             }
         ];
@@ -205,9 +202,7 @@ function generateGitignoreFile(subDirectory = "") {
  *      fullCSSFileName: 'string'
  * }
  * @param {*} extraOption : { JSON } // using for creating a full component that is a directory with *.js, *.css are within
- * extraOption = {
- *      subDir: 'string'
- * }
+ * extraOption = { subDir: 'string' }
  */
 function generateComponent(componentName = null, option = { componentType: "" }, extraOption = {}) {
     return new Promise((resolve, reject) => {
@@ -237,12 +232,13 @@ function generateComponent(componentName = null, option = { componentType: "" },
             const componentTemplatePath = path.join(templateFilePath, templateName);
             const originalContent = fs.readFileSync(componentTemplatePath, "utf8");
 
-            const className = filteredName.replace(/-/g, "");
+            let className = filteredName.replace(/[-_]/g, "");
+            className = stringHelper.firstCharToUpperCase(className);
+
             let replacedContent = originalContent.replace(componentRegExp, className);
 
             // Return file content
-            if (fullComponent && fullCSSFileName &&
-                fullComponent === true && fullCSSFileName.length > 0) {
+            if (fullComponent && fullCSSFileName && fullCSSFileName.length > 0) {
                 return replacedContent.replace(cssRegExp, `import './${fullCSSFileName}';`);
             } else {
                 return replacedContent.replace(cssRegExp, ""); // Clear comment in the template file
@@ -251,7 +247,6 @@ function generateComponent(componentName = null, option = { componentType: "" },
         }, extraOption)
             .then((result) => resolve(result))
             .catch((err) => reject(err));
-
     });
 }
 
