@@ -29,8 +29,8 @@ class YourComponentName extends Component {
 
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <div>
 
             </div>
