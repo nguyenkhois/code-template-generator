@@ -1,3 +1,4 @@
+'use strict';
 const https = require("https");
 const { AppError, errorIdentification } = require("./errorHandling");
 
@@ -32,7 +33,7 @@ function installedVersion() {
     return new Promise(function (resolve, reject) {
         const { version } = require("../package.json");
 
-        if (version !== undefined && version !== null && version.length > 0)
+        if (version && version.length > 0)
             resolve(version);
         else
             reject(new AppError("i001"));
@@ -43,9 +44,9 @@ function autoUpdateCheck() {
     return new Promise((resolve, reject) => {
         Promise.all([installedVersion(), queryLatestVersion()])
             .then((result) => {
-                if (result[0] !== undefined && result[1] !== undefined){
+                if (result[0] && result[1]) {
                     const versionInfo = {
-                        isUpdateFound: result[0] === result[1] ? false : true,
+                        isUpdateFound: (result[0] !== result[1]),
                         installed: result[0],
                         latest: result[1]
                     };
@@ -61,14 +62,14 @@ function autoUpdateCheck() {
 
 function validateInputName(input) {
     /**
-     * Input data must be larger than 2 character.
+     * Input data length must be larger than 2 character.
      * Project name may only include letters, numbers, underscores and hashes.
      * Do NOT accept any special characters. View more at regularExpression in ../common/index.js.
      */
     const { regularExpression } = require("../common/");
 
     return new Promise(function (resolve, reject) {
-        if (input === undefined || input === null || input === "") {
+        if (!input) {
             reject(new AppError("n002"));
             return;
         }
@@ -81,11 +82,11 @@ function validateInputName(input) {
     });
 }
 
-function validateInputPath(input){
+function validateInputPath(input) {
     const { pathRegExr } = require("../common/");
 
     return new Promise(function (resolve, reject) {
-        if (input === undefined || input === null || input === "") {
+        if (!input) {
             reject(new AppError("pa002"));
             return;
         }
@@ -100,16 +101,17 @@ function validateInputPath(input){
 
 function checkAndInstallStableUpdate() {
     return new Promise((resolve, reject) => {
-        let resolvingContent = "";
 
         autoUpdateCheck()
             .then((versionInfo) => {
+                let resolvingContent = "";
+
                 if (versionInfo.isUpdateFound) {
                     const exec = require("child_process").exec;
 
                     console.log(`\nInstalled version is ${versionInfo.installed}`);
                     console.log(`\nStarting installation for the latest stable version ${versionInfo.latest}...`);
-                    exec("npm i -g code-template-generator", (error, stdout, stderr) => {
+                    exec("npm i -g code-template-generator@latest", (error, stdout, stderr) => {
                         if (error) {
                             reject(errorIdentification(error));
                             return;
@@ -117,7 +119,7 @@ function checkAndInstallStableUpdate() {
 
                         resolvingContent = `\n\x1b[32mDone!\x1b[0m npm ${stdout}`;
 
-                        if (stderr !== "") {
+                        if (stderr) {
                             resolvingContent += `\n\x1b[35mInformation\x1b[0m: ${stderr}`;
                         }
 
@@ -125,7 +127,7 @@ function checkAndInstallStableUpdate() {
                     });
 
                 } else {
-                    resolvingContent = `You have installed the latest stable version ${versionInfo.installed}`;
+                    resolvingContent = `The latest stable version ${versionInfo.installed} already installed`;
                     resolve({ message: resolvingContent });
                 }
             })
