@@ -71,7 +71,7 @@ function printUpdateMessage(latestVersion) {
     const message = "\n" +
         "\t---------------------------------------------------------\n" +
         `\t|   \x1b[33mThe latest stable version ${latestVersion} is available\x1b[0m.\t|\n` +
-        "\t|   Run \x1b[36mnpm i -g code-template-generator\x1b[0m to update.\t|\n" +
+        "\t|   Run \x1b[36mnpm i -g code-template-generator\x1b[0m to install.\t|\n" +
         "\t---------------------------------------------------------\n";
     console.log(message);
 }
@@ -121,10 +121,11 @@ function printOutResolve(resolving) {
 
         case "asset":
             let results = {};
-            if (Object.keys(resolving).length > 0) {
-                if (resolving.message !== undefined &&
-                    resolving.message.passed !== undefined &&
-                    resolving.message.failure !== undefined) {
+
+            if (resolving && Object.keys(resolving).length > 0) {
+                if (resolving.message &&
+                    resolving.message.passed &&
+                    resolving.message.failure) {
                     results = Object.assign(results, {
                         "passed": resolving.message.passed || [],
                         "failure": resolving.message.failure || [],

@@ -24,10 +24,12 @@ Other packages:
 * Your code are compiled into the directory `/dist` with three separate file extensions `*.html, *.css, *.js`.
 * Directory `/dist` is deleted and then created automatic whenever you run the command `npm run build`.
 
+View more about the features on [GitHub](https://github.com/nguyenkhois/build-environments).
+
 Tested on:
-* Windows 10 (version 1809)
-* MacOS High Sierra (version 10.13)
-* Ubuntu (version 18.04 LTS)
+* Windows 10 version 1903
+* MacOS version 10.13
+* Ubuntu version 18.04 LTS
 
 ## Using
 * Run the command `npm install` to install all needed dependencies.

@@ -22,10 +22,10 @@ Other packages:
 ||Location|
 |---|---|
 |Source code|`/src`|
-|HTML template|`/src/index.html`|
-|Styles|`/src/styles.css`|
-|Entry point|`/src/index.js`|
 |Images|`/src/images`|
+|Styles|`/src/styles`|
+|HTML template|`/src/index.html`|
+|Entry point|`/src/index.js`|
 |Webpack Dev Server custom config|`/webpack.custom.js`|
 
 * Auto refresh whenever you make a change in your code.
@@ -36,10 +36,12 @@ Other packages:
     * Image handling: Auto copy only the directory `/src/images` into `/dist` when you compile your code or during the development.
     * You can use `async`/ `await` for fetching data from API in your code.
 
+View more about the features on [GitHub](https://github.com/nguyenkhois/build-environments).
+
 Tested on:
-* Windows 10 (version 1809)
-* MacOS High Sierra (version 10.13)
-* Ubuntu (version 18.04 LTS)
+* Windows 10 version 1903
+* MacOS version 10.13
+* Ubuntu version 18.04 LTS
 
 ## Using
 * Run the command `npm install` to install all needed dependencies.
