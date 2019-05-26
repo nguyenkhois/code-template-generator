@@ -6,3 +6,10 @@
     font-size: 18px;
     padding: 20px;
 }
+    .welcome a {
+        color: deepskyblue;
+    }
+    .welcome a:hover {
+        color: lightblue;
+        text-decoration: none;
+    }

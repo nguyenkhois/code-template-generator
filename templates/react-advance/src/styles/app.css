@@ -1,6 +1,13 @@
 .welcome {
-    background-color: cadetblue;
+    background-color: slategrey;
     color: white;
     font-size: 20px;
     padding: 20px;
 }
+    .welcome a {
+        color: powderblue;
+    }
+    .welcome a:hover {
+        color: lightblue;
+        text-decoration: none;
+    }
