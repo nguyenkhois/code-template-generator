@@ -50,7 +50,7 @@ function configHandling(data, option = {}) {
                 // --view-asset -> Show the asset local path
                 getConfigInfo("userAssetPath", (err, assetPath) => {
                     if (!err) {
-                        if (assetPath !== "") {
+                        if (assetPath && assetPath.length > 0) {
                             resolve({
                                 "subFlag": "--view-asset",
                                 "result": assetPath
@@ -94,7 +94,7 @@ function retrieveAsset() {
             if (!err) {
                 const isWithinCurrentDir = findWithinCurrentDir(assetPath);
 
-                if (assetPath !== "" && !isWithinCurrentDir) {
+                if (assetPath && !isWithinCurrentDir) {
                     getDirectoryContents(assetPath)
                         .then((dirContents) => {
                             if (dirContents.length > 0) {
@@ -151,7 +151,7 @@ function retrieveAsset() {
                         })
                         .catch((err) => reject(err));
 
-                } else if (assetPath !== "" && isWithinCurrentDir) {
+                } else if (assetPath && isWithinCurrentDir) {
                     reject(new AppError("pa008")); // The asset directory in the current directory is not allow
                 } else {
                     reject(new AppError("pa005")); // The asset path is null = not defined
@@ -169,7 +169,7 @@ function retrieveAsset() {
 
 function getDirectoryContents(sPath) {
     return new Promise((resolve, reject) => {
-        if (fs.existsSync(sPath) && fs.statSync(sPath).isDirectory()) {
+        if (sPath && fs.existsSync(sPath) && fs.statSync(sPath).isDirectory()) {
             const filesToCreate = fs.readdirSync(sPath);
             let directoryContents = [];
 
@@ -214,7 +214,7 @@ function getConfigInfo(name, fnResult, filePath = configFilePath) {
 }
 
 function findWithinCurrentDir(inputDir, currentDir = CURR_DIR) {
-    if (inputDir.length < currentDir.length) {
+    if (inputDir && inputDir.length < currentDir.length) {
         if (currentDir.indexOf(inputDir) > -1) {
             return true;
         }
