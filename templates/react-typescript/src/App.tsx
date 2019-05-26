@@ -1,12 +1,11 @@
 import React from 'react';
-import Hello from './Hello';
+import Home from './components/Home';
+import './styles/app.css';
 
-// 'HelloProps' describes the shape of props.
-// State is never set so we use the '{}' type.
 class App extends React.Component<{}> {
     render() {
         return (
-            <Hello compiler="TypeScript" framework="React" />
+            <Home compiler="TypeScript" framework="React" />
         );
     }
 }

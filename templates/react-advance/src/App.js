@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import Hello from './Hello';
+import Home from './components/Home';
+import './styles/app.css';
 
 class App extends Component {
-    //Do stuff
-    
-    //Render
-    render(){
-        return(
-            <Hello/>
+    render() {
+        return (
+            <Home />
         );
     }
 };
