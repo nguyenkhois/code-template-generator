@@ -22,7 +22,7 @@ The application is a lightweight Node.js CLI tool that is most using for fronten
 * Component generation.
 * User asset generation.
 
-You have more choices for your frontend development. It makes your life easier. (^_~)
+You build your own and have more choices for your frontend development. It makes your life easier. (^_~)
 
 ### Screenshot
 ![Demo](./assets/screenshot.gif)
@@ -42,10 +42,11 @@ You have more choices for your frontend development. It makes your life easier. 
     * It's simple for configuration and installation of dependencies you need.
         * Work fast and flexible.
         * Only the minimum needed dependencies are installed and preconfigured.
-        * Easy to change the build environment.
-        * Compatibility with a project that is generated from [create-react-app](https://facebook.github.io/create-react-app/).
+        * Easy to change to (or from) another build environment.
+        * Compatibility with another project that is generated from [create-react-app](https://facebook.github.io/create-react-app/).
     * Code splitting.
     * Image handling.
+    * Minification for production.
     * CSS, JS code injected automatic into the HTML template `/src/index.html`.
     * Hot Module Replacement (HMR) is enabled.
     * You don't need to care about the distribution directory `/dist`. The things you care are only the directory `/src`.
@@ -100,7 +101,7 @@ System requirements:
 * The minimum supported Node.js version is 8.3.0 (Node.js LTS version is a good choice for the stability).
 * Administrator permission is required by your operating system for:
     * Installation of `code-template-generator` on global by the option `--global`.
-    * Running the command `$ generate -u` for the latest stable version updating.
+    * Running the command `$ generate --update` for the latest stable version updating.
 
 ## 4. Usage
 `$ generate [-option] [--sub-option] [project-name][component-name][path]`
@@ -145,7 +146,7 @@ Examples:
 |:---:|:---:|:---:|---|
 |-|`--no-install`|`<project-name>`|Generate a project without running the `git init` command and installation of dependencies|
 |`-g`|`--no-install`|`<project-name>`|Generate a project with running the `git init` command but without installation of dependencies|
-|`-cf`|`--set-asset`|`<path>`|Store a local path to the asset directory into the application config file|
+|`-cf`|`--set-asset`|`<local-path>`|Store a local path to the asset directory into the application config file|
 |`-cf`|`--view-asset`|-|View the current asset path|
 
 ### 4.3 Aliases
@@ -190,7 +191,7 @@ $ generate -cf --set-asset "C:\Users\name\myassets"  // Windows
 $ generate -cf --set-asset "/Users/name/myassets"    // MacOS
 $ generate -cf --set-asset "/home/name/myassets"     // Ubuntu
 $ generate -cf --view-asset   // View the current asset location
-$ generate -m                 // Show the asset list
+$ generate -m                 // Show the asset list and retrieve them
 
 // Others
 $ generate --gitignore  // Generate a .gitignore file
