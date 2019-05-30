@@ -251,22 +251,42 @@ function generateComponent(componentName = null, option = { componentType: "" },
 }
 
 /**
- * A full component that is a directory with *.js, *.css are within.
+ * A full component that is a directory with *.js (or *.jsx) and *.css are within.
  * @param {*} componentName : <component-name> is <directory-name> now.
  * @param {*} option : {
- *      componentType: [-fc][-fr] // React or React-Redux component
+ *      componentType: [-fc][-fr][-fh] // React, React-Redux, React hooks component
  * }
  */
-function generateFullComponent(componentName = null, option = { componentType: "" }) {
+function generateFullComponent(componentName = null, option = { componentType: "", subFlags: [] }) {
     return new Promise((resolve, reject) => {
-        const { componentType } = option;
+        const { componentType, subFlags } = option;
+        const supportedExtenstions = ["js", "jsx"];
+        const defaultExtension = "js";
         const newFullDirectoryPath = `${CURR_DIR}/${componentName}`;
+
+        // Identify extension
+        let componentExtension = defaultExtension;
+        let isBreak = false;
+        if (subFlags.length > 0) {
+            const subFlagsLength = subFlags.length;
+            for (let i = 0; i < subFlagsLength; i++) {
+                const foundExtension = subFlags[i].slice(2); // Remove symbol -- in subFlag
+                if (supportedExtenstions.indexOf(foundExtension) > -1) {
+                    componentExtension = foundExtension;
+                    isBreak = true;
+                }
+
+                if (isBreak) {
+                    break;
+                }
+            }
+        }
 
         if (!fs.existsSync(newFullDirectoryPath)) {
             fs.mkdirSync(newFullDirectoryPath);
 
             // Create file name
-            const newFullJSFileName = `${componentName}.js`;
+            const newFullJSFileName = `${componentName}.${componentExtension}`;
             const newFullCSSFileName = `${componentName}.css`;
 
             // Chosen component type - React - React-Redux - React hooks

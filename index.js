@@ -14,7 +14,7 @@ command
     .option("-root", "", "Root of a command") // Special case
     .option("-g", "--git", "Run git init and generate a .gitignore file")
     .option("-c", "--component", "Generate a React component file (*.js, *.jsx)")
-    .option("-fc", "--full-component", "Generate a full React component (*.css, *.js)")
+    .option("-fc", "--full-component", "Generate a full React component (*.css, *.js, *.jsx)")
     .option("-r", "--redux-component", "Generate a React-Redux component file")
     .option("-fr", "--full-redux-component", "Generate a full React-Redux component")
     .option("-h","--hooks","Generate a React hooks component file")
@@ -27,6 +27,9 @@ command
     .option("-m", "--my-asset", "Retrieve assets from a specific directory")
     .subOption("-root", "--no-install", "No run git init and no install dependencies")
     .subOption("-g", "--no-install", "No install dependencies")
+    .subOption("-fc", "--jsx", "Using the extension .jsx for component")
+    .subOption("-fr", "--jsx", "Using the extension .jsx for React-Redux component")
+    .subOption("-fh", "--jsx", "Using the extension .jsx for React hooks component")
     .subOption("-cf", "--set-asset", "Store the asset directory path")
     .subOption("-cf", "--view-asset", "View the asset directory path");
 // End of definitions
@@ -93,7 +96,10 @@ function MainApp() {
                 case "-fh":
                     validateInputName(argument)
                         .then(() => {
-                            const componentOption = { componentType: mainFlag };
+                            const componentOption = {
+                                componentType: mainFlag,
+                                subFlags: subFlags
+                            };
 
                             generateFullComponent(argument, componentOption)
                                 .then((fullDirName) => resolve({ type: "component", name: fullDirName }))
