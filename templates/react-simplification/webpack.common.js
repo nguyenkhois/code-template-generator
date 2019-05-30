@@ -1,7 +1,7 @@
 const path = require('path');
 const WebpackNotifierPlugin = require("webpack-notifier");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const customConfigs = require('./webpack.custom'); // Using your own configs
 

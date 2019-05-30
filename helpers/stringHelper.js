@@ -1,7 +1,7 @@
 const stringHelper = {
     firstCharToUpperCase (sString) {
         try {
-            if (sString.length > 0) {
+            if (sString && sString.length > 0) {
                 return sString.charAt(0).toUpperCase() + sString.slice(1);
             }
 

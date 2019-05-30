@@ -13,7 +13,7 @@ class YourComponentName extends Component {
     }
 
     render() {
-        return(
+        return (
             <div>
 
             </div>
