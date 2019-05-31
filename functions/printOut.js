@@ -80,41 +80,45 @@ function printUpdateMessage(latestVersion) {
     console.log(message);
 }
 
+// The resolving has many flexible properties therefore you should be careful on every case
 function printOutResolve(resolving) {
-    switch (resolving.type) {
+    const { type, name, template, message } = resolving;
+
+    switch (type) {
         case "project":
-            printOutGuideAfterGeneration(resolving.name, resolving.template);
+            printOutGuideAfterGeneration(name, template);
             break;
 
         case "component":
             const regularExpression = /component/gi;
-            const seekingComponentText = regularExpression.test(resolving.name);
+            const seekingComponentText = regularExpression.test(name);
 
             console.log("\n\x1b[32mDone!\x1b[0m " +
-                `${resolving.name} ` +
-                `${!seekingComponentText ? resolving.type + " " : ""}` +
+                `${name} ` +
+                `${!seekingComponentText ? type + " " : ""}` +
                 "is generated successfully.\n");
 
             break;
 
         case "file":
-            console.log(`\n\x1b[32mDone!\x1b[0m ${resolving.name} is generated successfully.\n`);
+            console.log(`\n\x1b[32mDone!\x1b[0m ${name} is generated successfully.\n`);
             break;
 
         case "info":
         case "update":
-            console.log(resolving.message + "\n");
+            console.log(message + "\n");
             break;
 
         case "config":
-            const receivedConfigInfo = resolving.message;
-            switch (receivedConfigInfo.subFlag) {
+            const { subFlag, result } = message;
+
+            switch (subFlag) {
                 case "--set-asset":
-                    console.log(`\n\x1b[32mDone!\x1b[0m "\x1b[36m${receivedConfigInfo.result}\x1b[0m" is saved successfully.\n`);
+                    console.log(`\n\x1b[32mDone!\x1b[0m "\x1b[36m${result}\x1b[0m" is saved successfully.\n`);
                     break;
 
                 case "--view-asset":
-                    console.log(`\nYour current asset location is \x1b[36m${receivedConfigInfo.result}\x1b[0m\n`);
+                    console.log(`\nYour current asset location is \x1b[36m${result}\x1b[0m\n`);
                     break;
 
                 default:
@@ -126,26 +130,28 @@ function printOutResolve(resolving) {
         case "asset":
             let results = {};
 
-            if (resolving && Object.keys(resolving).length > 0) {
-                if (resolving.message &&
-                    resolving.message.passed &&
-                    resolving.message.failure) {
+            if (message && Object.keys(message).length > 0) {
+                const { passed, failure } = message;
+
+                if (passed && failure) {
                     results = Object.assign(results, {
-                        "passed": resolving.message.passed || [],
-                        "failure": resolving.message.failure || [],
-                        "passedQuantity": resolving.message.passed.length,
-                        "failureQuantity": resolving.message.failure.length
+                        "passed": passed || [],
+                        "failure": failure || [],
+                        "passedQuantity": passed.length,
+                        "failureQuantity": failure.length
                     });
                 }
             }
 
             if (Object.keys(results).length > 0) {
-                console.log(`\n\x1b[32mDone!\x1b[0m You have successfully retrieved your asset(s).` +
-                    `\n\n\x1b[36mPassed:\x1b[0m ${results.passedQuantity} ${results.passedQuantity > 0 ?
-                        `(${results.passed})` : ''}` +
+                const { passed, failure, passedQuantity, failureQuantity } = results;
 
-                    `${results.failureQuantity > 0 ?
-                        `\n\n\x1b[31mFailure:\x1b[0m ${results.failureQuantity} (${results.failure})` +
+                console.log(`\n\x1b[32mDone!\x1b[0m You have successfully retrieved your asset(s).` +
+                    `\n\n\x1b[36mPassed:\x1b[0m ${passedQuantity} ${passedQuantity > 0 ?
+                        `(${passed})` : ''}` +
+
+                    `${failureQuantity > 0 ?
+                        `\n\n\x1b[31mFailure:\x1b[0m ${failureQuantity} (${failure})` +
                         "\nIt may be already exist in the current work directory." :
                         ''}\n`);
             }
@@ -159,11 +165,12 @@ function printOutResolve(resolving) {
 
 function printOutReject(error) {
     const generalErrorMessage = "\n\x1b[31mError!\x1b[0m Error is found and process is interrupted.\n";
+    const { code } = error;
 
-    if (error.code) {
-        filterByProperty(errorCodeList, "code", error.code)
+    if (code) {
+        filterByProperty(errorCodeList, "code", code)
             .then((result) => {
-                if (result.length === 1) {
+                if (Array.isArray(result) && result.length === 1) {
                     console.log(`\n\x1b[31mError!\x1b[0m ${result[0].error}.`);
                     console.log(`${result[0].solution}.\n`);
                 } else {
