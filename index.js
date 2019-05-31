@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-const { Command } = require("command-handling");
+// Option definitions
+const { command } = require("./common/commandDefinition");
 
 const { installedVersion, autoUpdateCheck, checkAndInstallStableUpdate, validateInputName,
     helpInformation, printUpdateMessage, printOutResolve, printOutReject,
@@ -8,37 +9,11 @@ const { installedVersion, autoUpdateCheck, checkAndInstallStableUpdate, validate
     errorIdentification, AppError, configHandling, retrieveAsset
 } = require("./functions/");
 
-// Option definitions
-const command = new Command();
-command
-    .option("-root", "", "Root of a command") // Special case
-    .option("-g", "--git", "Run git init and generate a .gitignore file")
-    .option("-c", "--component", "Generate a React component file (*.js, *.jsx)")
-    .option("-fc", "--full-component", "Generate a full React component (*.css, *.js, *.jsx)")
-    .option("-r", "--redux-component", "Generate a React-Redux component file")
-    .option("-fr", "--full-redux-component", "Generate a full React-Redux component")
-    .option("-h","--hooks","Generate a React hooks component file")
-    .option("-fh","--full-hooks-component","Generate a full React hooks component")
-    .option("-i", "--gitignore", "Generate a .gitignore file")
-    .option("-v", "--version", "View the installed version")
-    .option("-help", "--help", "View help documentation")
-    .option("-u", "--update", "Install the latest stable version")
-    .option("-cf", "--config", "Config for this application")
-    .option("-m", "--my-asset", "Retrieve assets from a specific directory")
-    .subOption("-root", "--no-install", "No run git init and no install dependencies")
-    .subOption("-g", "--no-install", "No install dependencies")
-    .subOption("-fc", "--jsx", "Using the extension .jsx for component")
-    .subOption("-fr", "--jsx", "Using the extension .jsx for React-Redux component")
-    .subOption("-fh", "--jsx", "Using the extension .jsx for React hooks component")
-    .subOption("-cf", "--set-asset", "Store the asset directory path")
-    .subOption("-cf", "--view-asset", "View the asset directory path");
-// End of definitions
-
 function MainApp() {
     return new Promise((resolve, reject) => {
         const { mainFlag, subFlags, argument, commandLength, unknowns } = command.parse(process.argv);
 
-        if (commandLength > 0 && unknowns.length === 0){
+        if (commandLength > 0 && unknowns.length === 0) {
             let projectOption = {
                 "gitSupport": false,
                 "subFlags": subFlags

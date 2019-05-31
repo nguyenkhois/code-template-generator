@@ -8,28 +8,32 @@ function helpInformation(optionList) {
     let subFlagContent = "";
 
     optionList.map((option) => {
-        if (option.flag !== "-root") {
-            // Display main flags
-            mainFlagContent += `\t${option.flag}\t${option.description}\n`;
+        const { flag, alias, subFlags, description } = option;
 
-            // Display aliases
-            aliasContent += `\t${option.flag}\t${option.alias}\n`;
+        if (flag !== "-root") {
+            mainFlagContent += `\t${flag}\t${description}\n`;
+            aliasContent += `\t${flag}\t${alias}\n`;
         }
 
-        // Display sub flags
-        if (option.subFlags.length > 0) {
-            if (option.flag !== "-root") {
-                subFlagContent += `\n\t${option.flag}`;
+        if (subFlags.length > 0) {
+            if (flag !== "-root") {
+                subFlagContent += `\n\t${flag}`;
             } else {
                 subFlagContent += "\n\t";
             }
 
-            option.subFlags.map((subFlag, index) => {
+            subFlags.map((subFlag, index) => {
+                const { flag, description } = subFlag;
+
                 if (index !== 0) {
                     subFlagContent += `\n\t`;
                 }
 
-                subFlagContent += `\t\x1b[90m${subFlag.flag}\x1b[0m\t${subFlag.description}`;
+                subFlagContent += `\t\x1b[90m${flag}\x1b[0m`;
+                if (flag.length < 8) {
+                    subFlagContent += `\t`;
+                }
+                subFlagContent += `\t${description}`;
             });
         }
     });
