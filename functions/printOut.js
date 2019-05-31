@@ -1,4 +1,5 @@
-const { filterByProperty, supportedTemplate } = require("../common/");
+const { supportedTemplate } = require("../common/");
+const { filterByProperty } = require("../helpers/");
 const { errorCodeList } = require("./errorHandling");
 
 // Print out the information

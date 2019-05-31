@@ -1,7 +1,6 @@
 // System importing
 const fs = require("fs");
 const inquirer = require('inquirer');
-const helpers = require("../helpers");
 
 const CURR_DIR = process.cwd();
 const regularExpression = /^(?![-.])([A-Za-z-_.\d])+([A-Za-z\d])+$/gi;
@@ -29,7 +28,6 @@ module.exports = {
     fs,
     inquirer,
     CURR_DIR,
-    ...helpers,
     regularExpression,
     supportedTemplate,
     pathRegExr

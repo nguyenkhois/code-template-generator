@@ -1,12 +1,11 @@
 'use strict';
 const path = require("path");
-const { fs, inquirer, CURR_DIR, createDirectoryContents } = require("../common/");
+const { fs, inquirer, CURR_DIR } = require("../common/");
+const { createDirectoryContents, stringHelper } = require("../helpers/");
+const { AppError } = require("./errorHandling");
 
 const templatePath = path.join(__dirname, "../templates/");
 const templateFilePath = path.join(__dirname, "../templates-files/");
-
-const { AppError } = require("./errorHandling");
-const { stringHelper } = require('../helpers/stringHelper');
 
 // Project generation
 /**

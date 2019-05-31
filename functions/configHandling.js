@@ -1,7 +1,7 @@
 'use strict';
-const { fs, inquirer, CURR_DIR, createDirectoryContents } = require("../common/");
 const os = require("os");
-
+const { fs, inquirer, CURR_DIR } = require("../common/");
+const { createDirectoryContents } = require("../helpers/");
 const { validateInputPath } = require("./functions");
 const { AppError } = require("./errorHandling");
 
