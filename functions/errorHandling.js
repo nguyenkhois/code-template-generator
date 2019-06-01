@@ -40,7 +40,7 @@ const errorCodeList = [
     {
         code: "c002",
         error: "Component name is missing",
-        solution: `You may want to enter the command \x1b[33mgenerate <[-c][-r]> <component-name.js>\x1b[0m for component generation.
+        solution: `You may want to enter the command \x1b[33mgenerate <[-c][-r][-h]> <component-name.js>\x1b[0m for component generation.
             \n${helpCommandText}`
     },
 
@@ -53,7 +53,7 @@ const errorCodeList = [
     {
         code: "fu002",
         error: "Component name is missing",
-        solution: `You may want to enter the command \x1b[33mgenerate <[-fc][-fr]> <component-name>\x1b[0m for component generation.
+        solution: `You may want to enter the command \x1b[33mgenerate <[-fc][-fr][-fh]> <component-name>\x1b[0m for component generation.
             \n${helpCommandText}`
     },
 
@@ -147,29 +147,28 @@ const errorCodeList = [
 
 /**
  * Return always an error object
- * @param {*} error
+ * @param {object} error = { code: '', message: ''}
  */
 function errorIdentification(error) {
-    const errorCode = error.code;
-    const errorMessage = error.message;
+    const { code, message } = error;
 
-    switch (errorCode) {
+    switch (code) {
         // Internet connection is not found
         case "ENOTFOUND":
-            if (/ENOTFOUND/g.test(errorMessage)) {
+            if (/ENOTFOUND/g.test(message)) {
                 return new AppError("i002", "Can not connect to registry.npmjs.com");
             }
             return error;
 
         // MacOS and Ubuntu - The user has not administrator permission
         case 243:
-            if (/permission denied/g.test(errorMessage)) {
+            if (/permission denied/g.test(message)) {
                 return new AppError("n243", "Permission denied");
             }
             return error;
 
         case "EEXIST":
-            if (/file already exists/g.test(errorMessage)){
+            if (/file already exists/g.test(message)) {
                 return new AppError("f003", "A subdirectory or file already exists");
             }
             return error;

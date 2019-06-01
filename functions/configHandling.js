@@ -24,11 +24,18 @@ function initialConfigFile() {
     });
 }
 
+/**
+ * @param {string} data
+ * @param {object} option
+ */
 function configHandling(data, option = {}) {
     return new Promise((resolve, reject) => {
-        if (Object.keys(option).length > 0 && option.subFlags !== undefined) {
+        const { subFlags } = option;
 
-            if (option.subFlags.indexOf("--set-asset") > -1) {
+        if (data && Object.keys(option).length > 0
+            && subFlags && Array.isArray(subFlags)) {
+
+            if (subFlags.indexOf("--set-asset") > -1) {
                 // --set-asset -> Store the local path
                 // Validation and checking for the directory existence
                 validateInputPath(data)
@@ -46,7 +53,7 @@ function configHandling(data, option = {}) {
                     })
                     .catch((err) => reject(err));
 
-            } else if (option.subFlags.indexOf("--view-asset") > -1) {
+            } else if (subFlags.indexOf("--view-asset") > -1) {
                 // --view-asset -> Show the asset local path
                 getConfigInfo("userAssetPath", (err, assetPath) => {
                     if (!err) {
@@ -76,6 +83,10 @@ function configHandling(data, option = {}) {
     });
 }
 
+/**
+ * @param {object} data
+ * @param {string} sPath
+ */
 function storeConfig(data, sPath = configFilePath) {
     return new Promise((resolve) => {
         const configFileContents = fs.readFileSync(sPath, "utf8");
@@ -167,6 +178,9 @@ function retrieveAsset() {
     });
 }
 
+/**
+ * @param {string} sPath
+ */
 function getDirectoryContents(sPath) {
     return new Promise((resolve, reject) => {
         if (sPath && fs.existsSync(sPath) && fs.statSync(sPath).isDirectory()) {
@@ -185,10 +199,9 @@ function getDirectoryContents(sPath) {
 }
 
 /**
- * Using callback
- * @param {*} name is property name in config file
- * @param {*} fnResult is callback function => (err, result)
- * @param {*} filePath is local file path
+ * @param {string} name is property name in config file
+ * @param {callback} fnResult is a callback function => (err, result)
+ * @param {string} filePath is local file path
  */
 function getConfigInfo(name, fnResult, filePath = configFilePath) {
     try {
@@ -213,6 +226,10 @@ function getConfigInfo(name, fnResult, filePath = configFilePath) {
     }
 }
 
+/**
+ * @param {string} inputDir
+ * @param {string} currentDir
+ */
 function findWithinCurrentDir(inputDir, currentDir = CURR_DIR) {
     if (inputDir && inputDir.length < currentDir.length) {
         if (currentDir.indexOf(inputDir) > -1) {

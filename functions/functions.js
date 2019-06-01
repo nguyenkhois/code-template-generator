@@ -60,6 +60,9 @@ function autoUpdateCheck() {
     });
 }
 
+/**
+ * @param {string} input
+ */
 function validateInputName(input) {
     /**
      * Input data length must be larger than 2 character.
@@ -82,6 +85,9 @@ function validateInputName(input) {
     });
 }
 
+/**
+ * @param {string} input
+ */
 function validateInputPath(input) {
     const { pathRegExr } = require("../common/");
 
@@ -104,13 +110,14 @@ function checkAndInstallStableUpdate() {
 
         autoUpdateCheck()
             .then((versionInfo) => {
+                const { isUpdateFound, installed, latest } = versionInfo;
                 let resolvingContent = "";
 
-                if (versionInfo.isUpdateFound) {
+                if (isUpdateFound) {
                     const exec = require("child_process").exec;
 
-                    console.log(`\nInstalled version is ${versionInfo.installed}`);
-                    console.log(`\nStarting installation for the latest stable version ${versionInfo.latest}...`);
+                    console.log(`\nInstalled version is ${installed}`);
+                    console.log(`\nStarting installation for the latest stable version ${latest}...`);
                     exec("npm i -g code-template-generator@latest", (error, stdout, stderr) => {
                         if (error) {
                             reject(errorIdentification(error));
@@ -127,7 +134,7 @@ function checkAndInstallStableUpdate() {
                     });
 
                 } else {
-                    resolvingContent = `The latest stable version ${versionInfo.installed} already installed`;
+                    resolvingContent = `The latest stable version ${installed} already installed`;
                     resolve({ message: resolvingContent });
                 }
             })

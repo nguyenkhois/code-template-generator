@@ -56,9 +56,10 @@ function MainApp() {
                                 .catch((err) => reject(err));
                         })
                         .catch((err) => {
-                            if (err.code === "n001") {
+                            const { code } = err;
+                            if (code === "n001") {
                                 reject(new AppError("c001"));
-                            } else if (err.code === "n002") {
+                            } else if (code === "n002") {
                                 reject(new AppError("c002"));
                             }
                         });
@@ -81,9 +82,10 @@ function MainApp() {
                                 .catch((err) => reject(err));
                         })
                         .catch((err) => {
-                            if (err.code === "n001") {
+                            const { code } = err;
+                            if (code === "n001") {
                                 reject(new AppError("fu001"));
-                            } else if (err.code === "n002") {
+                            } else if (code === "n002") {
                                 reject(new AppError("fu002"));
                             }
                         });
@@ -154,9 +156,10 @@ function MainApp() {
                                 .catch((err) => reject(err));
                         })
                         .catch((err) => {
-                            if (err.code === "n001") {
+                            const { code } = err;
+                            if (code === "n001") {
                                 reject(new AppError("p001")); // Error code mapping
-                            } else if (err.code === "n002") {
+                            } else if (code === "n002") {
                                 reject(new AppError("p002"));
                             }
                         });
@@ -177,14 +180,16 @@ function MainApp() {
     });
 }
 
-// MAIN APP
 /**
- * resolving = result = {
- *      "type": "[project][component][file][info][update]"
- *      ...
+ * MAIN APP
+ * The resolving object is the result and it's flexible = {
+ *      "type": string // [project][component][file][info][update]
+ *      "name": string
+ *      "message": string
+ *      "template": string
  * };
  *
- * reject = error object
+ * The reject is an error object
  */
 MainApp()
     .then((resolving) => {

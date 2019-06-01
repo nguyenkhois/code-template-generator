@@ -7,12 +7,12 @@ const { AppError } = require("./errorHandling");
 const templatePath = path.join(__dirname, "../templates/");
 const templateFilePath = path.join(__dirname, "../templates-files/");
 
-// Project generation
 /**
- * @param {*} projectName
- * @param {*} option = { gitSupport: false }
+ * Project generation
+ * @param {string} projectName
+ * @param {object} option
  */
-function generateTemplate(projectName = "", option = { gitSupport: false, subFlags: [] }) {
+function generateTemplate(inputProjectName, option = { gitSupport: false, subFlags: [] }) {
     return new Promise((resolve, reject) => {
         const CHOICES = fs.readdirSync(templatePath);
         const choiceList = [
@@ -34,16 +34,16 @@ function generateTemplate(projectName = "", option = { gitSupport: false, subFla
         ];
         let QUESTIONS = [];
 
-        projectName.length !== 0 ?
-            QUESTIONS = choiceList.slice(0, 1) : // Project name is not null and we don't ask again
-            QUESTIONS = choiceList; // Project name is null therefor we have two questions
+        inputProjectName ?
+            QUESTIONS = choiceList.slice(0, 1) : // Project name already exists therefor we don't ask again
+            QUESTIONS = choiceList; // Project name is null therefor we must have two questions
 
         inquirer.prompt(QUESTIONS)
             .then((answers) => {
-                const chosenProjectTemplate = answers.projectChoice;
-                const chosenProjectName = projectName.length !== 0 ?
-                    projectName :
-                    answers.projectName;
+                const { projectChoice, projectName } = answers;
+
+                const chosenProjectTemplate = projectChoice;
+                const chosenProjectName = inputProjectName ? inputProjectName : projectName;
 
                 const chosenTemplatePath = templatePath + chosenProjectTemplate;
                 const newProjectPath = `${CURR_DIR}/${chosenProjectName}`;
@@ -53,15 +53,17 @@ function generateTemplate(projectName = "", option = { gitSupport: false, subFla
 
                     createDirectoryContents(fs, chosenTemplatePath, newProjectPath)
                         .then(() => {
+                            const { gitSupport, subFlags } = option;
+
                             // Generate .gitignore file and run the "git init" command
-                            if (option.gitSupport === true) {
+                            if (gitSupport) {
                                 gitInstallation(chosenProjectName)
                                     .then(() => generateGitignoreFile(chosenProjectName))
                                     .catch((err) => reject(err));
                             }
 
                             // Dependency installation
-                            if (option.subFlags.indexOf("--no-install") === -1) {
+                            if (subFlags.indexOf("--no-install") === -1) {
                                 dependencyInstallation(chosenProjectName)
                                     .then(() => resolve({
                                         name: chosenProjectName,
@@ -85,9 +87,17 @@ function generateTemplate(projectName = "", option = { gitSupport: false, subFla
     });
 }
 
-// Git support installation
+/**
+ * Running the command "git init"
+ * @param {string} projectName
+ */
 function gitInstallation(projectName) {
     return new Promise((resolve, reject) => {
+        if (!projectName) {
+            reject(new Error("The projectName variable can not empty"));
+            return;
+        }
+
         console.log("\nRunning the git init command...");
         const exec = require("child_process").exec;
 
@@ -102,9 +112,17 @@ function gitInstallation(projectName) {
     });
 }
 
-// Installation of all needed dependencies
+/**
+ * Installation of all needed dependencies
+ * @param {string} projectName
+ */
 function dependencyInstallation(projectName) {
     return new Promise((resolve, reject) => {
+        if (!projectName) {
+            reject(new Error("Missing the projectName variable"));
+            return;
+        }
+
         const exec = require("child_process").exec;
 
         console.log("\nStarting the installation of all needed dependencies...");
@@ -127,59 +145,71 @@ function dependencyInstallation(projectName) {
 
 /**
  * Component generation - Using Higher-Order Function (HOF)
- * Input data is (argument, function, extraOption)
+ * @param {string} argFullFileName
+ * @param {callback} fnGetAndReplaceFileContent
+ * @param {object} extraOption
  */
 function generateFile(argFullFileName = null, fnGetAndReplaceFileContent, extraOption = {}) {
     return new Promise(function (resolve, reject) {
-        if (argFullFileName !== null) {
-            const supportedExtension = ["js", "jsx", "gitignore", "css"];
-            const seekingExtension = argFullFileName.split(".");
+        if (!argFullFileName) {
+            reject(new AppError("f002")); // The file name is missing
+            return;
+        }
 
-            let fileExtension = "";
-            let filteredName = "";
+        const supportedExtension = ["js", "jsx", "gitignore", "css"];
+        const seekingExtension = argFullFileName.split(".");
 
-            if (seekingExtension.length > 1) {
-                fileExtension = seekingExtension[seekingExtension.length - 1];
-                filteredName = seekingExtension.slice(0, seekingExtension.length - 1).join("");
+        let fileExtension = "";
+        let filteredName = "";
+
+        if (seekingExtension.length > 1) {
+            fileExtension = seekingExtension[seekingExtension.length - 1];
+            filteredName = seekingExtension.slice(0, seekingExtension.length - 1).join("");
+        }
+
+        if (supportedExtension.indexOf(fileExtension) > -1) {
+            // Check if the file will be created in a sub directory
+            let newFullFilePath = `${CURR_DIR}/${argFullFileName}`; // Default is in the current directory
+
+            if (Object.keys(extraOption).length > 0) {
+                const { subDir } = extraOption;
+                if (subDir) {
+                    newFullFilePath = `${CURR_DIR}/${subDir}/${argFullFileName}`;
+                }
             }
 
-            if (supportedExtension.indexOf(fileExtension) > -1) {
-                // Check if the file will be created in a sub directory
-                let newFullFilePath = `${CURR_DIR}/${argFullFileName}`; // Default is in the current directory
-
-                if (Object.keys(extraOption).length > 0) {
-                    if (extraOption.subDir !== undefined && extraOption.subDir !== "") {
-                        newFullFilePath = `${CURR_DIR}/${extraOption.subDir}/${argFullFileName}`;
+            // Check if the file is not found
+            if (!fs.existsSync(newFullFilePath)) {
+                fs.writeFile(newFullFilePath, fnGetAndReplaceFileContent(filteredName), (err) => {
+                    if (!err) {
+                        resolve(argFullFileName);
+                    } else {
+                        reject(err);
                     }
-                }
-
-                // Check if the file is found
-                if (!fs.existsSync(newFullFilePath)) {
-                    fs.writeFile(newFullFilePath, fnGetAndReplaceFileContent(filteredName), (err) => {
-                        if (!err) {
-                            resolve(argFullFileName);
-                        } else {
-                            reject(err);
-                        }
-                    });
-                } else {
-                    reject(new AppError("f003")); // A subdirectory or file already exists
-                }
-
+                });
             } else {
-                reject(new AppError("f001")); // The file extension is not supported
+                reject(new AppError("f003")); // A subdirectory or file already exists
             }
 
         } else {
-            reject(new AppError("f002")); // The file name is missing
+            reject(new AppError("f001")); // The file extension is not supported
         }
     });
 }
 
-function generateGitignoreFile(subDirectory = "") {
-    const extraOption = { subDir: subDirectory };
-
+/**
+ * .gitignore file generation
+ * @param {string} subDirectory
+ */
+function generateGitignoreFile(subDirectory) {
     return new Promise((resolve, reject) => {
+        if (!subDirectory) {
+            reject(new Error("Missing the subDirectory variable"));
+            return;
+        }
+
+        const extraOption = { subDir: subDirectory };
+
         generateFile(".gitignore", function () {
             const gitignoreTemplatePath = path.join(templateFilePath, "/gitignore.template");
             const gitignoreContent = fs.readFileSync(gitignoreTemplatePath);
@@ -192,28 +222,32 @@ function generateGitignoreFile(subDirectory = "") {
 }
 
 /**
- * Using for a single component generation
- * @param {*} componentName : <component-name.js>
- * @param {*} option : [-c][-r] // React or React-Redux component
- * option = {
- *      componentType: 'string',
+ * Single component generation
+ * @param {string} componentName is like <component-name.js>
+ * @param {object} option = {
+ *      componentType: string, // [-c][-r][-h] -> React, React-Redux, React hooks component
  *      fullComponent: boolean,
- *      fullCSSFileName: 'string'
+ *      fullCSSFileName: string
  * }
- * @param {*} extraOption : { JSON } // using for creating a full component that is a directory with *.js, *.css are within
- * extraOption = { subDir: 'string' }
+ *
+ * Using for creating a full component that is a directory with *.js, *.jsx, *.css are within
+ * @param {object} extraOption = { subDir: string }
  */
 function generateComponent(componentName = null, option = { componentType: "" }, extraOption = {}) {
     return new Promise((resolve, reject) => {
+        if (!componentName) {
+            reject(new Error("Missing the componentName variable"));
+            return;
+        }
 
         // Call an other Promise function -> input data is (argument, function)
         generateFile(componentName, function (filteredName) {
-            let templateName;
             const { componentType, fullComponent, fullCSSFileName } = option;
             const componentRegExp = /YourComponentName/g;
             const cssRegExp = /\/\/ImportYourCSS/g;
 
             // Chosen template file
+            let templateName;
             switch (componentType) {
                 case "-r":
                     templateName = "/js-redux-component.template";
@@ -250,14 +284,21 @@ function generateComponent(componentName = null, option = { componentType: "" },
 }
 
 /**
+ * Full component generation
  * A full component that is a directory with *.js (or *.jsx) and *.css are within.
- * @param {*} componentName : <component-name> is <directory-name> now.
- * @param {*} option : {
- *      componentType: [-fc][-fr][-fh] // React, React-Redux, React hooks component
+ * @param {string} componentName is like <component-name> that is a <directory-name> now.
+ * @param {object} option = {
+ *      componentType: string, // [-fc][-fr][-fh] -> React, React-Redux, React hooks component
+ *      subFlags: array
  * }
  */
 function generateFullComponent(componentName = null, option = { componentType: "", subFlags: [] }) {
     return new Promise((resolve, reject) => {
+        if (!componentName) {
+            reject(new Error("Missing the componentName variable"));
+            return;
+        }
+
         const { componentType, subFlags } = option;
         const supportedExtenstions = ["js", "jsx"];
         const defaultExtension = "js";
