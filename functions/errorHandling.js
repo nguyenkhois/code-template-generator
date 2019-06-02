@@ -147,7 +147,7 @@ const errorCodeList = [
 
 /**
  * Return always an error object
- * @param {object} error = { code: '', message: ''}
+ * @param {object} error = { code: string, message: string }
  */
 function errorIdentification(error) {
     const { code, message } = error;

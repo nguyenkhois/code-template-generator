@@ -32,9 +32,7 @@ function configHandling(data, option = {}) {
     return new Promise((resolve, reject) => {
         const { subFlags } = option;
 
-        if (data && Object.keys(option).length > 0
-            && subFlags && Array.isArray(subFlags)) {
-
+        if (data && subFlags && Array.isArray(subFlags)) {
             if (subFlags.indexOf("--set-asset") > -1) {
                 // --set-asset -> Store the local path
                 // Validation and checking for the directory existence
