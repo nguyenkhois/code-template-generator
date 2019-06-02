@@ -185,6 +185,7 @@ $ generate -h Count.js             // React hooks component
 $ generate -fc ProductComponent
 $ generate -fr CartComponent
 $ generate -fh Counter
+$ generate -fh --jsx Header   // Using *.jsx for a component file
 
 // Asset generation
 $ generate -cf --set-asset "C:\Users\name\myassets"  // Windows

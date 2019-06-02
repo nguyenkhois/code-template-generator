@@ -58,8 +58,12 @@ function helpInformation(optionList) {
         "\n" +
         "\n\t$ generate -c \x1b[33mSearchComponent.js\x1b[0m" +
         "\n\t$ generate -r \x1b[33mReviewComponent.jsx\x1b[0m" +
+        "\n\t$ generate -h \x1b[33mFooter.jsx\x1b[0m" +
         "\n\t$ generate -fc \x1b[33mProductComponent\x1b[0m" +
         "\n\t$ generate -fr \x1b[33mCartComponent\x1b[0m" +
+        "\n\t$ generate -fh \x1b[33mHeader\x1b[0m" +
+        "\n" +
+        "\n\t$ generate -fc \x1b[90m--jsx\x1b[0m \x1b[33mNews\x1b[0m" +
         "\n" +
         "\n\t$ generate -cf \x1b[90m--set-asset\x1b[0m \x1b[33m\"C:\\Users\\name\\myassets\"\x1b[0m (Windows)" +
         "\n\t$ generate -cf \x1b[90m--set-asset\x1b[0m \x1b[33m\"/Users/name/myassets\"\x1b[0m (MacOS)" +
