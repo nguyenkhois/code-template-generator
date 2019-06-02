@@ -119,12 +119,12 @@ Examples:
 | - | `<project-name>` |  Generate a new project from a chosen template without running the `git init` command |
 |`-g`|`<project-name>`| Run automatically the `git init` command and generate a `.gitignore` file on the root of project directory during the generation|
 |`-c`|`<component-name.js>`|Generate a single React component `(*.js or *.jsx)` in the current directory|
-|`-fc`|`<component-name>`|Generate a full React component that is a directory with `*.js, *.css` files in the current directory|
 |`-r`|`<component-name.js>`|Generate a single React-Redux component `(*.js or *.jsx)` in the current directory|
-|`-fr`|`<component-name>`|Generate a full React-Redux component that is a directory with `*.js, *.css` files in the current directory|
 |`-h`|`<component-name.js>`|Generate a single React hooks component `(*.js or *.jsx)` in the current directory|
+|`-fc`|`<component-name>`|Generate a full React component that is a directory with `*.js, *.css` files in the current directory|
+|`-fr`|`<component-name>`|Generate a full React-Redux component that is a directory with `*.js, *.css` files in the current directory|
 |`-fh`|`<component-name>`|Generate a full React hooks component that is a directory with `*.js, *.css` files in the current directory|
-| `-i` |-| A `.gitignore` file will be generated in the current directory |
+|`-i`|-| A `.gitignore` file will be generated in the current directory |
 |`-v`|-|View the installed version|
 |`-help`|-|View help documentation|
 |`-u`|-| Automatic update checking and installation for the latest stable version (*) |
@@ -141,6 +141,7 @@ Examples:
 * `--no-install` (No install dependencies)
 * `--set-asset` (Set a local path to the asset directory)
 * `--view-asset` (View the current local path to the asset directory)
+* `--jsx`
 
 |Option|Sub option|Used with|Description|
 |:---:|:---:|:---:|---|
@@ -148,18 +149,19 @@ Examples:
 |`-g`|`--no-install`|`<project-name>`|Generate a project with running the `git init` command but without installation of dependencies|
 |`-cf`|`--set-asset`|`<local-path>`|Store a local path to the asset directory into the application config file|
 |`-cf`|`--view-asset`|-|View the current asset path|
+|`-fc | -fr | -fh`|`--jsx`|`<component-name>`|The application creates a *.jsx file instead of a *.js file that is default when it generates a full component|
 
 ### 4.3 Aliases
 |Option|Alias|
 |:---:|:---|
 |`-g`|`--git`|
 |`-c`|`--component`|
-|`-fc`|`--full-component`|
 |`-r`|`--redux-component`|
-|`-fr`|`--full-redux-component`|
 |`-h`|`--hooks`|
+|`-fc`|`--full-component`|
+|`-fr`|`--full-redux-component`|
 |`-fh`|`--full-hooks-component`|
-| `-i` |`--gitignore`|
+|`-i`|`--gitignore`|
 |`-v`|`--version`|
 |`-help`|`--help`|
 |`-u`|`--update`|
