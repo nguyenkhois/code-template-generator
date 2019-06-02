@@ -149,7 +149,7 @@ Examples:
 |`-g`|`--no-install`|`<project-name>`|Generate a project with running the `git init` command but without installation of dependencies|
 |`-cf`|`--set-asset`|`<local-path>`|Store a local path to the asset directory into the application config file|
 |`-cf`|`--view-asset`|-|View the current asset path|
-|`-fc | -fr | -fh`|`--jsx`|`<component-name>`|The application creates a *.jsx file instead of a *.js file that is default when it generates a full component|
+|`[-fc] [-fr] [-fh]`|`--jsx`|`<component-name>`|The application creates a *.jsx file instead of a *.js file that is default when it generates a full component|
 
 ### 4.3 Aliases
 |Option|Alias|
