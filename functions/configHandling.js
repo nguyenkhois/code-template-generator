@@ -111,7 +111,7 @@ function retrieveAsset() {
                                     .prompt([
                                         {
                                             type: 'checkbox',
-                                            message: 'Choose your asset(s)',
+                                            message: `Choose your asset(s) from \x1b[36m${assetPath}\x1b[0m\n`,
                                             name: 'userAssetList',
                                             choices: dirContents || [],
                                             pageSize: 10,
