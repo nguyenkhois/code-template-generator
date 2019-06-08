@@ -196,10 +196,12 @@ MainApp()
         printOutResolve(resolving);
 
         // Automatic update checking after resolving
-        if (resolving.type !== "update") {
+        const { type } = resolving;
+        if (type && type !== "update") {
             autoUpdateCheck().then((versionInfo) => {
-                if (versionInfo.isUpdateFound) {
-                    printUpdateMessage(versionInfo.latest);
+                const { isUpdateFound, latest } = versionInfo;
+                if (isUpdateFound && latest) {
+                    printUpdateMessage(latest);
                 }
             }).catch((err) => {
                 const customErrorObject = errorIdentification(err);
