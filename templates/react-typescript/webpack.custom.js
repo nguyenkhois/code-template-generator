@@ -1,7 +1,9 @@
 module.exports = {
     entryPoints: {
-        index: './src/index.tsx', // default
+        // index is default and you can add many more entry points here
+        index: './src/index.tsx',
     },
     htmlTemplate: './src/index.html',
-    distDir: './dist' // Distribution directory
+    distDir: './dist', // Distribution directory
+    serverPort: 9000
 }

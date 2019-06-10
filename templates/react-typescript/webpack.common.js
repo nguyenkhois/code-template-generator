@@ -4,13 +4,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const WriteFilePlugin = require('write-file-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-
-const customConfigs = require('./webpack.custom'); // Using your own configs
+const { entryPoints, distDir, htmlTemplate } = require('./webpack.custom'); // Using your own configs
 
 module.exports = {
-    entry: customConfigs.entryPoints,// which file to begin with, 
+    entry: entryPoints,// which file to begin with, 
     output: {
-        path: path.resolve(__dirname, customConfigs.distDir), // what folder to put bundle in
+        path: path.resolve(__dirname, distDir), // what folder to put bundle in
         filename: '[name].[hash].js' // what name to use for bundle
     },
     module: {
@@ -29,13 +28,13 @@ module.exports = {
     },
     plugins: [
         new WebpackNotifierPlugin({ alwaysNotify: true }),
-        new HtmlWebpackPlugin({ template: customConfigs.htmlTemplate }),
+        new HtmlWebpackPlugin({ template: htmlTemplate }),
         new CleanWebpackPlugin(),
         new WriteFilePlugin({
             test: /\.(png|jpg|gif|svg)$/i
         }),
         new CopyWebpackPlugin([
-                {from:'src/images',to:'images'}
+            { from: 'src/images', to: 'images' }
         ])
     ]
 };

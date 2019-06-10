@@ -4,5 +4,6 @@ module.exports = {
         index: './src/index.js',
     },
     htmlTemplate: './src/index.html',
-    distDir: './dist' // Distribution directory
+    distDir: './dist', // Distribution directory
+    serverPort: 9000
 }
