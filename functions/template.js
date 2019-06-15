@@ -149,7 +149,7 @@ function dependencyInstallation(projectName) {
  * @param {callback} fnGetAndReplaceFileContent
  * @param {object} extraOption
  */
-function generateFile(argFullFileName = null, fnGetAndReplaceFileContent, extraOption = {}) {
+function generateFile(argFullFileName, fnGetAndReplaceFileContent, extraOption = {}) {
     return new Promise(function (resolve, reject) {
         if (!argFullFileName) {
             reject(new AppError("f002")); // The file name is missing
@@ -203,11 +203,6 @@ function generateFile(argFullFileName = null, fnGetAndReplaceFileContent, extraO
  */
 function generateGitignoreFile(subDirectory) {
     return new Promise((resolve, reject) => {
-        if (!subDirectory) {
-            reject(new Error("Missing the subDirectory variable"));
-            return;
-        }
-
         const extraOption = { subDir: subDirectory };
 
         generateFile(".gitignore", function () {
@@ -233,7 +228,7 @@ function generateGitignoreFile(subDirectory) {
  * Using for creating a full component that is a directory with *.js, *.jsx, *.css are within
  * @param {object} extraOption = { subDir: string }
  */
-function generateComponent(componentName = null, option = { componentType: "" }, extraOption = {}) {
+function generateComponent(componentName, option = { componentType: "" }, extraOption = {}) {
     return new Promise((resolve, reject) => {
         if (!componentName) {
             reject(new Error("Missing the componentName variable"));
