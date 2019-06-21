@@ -4,7 +4,7 @@ const chaiAsPromised = require("chai-as-promised");
 
 chai.use(chaiAsPromised);
 
-const { validateInputName, AppError } = require("../functions/");
+const { validateInputName, AppError } = require("../features/");
 
 /**
  * .rejectedWith() is chai-as-promised's syntax

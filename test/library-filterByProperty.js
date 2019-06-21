@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 
-const { filterByProperty } = require("../common/");
+const { filterByProperty } = require("../helpers/");
 
 describe("COMMON/library.js - filterByProperty()", function () {
     const inputObjectArray = [

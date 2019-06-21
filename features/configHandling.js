@@ -1,8 +1,9 @@
 'use strict';
 const os = require("os");
+
 const { fs, inquirer, CURR_DIR } = require("../common/");
 const { createDirectoryContents } = require("../helpers/");
-const { validateInputPath } = require("./functions");
+const { validateInputPath } = require("./utils");
 const { AppError } = require("./errorHandling");
 
 const HOME_DIR = os.homedir();

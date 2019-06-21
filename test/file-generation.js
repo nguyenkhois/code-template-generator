@@ -6,7 +6,7 @@ chai.use(chaiAsPromised);
 
 const { generateGitignoreFile, generateComponent,
     generateFullComponent, AppError
-} = require("../functions/");
+} = require("../features/");
 
 describe("FUNCTIONS/template.js - File generation", function () {
     describe("Generate .gitignore file", function () {

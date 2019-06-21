@@ -7,7 +7,7 @@ const { installedVersion, autoUpdateCheck, checkAndInstallStableUpdate, validate
     helpInformation, printUpdateMessage, printOutResolve, printOutReject,
     generateTemplate, generateGitignoreFile, generateComponent, generateFullComponent,
     errorIdentification, AppError, configHandling, retrieveAsset
-} = require("./functions/");
+} = require("./features/");
 
 function MainApp() {
     return new Promise((resolve, reject) => {

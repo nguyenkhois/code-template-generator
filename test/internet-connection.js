@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 
-const { errorIdentification, AppError } = require("../functions/");
+const { errorIdentification, AppError } = require("../features/");
 
 describe("FUNCTIONS/errorHandling.js - errorIdentification(), AppError object", function () {
     it("Internet connection should not found", function () {

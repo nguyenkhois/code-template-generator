@@ -1,5 +1,5 @@
-const supportFunctions = require("./functions");
-const templateFunctions = require("./template");
+const supportFunctions = require("./utils");
+const templateFunctions = require("./templateGeneration");
 const printOutFunctions = require("./printOut");
 const { errorIdentification, AppError } = require("./errorHandling");
 const configFunctions = require("./configHandling");

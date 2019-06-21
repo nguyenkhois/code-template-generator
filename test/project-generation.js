@@ -1,13 +1,11 @@
 const { expect } = require("chai");
 const chai = require("chai");
 const chaiAsPromised = require("chai-as-promised");
+const inquirer = require("inquirer");
 
 chai.use(chaiAsPromised);
 
-const inquirer = require("inquirer");
-const { generateTemplate } = require("../functions/template");
-
-const { AppError } = require("../functions/errorHandling");
+const { generateTemplate, AppError } = require("../features/");
 
 describe("FUNCTIONS/template.js - Project generation", function () {
     let backup;
