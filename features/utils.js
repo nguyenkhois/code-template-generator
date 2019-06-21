@@ -6,9 +6,11 @@ const { AppError, errorIdentification } = require("./errorHandling");
 function queryLatestVersion() {
     return new Promise(function (resolve, reject) {
         const url = "https://registry.npmjs.com/code-template-generator/latest";
-        let latestVersion;
+        const options = {
+            timeout: 6000
+        };
 
-        https.get(url, (response) => {
+        https.get(url, options, (response) => {
             response.setEncoding("utf8");
 
             let rawData = "";
@@ -18,20 +20,20 @@ function queryLatestVersion() {
 
             response.on("end", () => {
                 const parsedData = JSON.parse(rawData);
-                latestVersion = parsedData.version;
+                const latestVersion = parsedData.version;
 
-                resolve(latestVersion);
+                return resolve(latestVersion);
             });
 
         }).on("error", (error) => {
-            reject(error);
+            return reject(error);
         });
     });
 }
 
 function installedVersion() {
     return new Promise(function (resolve, reject) {
-        const { version } = require("../package.json");
+        const { version } = require("../package.json") || '';
 
         if (version && version.length > 0)
             resolve(version);
@@ -69,12 +71,11 @@ function validateInputName(input) {
      * Project name may only include letters, numbers, underscores and hashes.
      * Do NOT accept any special characters. View more at regularExpression in ../common/index.js.
      */
-    const { regularExpression } = require("../common/");
-
     return new Promise(function (resolve, reject) {
+        const { regularExpression } = require("../common/");
+
         if (!input) {
-            reject(new AppError("n002"));
-            return;
+            return reject(new AppError("n002"));
         }
 
         if (regularExpression.test(input)) {
@@ -89,12 +90,11 @@ function validateInputName(input) {
  * @param {string} input
  */
 function validateInputPath(input) {
-    const { pathRegExr } = require("../common/");
-
     return new Promise(function (resolve, reject) {
+        const { pathRegExr } = require("../common/");
+
         if (!input) {
-            reject(new AppError("pa002"));
-            return;
+            return reject(new AppError("pa002"));
         }
 
         if (pathRegExr.test(input)) {
@@ -107,7 +107,6 @@ function validateInputPath(input) {
 
 function checkAndInstallStableUpdate() {
     return new Promise((resolve, reject) => {
-
         autoUpdateCheck()
             .then((versionInfo) => {
                 const { isUpdateFound, installed, latest } = versionInfo;
@@ -120,8 +119,7 @@ function checkAndInstallStableUpdate() {
                     console.log(`\nStarting installation for the latest stable version ${latest}...`);
                     exec("npm i -g code-template-generator@latest", (error, stdout, stderr) => {
                         if (error) {
-                            reject(errorIdentification(error));
-                            return;
+                            return reject(errorIdentification(error));
                         }
 
                         resolvingContent = `\n\x1b[32mDone!\x1b[0m npm ${stdout}`;
@@ -130,7 +128,7 @@ function checkAndInstallStableUpdate() {
                             resolvingContent += `\n\x1b[35mInformation\x1b[0m: ${stderr}`;
                         }
 
-                        resolve({ message: resolvingContent });
+                        return resolve({ message: resolvingContent });
                     });
 
                 } else {

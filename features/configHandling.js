@@ -12,17 +12,14 @@ const configFilePath = `${HOME_DIR}/code-template-generator.json`;
 initialConfigFile();
 
 function initialConfigFile() {
-    return new Promise((resolve) => {
-        if (!fs.existsSync(configFilePath)) {
-            const defaultContents = {
-                "description": "code-template-generator config file",
-                "userAssetPath": ""
-            };
+    if (!fs.existsSync(configFilePath)) {
+        const defaultContents = {
+            "description": "code-template-generator config file",
+            "userAssetPath": ""
+        };
 
-            fs.writeFileSync(configFilePath, JSON.stringify(defaultContents, null, '   '));
-            resolve(defaultContents);
-        }
-    });
+        fs.writeFileSync(configFilePath, JSON.stringify(defaultContents, null, '   '));
+    }
 }
 
 /**
@@ -101,77 +98,77 @@ function storeConfig(data, sPath = configFilePath) {
 function retrieveAsset() {
     return new Promise((resolve, reject) => {
         getConfigInfo("userAssetPath", (err, assetPath) => {
-            if (!err) {
-                const isWithinCurrentDir = findWithinCurrentDir(assetPath);
+            if (err) {
+                if (err.message && err.message === "undefined") {
+                    return reject(new AppError("pa005")); // The asset path is not defined
+                }
 
-                if (assetPath && !isWithinCurrentDir) {
-                    getDirectoryContents(assetPath)
-                        .then((dirContents) => {
-                            if (dirContents.length > 0) {
-                                inquirer
-                                    .prompt([
-                                        {
-                                            type: 'checkbox',
-                                            message: `Choose your asset(s) from \x1b[36m${assetPath}\x1b[0m\n`,
-                                            name: 'userAssetList',
-                                            choices: dirContents || [],
-                                            pageSize: 10,
-                                            validate: function (answer) {
-                                                if (answer.length < 1) {
-                                                    return 'You must choose at least one asset or using Ctrl-C to break.';
-                                                }
+                return reject(err);
+            }
 
-                                                return true;
+            const isWithinCurrentDir = findWithinCurrentDir(assetPath);
+
+            if (assetPath && !isWithinCurrentDir) {
+                getDirectoryContents(assetPath)
+                    .then((dirContents) => {
+                        if (dirContents.length > 0) {
+                            inquirer
+                                .prompt([
+                                    {
+                                        type: 'checkbox',
+                                        message: `Choose your asset(s) from \x1b[36m${assetPath}\x1b[0m\n`,
+                                        name: 'userAssetList',
+                                        choices: dirContents || [],
+                                        pageSize: 10,
+                                        validate: function (answer) {
+                                            if (answer.length < 1) {
+                                                return 'You must choose at least one asset or using Ctrl-C to break.';
                                             }
+
+                                            return true;
                                         }
-                                    ])
-                                    .then((answers) => {
-                                        let passedArr = [];
-                                        let failureArr = [];
+                                    }
+                                ])
+                                .then((answers) => {
+                                    let passedArr = [];
+                                    let failureArr = [];
 
-                                        answers.userAssetList.map((item) => {
-                                            const itemFullPath = `${assetPath}/${item}`;
-                                            const writePath = `${CURR_DIR}/${item}`;
+                                    answers.userAssetList.map((item) => {
+                                        const itemFullPath = `${assetPath}/${item}`;
+                                        const writePath = `${CURR_DIR}/${item}`;
 
-                                            const stats = fs.statSync(itemFullPath);
+                                        const stats = fs.statSync(itemFullPath);
 
-                                            if (!fs.existsSync(writePath)) {
-                                                if (stats.isFile()) {
-                                                    const contents = fs.readFileSync(itemFullPath);
-                                                    fs.writeFileSync(writePath, contents);
-                                                } else if (stats.isDirectory()) {
-                                                    fs.mkdirSync(writePath);
-                                                    createDirectoryContents(fs, itemFullPath, writePath);
-                                                }
-                                                passedArr = passedArr.concat([item]);
-                                            } else {
-                                                failureArr = failureArr.concat([item]);
+                                        if (!fs.existsSync(writePath)) {
+                                            if (stats.isFile()) {
+                                                const contents = fs.readFileSync(itemFullPath);
+                                                fs.writeFileSync(writePath, contents);
+                                            } else if (stats.isDirectory()) {
+                                                fs.mkdirSync(writePath);
+                                                createDirectoryContents(fs, itemFullPath, writePath);
                                             }
-                                        });
-
-                                        if (passedArr.length > 0) {
-                                            resolve({ "passed": passedArr, "failure": failureArr });
+                                            passedArr = passedArr.concat([item]);
                                         } else {
-                                            reject(new AppError("pa006")); // Can not retrieve asset
+                                            failureArr = failureArr.concat([item]);
                                         }
                                     });
-                            } else {
-                                reject(new AppError("pa007")); // Empty directory
-                            }
-                        })
-                        .catch((err) => reject(err));
 
-                } else if (assetPath && isWithinCurrentDir) {
-                    reject(new AppError("pa008")); // The asset directory in the current directory is not allow
-                } else {
-                    reject(new AppError("pa005")); // The asset path is null = not defined
-                }
+                                    if (passedArr.length > 0) {
+                                        resolve({ "passed": passedArr, "failure": failureArr });
+                                    } else {
+                                        reject(new AppError("pa006")); // Can not retrieve asset
+                                    }
+                                });
+                        } else {
+                            reject(new AppError("pa007")); // Empty directory
+                        }
+                    })
+                    .catch((err) => reject(err));
+
+            } else if (assetPath && isWithinCurrentDir) {
+                reject(new AppError("pa008")); // The asset directory in the current directory is not allow
             } else {
-                if (err.message && err.message === "undefined") {
-                    reject(new AppError("pa005")); // The asset path is not defined
-                }
-
-                reject(err);
+                reject(new AppError("pa005")); // The asset path is null = not defined
             }
         });
     });
@@ -190,10 +187,10 @@ function getDirectoryContents(sPath) {
                 directoryContents = directoryContents.concat([{ "name": item }]);
             });
 
-            resolve(directoryContents);
+            return resolve(directoryContents);
         }
 
-        reject(new AppError("pa004"));
+        return reject(new AppError("pa004"));
     });
 }
 

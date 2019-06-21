@@ -95,8 +95,7 @@ function generateTemplate(inputProjectName, option = { gitSupport: false, subFla
 function gitInstallation(projectName) {
     return new Promise((resolve, reject) => {
         if (!projectName) {
-            reject(new Error("The projectName variable can not empty"));
-            return;
+            return reject(new Error("The projectName variable can not empty"));
         }
 
         console.log("\nRunning the git init command...");
@@ -104,11 +103,10 @@ function gitInstallation(projectName) {
 
         exec(`cd ${projectName} && git init`, (error) => {
             if (error) {
-                reject(error);
-                return;
+                return reject(error);
             }
 
-            resolve(true);
+            return resolve(true);
         });
     });
 }
@@ -120,8 +118,7 @@ function gitInstallation(projectName) {
 function dependencyInstallation(projectName) {
     return new Promise((resolve, reject) => {
         if (!projectName) {
-            reject(new Error("Missing the projectName variable"));
-            return;
+            return reject(new Error("Missing the projectName variable"));
         }
 
         const exec = require("child_process").exec;
@@ -129,8 +126,7 @@ function dependencyInstallation(projectName) {
         console.log("\nStarting the installation of all needed dependencies...");
         exec(`cd ${projectName} && npm i`, (error, stdout, stderr) => {
             if (error) {
-                reject(error);
-                return;
+                return reject(error);
             }
 
             console.log(`\n\x1b[32mDone!\x1b[0m npm ${stdout}`);
@@ -139,7 +135,7 @@ function dependencyInstallation(projectName) {
                 console.log(`\x1b[35mInformation\x1b[0m: ${stderr}`);
             }
 
-            resolve(true);
+            return resolve(true);
         });
     });
 }
@@ -153,8 +149,7 @@ function dependencyInstallation(projectName) {
 function generateFile(argFullFileName, fnGetAndReplaceFileContent, extraOption = {}) {
     return new Promise(function (resolve, reject) {
         if (!argFullFileName) {
-            reject(new AppError("f002")); // The file name is missing
-            return;
+            return reject(new AppError("f002")); // The file name is missing
         }
 
         const supportedExtension = ["js", "jsx", "gitignore", "css"];
@@ -232,8 +227,7 @@ function generateGitignoreFile(subDirectory) {
 function generateComponent(componentName, option = { componentType: "" }, extraOption = {}) {
     return new Promise((resolve, reject) => {
         if (!componentName) {
-            reject(new Error("Missing the componentName variable"));
-            return;
+            return reject(new Error("Missing the componentName variable"));
         }
 
         // Call an other Promise function -> input data is (argument, function)
@@ -291,8 +285,7 @@ function generateComponent(componentName, option = { componentType: "" }, extraO
 function generateFullComponent(componentName = null, option = { componentType: "", subFlags: [] }) {
     return new Promise((resolve, reject) => {
         if (!componentName) {
-            reject(new Error("Missing the componentName variable"));
-            return;
+            return reject(new Error("Missing the componentName variable"));
         }
 
         const { componentType, subFlags } = option;

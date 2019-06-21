@@ -101,9 +101,7 @@ function MainApp() {
 
                 case "-v":
                     installedVersion()
-                        .then((version) => {
-                            resolve({ type: "info", message: version });
-                        })
+                        .then((version) => resolve({ type: "info", message: version }))
                         .catch((err) => reject(err));
 
                     break;
@@ -116,9 +114,7 @@ function MainApp() {
 
                 case "-u":
                     checkAndInstallStableUpdate()
-                        .then((result) => {
-                            resolve({ type: "update", message: result.message });
-                        })
+                        .then((result) => resolve({ type: "update", message: result.message }))
                         .catch((err) => reject(err));
 
                     break;
@@ -127,9 +123,7 @@ function MainApp() {
                     const configOption = { "subFlags": subFlags };
 
                     configHandling(argument, configOption)
-                        .then((result) => {
-                            resolve({ type: "config", message: result });
-                        })
+                        .then((result) => resolve({ type: "config", message: result }))
                         .catch((err) => reject(err));
 
                     break;
@@ -137,9 +131,7 @@ function MainApp() {
                 // User asset generation
                 case "-m":
                     retrieveAsset()
-                        .then((result) => {
-                            resolve({ type: "asset", message: result });
-                        })
+                        .then((result) => resolve({ type: "asset", message: result }))
                         .catch((err) => reject(err));
 
                     break;

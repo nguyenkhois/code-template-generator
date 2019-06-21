@@ -1,11 +1,11 @@
-const supportFunctions = require("./utils");
+const utilsFunctions = require("./utils");
 const templateFunctions = require("./templateGeneration");
 const printOutFunctions = require("./printOut");
 const { errorIdentification, AppError } = require("./errorHandling");
 const configFunctions = require("./configHandling");
 
 module.exports = {
-    ...supportFunctions,
+    ...utilsFunctions,
     ...templateFunctions,
     ...printOutFunctions,
     errorIdentification,
