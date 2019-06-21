@@ -1,4 +1,3 @@
-// System importing
 const fs = require("fs");
 const inquirer = require('inquirer');
 

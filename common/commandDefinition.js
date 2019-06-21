@@ -16,15 +16,14 @@ command
     .option("-v", "--version", "View the installed version")
     .option("-help", "--help", "View help documentation")
     .option("-u", "--update", "Install the latest stable version")
-    .option("-cf", "--config", "Config for the application")
-    .option("-m", "--my-asset", "Retrieve assets from a specific directory")
+    .option("-cf", "--config", "Configuration for the application")
+    .option("-m", "--my-asset", "Retrieve your assets from a specific directory")
     .subOption("-root", "--no-install", "No run git init and no install dependencies")
     .subOption("-g", "--no-install", "No install dependencies")
-    .subOption("-fc", "--jsx", "Using *.jsx for React component")
-    .subOption("-fr", "--jsx", "Using *.jsx for React-Redux component")
-    .subOption("-fh", "--jsx", "Using *.jsx for React hooks component")
+    .subOption("-fc", "--jsx", "Using *.jsx for a React component")
+    .subOption("-fr", "--jsx", "Using *.jsx for a React-Redux component")
+    .subOption("-fh", "--jsx", "Using *.jsx for a React hooks component")
     .subOption("-cf", "--set-asset", "Store the asset directory path")
     .subOption("-cf", "--view-asset", "View the asset directory path");
-// End of definitions
 
 module.exports = { command };
