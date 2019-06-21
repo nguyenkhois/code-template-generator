@@ -1,5 +1,6 @@
 'use strict';
 const path = require("path");
+
 const { fs, inquirer, CURR_DIR } = require("../common/");
 const { createDirectoryContents, stringHelper } = require("../helpers/");
 const { AppError } = require("./errorHandling");
