@@ -31,7 +31,7 @@ You build your own and have more choices for your frontend development. It makes
 * Project generation:
     * Without running the `git init` command.
     * With running the `git init` command and generation of a `.gitignore` file while the project is generated from a chosen template.
-* Component generation:
+* React component generation:
     * There are two kinds of generated components: React and React-Redux.
     * It can be:
         * A single React component that is a file `*.js` or `*.jsx`.
@@ -51,7 +51,7 @@ You build your own and have more choices for your frontend development. It makes
     * Hot Module Replacement (HMR) is enabled.
     * You don't need to care about the distribution directory `/dist`. The things you care are only the directory `/src`.
     * Anti-caching.
-* User asset generation.
+* User asset generation -> You can retrieve your own assets from a local directory.
 
 ### 2.1 Project templates
 |Templates|Main dependencies|
@@ -75,6 +75,7 @@ You can view more details about these project templates in the repository [Build
 (**) Full component is a directory with two files `*.js` and `*.css` that are generated within.
 
 ### 2.3 User asset generation
+You can retrieve your own assets from a local directory.
 
 ![User asset generation](./assets/userasset.jpg)
 
