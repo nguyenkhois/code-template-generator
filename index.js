@@ -6,7 +6,7 @@ const { command } = require("./common/commandDefinition");
 const { installedVersion, autoUpdateCheck, checkAndInstallStableUpdate, validateInputName,
     helpInformation, printUpdateMessage, printOutResolve, printOutReject,
     generateTemplate, generateGitignoreFile, generateComponent, generateFullComponent,
-    errorIdentification, AppError, configHandling, retrieveAsset
+    AppError, errorIdentification, errorMapping, configHandling, retrieveAsset
 } = require("./features/");
 
 function MainApp() {
@@ -34,11 +34,12 @@ function MainApp() {
                                 .catch((err) => reject(err));
                         })
                         .catch((err) => {
-                            if (err.code === "n001") {
-                                reject(new AppError("p001"));
-                            } else if (err.code === "n002") {
-                                reject(new AppError("p002"));
-                            }
+                            const mapping = [
+                                ["n001", "p001"],
+                                ["n002", "p002"]
+                            ];
+
+                            reject(errorMapping(err, mapping));
                         });
 
                     break;
@@ -56,12 +57,12 @@ function MainApp() {
                                 .catch((err) => reject(err));
                         })
                         .catch((err) => {
-                            const { code } = err;
-                            if (code === "n001") {
-                                reject(new AppError("c001"));
-                            } else if (code === "n002") {
-                                reject(new AppError("c002"));
-                            }
+                            const mapping = [
+                                ["n001", "c001"],
+                                ["n002", "c002"]
+                            ];
+
+                            reject(errorMapping(err, mapping));
                         });
 
                     break;
@@ -82,12 +83,12 @@ function MainApp() {
                                 .catch((err) => reject(err));
                         })
                         .catch((err) => {
-                            const { code } = err;
-                            if (code === "n001") {
-                                reject(new AppError("fu001"));
-                            } else if (code === "n002") {
-                                reject(new AppError("fu002"));
-                            }
+                            const mapping = [
+                                ["n001", "fu001"],
+                                ["n002", "fu002"]
+                            ];
+
+                            reject(errorMapping(err, mapping));
                         });
 
                     break;
@@ -148,12 +149,12 @@ function MainApp() {
                                 .catch((err) => reject(err));
                         })
                         .catch((err) => {
-                            const { code } = err;
-                            if (code === "n001") {
-                                reject(new AppError("p001")); // Error code mapping
-                            } else if (code === "n002") {
-                                reject(new AppError("p002"));
-                            }
+                            const mapping = [
+                                ["n001", "p001"],
+                                ["n002", "p002"]
+                            ];
+
+                            reject(errorMapping(err, mapping));
                         });
 
                     break;
@@ -174,7 +175,8 @@ function MainApp() {
 
 /**
  * MAIN APP
- * The resolving object is the result and it's flexible = {
+ * The resolving is a flexible object that is the result.
+ * resolving: {
  *      "type": string // [project][component][file][info][update]
  *      "name": string
  *      "message": string

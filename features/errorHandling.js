@@ -178,6 +178,20 @@ function errorIdentification(error) {
     }
 }
 
+/**
+ *
+ * @param {object} error is an error object
+ * @param {object} mapping is an Map object
+ * The function returns always an error object
+ */
+function errorMapping(error, mapping) {
+    const { code } = error,
+        inputCodeMapping = new Map(mapping),
+        codeMapping = inputCodeMapping.get(code);
+
+    return codeMapping ? new AppError(codeMapping) : error;
+}
+
 // Custom AppError object
 class AppError extends Error {
     constructor(code, message) {
@@ -193,5 +207,6 @@ class AppError extends Error {
 module.exports = {
     AppError,
     errorCodeList,
-    errorIdentification
+    errorIdentification,
+    errorMapping
 };

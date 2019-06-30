@@ -7,9 +7,9 @@ const { errorCodeList } = require("./errorHandling");
  * @param {array} optionList
  */
 function helpInformation(optionList) {
-    let mainFlagContent = "";
-    let aliasContent = "";
-    let subFlagContent = "";
+    let mainFlagContent = "",
+        aliasContent = "",
+        subFlagContent = "";
 
     optionList.map((option) => {
         const { flag, alias, subFlags, description } = option;
