@@ -1,6 +1,6 @@
 {
     "name": "code-template-generator",
-    "version": "2.4.11",
+    "version": "2.4.12",
     "description": "The lightweight React code template generator",
     "main": "index.js",
     "scripts": {
@@ -40,6 +40,6 @@
     "homepage": "https://github.com/nguyenkhois/code-template-generator",
     "dependencies": {
         "command-handling": "^1.0.6",
-        "inquirer": "^6.4.1"
+        "inquirer": "^6.5.0"
     }
 }
