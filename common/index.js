@@ -10,6 +10,10 @@ const supportedTemplate = [
         "type": "react"
     },
     {
+        "name": "react-hooks",
+        "type": "react"
+    },
+    {
         "name": "react-simplification",
         "type": "react"
     },
