@@ -57,6 +57,7 @@ You build your own and have more choices for your frontend development. It makes
 |Templates|Main dependencies|
 |---|---|
 |react-advance|Babel 7, Babel Loader 8, SplitChunksPlugin for code splitting|
+|react-hooks|Using React Hooks and it's based on react-advance |
 |react-simple|Babel 7, Babel Loader 8|
 |react-typescript|TypeScript 3, awesome-typescript-loader|
 |simple-express-server|Express, cors|
@@ -150,7 +151,7 @@ Examples:
 |`-g`|`--no-install`|`<project-name>`|Generate a project with running the `git init` command but without installation of dependencies|
 |`-cf`|`--set-asset`|`<local-path>`|Store a local path to the asset directory into the application config file|
 |`-cf`|`--view-asset`|-|View the current asset path|
-|`-fc`|`--jsx`|`<component-name>`|The application creates a `*.jsx` file instead of a `*.js` file that is default when it generates a full component (*)|
+|`-fc`|`--jsx`|`<component-name>`|(*) The application creates a `*.jsx` file instead of a `*.js` file that is default when it generates a full component|
 |`-fr`|`--jsx`|`<component-name>`|(*)|
 |`-fh`|`--jsx`|`<component-name>`|(*)|
 
