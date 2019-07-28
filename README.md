@@ -17,7 +17,7 @@
 6. [Thanks you!](#6-thank-you)
 
 ## 1. Introduction
-The application is a lightweight Node.js CLI tool that is most using for frontend web development with  [React](https://reactjs.org/). Main features:
+The application is a lightweight Node.js CLI tool that is most using for front-end web development with  [React](https://reactjs.org/). Main features:
 * Project generation that has a part of the [Build environments](https://github.com/nguyenkhois/build-environments) project.
 * Component generation.
 * User asset generation.

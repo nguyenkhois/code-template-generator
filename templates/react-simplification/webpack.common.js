@@ -2,8 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const WebpackNotifierPlugin = require("webpack-notifier");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const { entryPoints, distDir } = require('./webpack.custom'); // Using your own configs
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { entryPoints, distDir, htmlTemplate } = require('./webpack.custom'); // Using your own configs
 
 module.exports = {
     entry: entryPoints,// which file to begin with
@@ -28,7 +28,10 @@ module.exports = {
     plugins: [
         new webpack.ProgressPlugin(),
         new WebpackNotifierPlugin({ alwaysNotify: true }),
-        new HtmlWebpackPlugin({ template: './src/index.html' }),
-        new CleanWebpackPlugin()
+        new HtmlWebpackPlugin({ template: htmlTemplate }),
+        new CleanWebpackPlugin({
+            verbose: true,
+            cleanOnceBeforeBuildPatterns: [] // Disable cleaning during development
+        })
     ]
 };
