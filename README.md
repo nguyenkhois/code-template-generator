@@ -14,7 +14,8 @@
     * [Sub options](#42-sub-options)
     * [Aliases](#43-aliases)
 5. [Examples](#5-examples)
-6. [Thanks you!](#6-thank-you)
+6. [Tips and tricks for the project templates](https://github.com/nguyenkhois/build-environments/blob/master/HOWTO.md)
+7. [Thanks you!](#6-thank-you)
 
 ## 1. Introduction
 The application is a lightweight Node.js CLI tool that is most using for front-end web development with  [React](https://reactjs.org/). Main features:
