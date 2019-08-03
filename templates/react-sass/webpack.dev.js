@@ -10,7 +10,7 @@ module.exports = merge(common, {
     devServer: {
         contentBase: path.resolve(__dirname, distDir), // the root for the server
         watchContentBase: true, // so we reload if other stuff like CSS changes
-        port: serverPort, // it'll now be at http://localhost:9000
+        port: serverPort,
         watchOptions: {
             ignored: /node_modules/
         },
@@ -20,8 +20,8 @@ module.exports = merge(common, {
     module: {
         rules: [
             {
-                test: /\.css$/,
-                use: ['style-loader', 'css-loader'],
+                test: /\.(css|scss)$/,
+                use: ['style-loader', 'css-loader', 'sass-loader'],
                 exclude: /node_modules/
             }
         ]

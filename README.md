@@ -58,7 +58,8 @@ You build your own and have more choices for your frontend development. It makes
 |Templates|Main dependencies|
 |---|---|
 |react-advance|Babel 7, Babel Loader 8, SplitChunksPlugin for code splitting|
-|react-hooks|Using React Hooks and it's based on react-advance |
+|react-hooks|Using React Hooks and it's based on the template react-advance |
+|react-sass|Using SASS and it's based on the template react-hooks |
 |react-simple|Babel 7, Babel Loader 8|
 |react-typescript|TypeScript 3, awesome-typescript-loader|
 |simple-express-server|Express, cors|

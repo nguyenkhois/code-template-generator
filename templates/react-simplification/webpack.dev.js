@@ -12,13 +12,16 @@ module.exports = merge(common, {
         port: serverPort, // it'll now be at http://localhost:9000
         watchOptions: {
             ignored: /node_modules/
-        }
+        },
+        hot: true,
+        historyApiFallback: false
     },
     module: {
         rules: [
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader']
+                use: ['style-loader', 'css-loader'],
+                exclude: /node_modules/
             }
         ]
     }

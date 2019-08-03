@@ -1,0 +1,15 @@
+.welcome {
+    background-color: #4e5f54;
+    color: white;
+    font-size: 20px;
+    padding: 20px;
+
+    a {
+        color: powderblue;
+
+        &:hover {
+            color: lightblue;
+            text-decoration: none;
+        }
+    }
+}

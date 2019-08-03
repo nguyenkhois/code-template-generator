@@ -14,13 +14,15 @@ module.exports = merge(common, {
         watchOptions: {
             ignored: /node_modules/
         },
-        hot: true
+        hot: true,
+        historyApiFallback: false
     },
     module: {
         rules: [
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader']
+                use: ['style-loader', 'css-loader'],
+                exclude: /node_modules/
             }
         ]
     },

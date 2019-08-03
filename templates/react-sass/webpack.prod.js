@@ -16,7 +16,7 @@ module.exports = merge(common, {
                     if (chunk.name === 'vendor') {
                         return false;
                     }
-
+    
                     return true;
                 },
                 terserOptions: {
@@ -57,8 +57,8 @@ module.exports = merge(common, {
     module: {
         rules: [
             {
-                test: /\.css$/,
-                use: [{ loader: MiniCssExtractPlugin.loader }, 'css-loader'],
+                test: /\.(css|scss)$/,
+                use: [{ loader: MiniCssExtractPlugin.loader }, 'css-loader', 'sass-loader'],
                 exclude: /node_modules/
             }
         ]
