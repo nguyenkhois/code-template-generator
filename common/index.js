@@ -14,6 +14,10 @@ const supportedTemplate = [
         "type": "react"
     },
     {
+        "name": "react-sass",
+        "type": "react"
+    },
+    {
         "name": "react-simplification",
         "type": "react"
     },
