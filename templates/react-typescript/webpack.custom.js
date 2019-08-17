@@ -6,4 +6,4 @@ module.exports = {
     htmlTemplate: './src/index.html',
     distDir: './dist', // Distribution directory
     serverPort: 9000
-}
+};

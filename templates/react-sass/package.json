@@ -36,9 +36,9 @@
     "sass-loader": "^7.2.0",
     "style-loader": "^1.0.0",
     "terser-webpack-plugin": "^1.4.1",
-    "webpack": "^4.39.1",
+    "webpack": "^4.39.2",
     "webpack-cli": "^3.3.6",
-    "webpack-dev-server": "^3.7.2",
+    "webpack-dev-server": "^3.8.0",
     "webpack-merge": "^4.2.1",
     "webpack-notifier": "^1.8.0",
     "write-file-webpack-plugin": "^4.5.1"

@@ -5,7 +5,7 @@ function Home() {
 
     useEffect(() => {
         setToday(new Date());
-    });
+    },[]);
 
     return (
         <div className="welcome">

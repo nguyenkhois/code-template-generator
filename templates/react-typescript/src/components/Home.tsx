@@ -1,7 +1,7 @@
 import React from 'react';
 import { HomeProps } from '../types/HomeType';
 
-/*
+/* 
 ... extends React.Component <props, state> {...}
 -> 'HomeProps' describes the shape of props.
 -> State is never set so we use the '{}' type.

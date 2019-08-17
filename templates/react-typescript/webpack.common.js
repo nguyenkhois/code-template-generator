@@ -8,9 +8,9 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { entryPoints, distDir, htmlTemplate } = require('./webpack.custom'); // Using your own configs
 
 module.exports = {
-    entry: entryPoints,// which file to begin with, 
+    entry: entryPoints,// which file(s) to begin with, 
     output: {
-        path: path.resolve(__dirname, distDir), // what folder to put bundle in
+        path: path.join(__dirname, distDir), // what folder to put bundle in
         filename: '[name].[hash].js' // what name to use for bundle
     },
     module: {
@@ -18,7 +18,7 @@ module.exports = {
             {
                 test: /\.tsx?$/,
                 include: [
-                    path.resolve(__dirname, "src")
+                    path.join(__dirname, "src")
                 ],
                 loader: "awesome-typescript-loader"
             }
