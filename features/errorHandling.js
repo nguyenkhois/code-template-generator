@@ -18,7 +18,7 @@ const errorCodeList = [
     {
         code: "f001",
         error: "File extension is not supported",
-        solution: `The supported file extensions are only *.js, *.jsx. \n${helpCommandText}`
+        solution: `The supported file extensions are only *.js, *.jsx and *.tsx. \n${helpCommandText}`
     },
     {
         code: "f002",
@@ -40,7 +40,7 @@ const errorCodeList = [
     {
         code: "c002",
         error: "Component name is missing",
-        solution: `You may want to enter the command \x1b[33mgenerate <[-c][-r][-h]> <component-name.js>\x1b[0m for component generation.
+        solution: `You may want to enter the command \x1b[33mgenerate -c <component-name.js>\x1b[0m for component generation.
             \n${helpCommandText}`
     },
 
@@ -53,7 +53,7 @@ const errorCodeList = [
     {
         code: "fu002",
         error: "Component name is missing",
-        solution: `You may want to enter the command \x1b[33mgenerate <[-fc][-fr][-fh]> <component-name>\x1b[0m for component generation.
+        solution: `You may want to enter the command \x1b[33mgenerate -f <component-name>\x1b[0m for component generation.
             \n${helpCommandText}`
     },
 

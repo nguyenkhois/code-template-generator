@@ -1,13 +1,9 @@
-import React from 'react';
-import Home from './components/Home';
+import React from "react";
+import Home from './Home';
 import './styles/app.css';
 
-class App extends React.Component<{}> {
-    render() {
-        return (
-            <Home compiler="TypeScript" framework="React" />
-        );
-    }
+export default function App() {
+    return (
+        <Home compiler="TypeScript" framework="React Hooks" />
+    );
 }
-
-export default App;

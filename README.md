@@ -1,6 +1,13 @@
 # code-template-generator
 [![Node.js version](https://img.shields.io/node/v/code-template-generator.svg?style=flat)](https://nodejs.org)   [![code-template-generator](https://img.shields.io/npm/v/code-template-generator.svg?style=flat)](https://www.npmjs.com/package/code-template-generator/)
 
+## Breaking changes in version 3
+* [__Removed__] classic React templates for both project and component. You can find them on the repo [Build environment](https://github.com/nguyenkhois/build-environments). We keep the app is lightweight and nothing is missing ;-).
+* [__New__] For both project and component:
+    * Using only React Hooks.
+    * Support both plain JavaScript and TypeScript.
+
+
 ## Table of contents
 1. [Introduction](#1-introduction)
     * [Screenshot](#screenshot)
@@ -32,16 +39,14 @@ You build your own and have more choices for your frontend development. It makes
 * Project generation:
     * Without running the `git init` command.
     * With running the `git init` command and generation of a `.gitignore` file while the project is generated from a chosen template.
-* React component generation:
-    * There are two kinds of generated components: React and React-Redux.
-    * It can be:
-        * A single React component that is a file `*.js` or `*.jsx`.
-        * A full React component that is a directory with two files `*.js` and `*.css` are within.
+* React component generation and it can be:
+    * A single React component that is a file `*.js`, `*.jsx` or `*.tsx`.
+    * A full React component that is a directory with two files `*.css` and `*.js` (or `*.jsx`, `*.tsx`) are within.
 * `.gitignore` file generation.
 * Automatic update checking for the latest stable version.
 * [Project templates](https://github.com/nguyenkhois/build-environments):
-    * It's simple for configuration and installation of dependencies you need.
-        * Work fast and flexible.
+    * It's simple for configuration and installation of only dependencies you need.
+        * Fast and flexible.
         * Only the minimum needed dependencies are installed and preconfigured.
         * Easy to change to (or from) another build environment.
         * Compatibility with another project that is generated from [create-react-app](https://facebook.github.io/create-react-app/).
@@ -57,11 +62,9 @@ You build your own and have more choices for your frontend development. It makes
 ### 2.1 Project templates
 |Templates|Main dependencies|
 |---|---|
-|react-advance|Babel 7, Babel Loader 8, SplitChunksPlugin for code splitting|
-|react-hooks|Using React Hooks and it's based on the template react-advance |
-|react-sass|Using SASS and it's based on the template react-hooks |
-|react-simple|Babel 7, Babel Loader 8|
-|react-typescript|TypeScript 3, awesome-typescript-loader|
+|react-hooks|React Hooks |
+|react-sass|React Hooks and SASS |
+|react-typescript|React Hooks, TypeScript 3, awesome-typescript-loader|
 |simple-express-server|Express, cors|
 
 You can view more details about these project templates in the repository [Build environments](https://github.com/nguyenkhois/build-environments).
@@ -69,13 +72,12 @@ You can view more details about these project templates in the repository [Build
 ### 2.2 Component templates
 |Component|Single (*)|Full (**)|Description|
 |---|:---:|:---:|---|
-|React|✓|✓||
-|React-Redux|✓|✓|_You need install and config Redux, React-Redux by yourself._|
-|React hooks|✓|✓||
+|Plain JavaScript|✓|✓|*.js, *.jsx|
+|TypeScript|✓|✓|*.tsx|
 
-(*) Single component is a file with these supported extension `*.js` or `*.jsx`.
+(*) Single component is a file with these supported extension *.js, *.jsx and *.tsx.
 
-(**) Full component is a directory with two files `*.js` and `*.css` that are generated within.
+(**) Full component is a directory with two files *.css and *.js (or *.jsx, *.tsx) that are generated within.
 
 ### 2.3 User asset generation
 You can retrieve your own assets from a local directory.
@@ -123,11 +125,7 @@ Examples:
 | - | `<project-name>` |  Generate a new project from a chosen template without running the `git init` command |
 |`-g`|`<project-name>`| Run automatically the `git init` command and generate a `.gitignore` file on the root of project directory during the generation|
 |`-c`|`<component-name.js>`|Generate a single React component `(*.js or *.jsx)` in the current directory|
-|`-r`|`<component-name.js>`|Generate a single React-Redux component `(*.js or *.jsx)` in the current directory|
-|`-h`|`<component-name.js>`|Generate a single React hooks component `(*.js or *.jsx)` in the current directory|
-|`-fc`|`<component-name>`|Generate a full React component that is a directory with `*.js, *.css` files in the current directory|
-|`-fr`|`<component-name>`|Generate a full React-Redux component that is a directory with `*.js, *.css` files in the current directory|
-|`-fh`|`<component-name>`|Generate a full React hooks component that is a directory with `*.js, *.css` files in the current directory|
+|`-f`|`<component-name>`|Generate a full React component that is a directory with `*.js, *.css` files in the current directory|
 |`-i`|-| A `.gitignore` file will be generated in the current directory |
 |`-v`|-|View the installed version|
 |`-help`|-|View help documentation|
@@ -146,6 +144,7 @@ Examples:
 * `--set-asset` (Set a local path to the asset directory)
 * `--view-asset` (View the current local path to the asset directory)
 * `--jsx`
+* `--tsx`
 
 |Option|Sub option|Used with|Description|
 |:---:|:---:|:---:|---|
@@ -153,20 +152,15 @@ Examples:
 |`-g`|`--no-install`|`<project-name>`|Generate a project with running the `git init` command but without installation of dependencies|
 |`-cf`|`--set-asset`|`<local-path>`|Store a local path to the asset directory into the application config file|
 |`-cf`|`--view-asset`|-|View the current asset path|
-|`-fc`|`--jsx`|`<component-name>`|(*) The application creates a `*.jsx` file instead of a `*.js` file that is default when it generates a full component|
-|`-fr`|`--jsx`|`<component-name>`|(*)|
-|`-fh`|`--jsx`|`<component-name>`|(*)|
+|`-f`|`--jsx`|`<component-name>`|(*) The application creates a `*.jsx` file instead of a `*.js` file that is default when it generates a full component|
+|`-f`|`--tsx`|`<component-name>`|(*) The application creates a `*.tsx` file instead of a `*.js` file that is default when it generates a full component|
 
 ### 4.3 Aliases
 |Option|Alias|
 |:---:|:---|
 |`-g`|`--git`|
 |`-c`|`--component`|
-|`-r`|`--redux-component`|
-|`-h`|`--hooks`|
-|`-fc`|`--full-component`|
-|`-fr`|`--full-redux-component`|
-|`-fh`|`--full-hooks-component`|
+|`-f`|`--full-component`|
 |`-i`|`--gitignore`|
 |`-v`|`--version`|
 |`-help`|`--help`|
@@ -178,22 +172,22 @@ Examples:
 
 ````
 // Project generation
-$ generate first-project             // Without any options
-$ generate -g secondproject          // Running the `git init` command
+$ generate first-project             // Standar and without any options
+
+$ generate -g secondproject          // With running the `git init` command
 $ generate --git ThirdProject        // Using alias --git instead of -g
 $ generate -g --no-install OtherProject
 $ generate --no-install LastProject  // No install dependencies
 
 // Single component -> A file
-$ generate -c SearchComponent.js   // React component
-$ generate -r ReviewComponent.jsx  // React-Redux component
-$ generate -h Count.js             // React hooks component
+$ generate -c SearchComponent.js
+$ generate -c ReviewComponent.jsx
+$ generate -c Count.tsx
 
 // Full component -> A directory
-$ generate -fc ProductComponent
-$ generate -fr CartComponent
-$ generate -fh Counter
-$ generate -fh --jsx Header   // Using *.jsx for a component file
+$ generate -f ProductComponent
+$ generate -f --jsx CartComponent
+$ generate -f --tsx Counter
 
 // Asset generation
 $ generate -cf --set-asset "C:\Users\name\myassets"  // Windows

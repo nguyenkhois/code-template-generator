@@ -18,7 +18,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/react": "^16.9.2",
-    "@types/react-dom": "^16.8.5",
+    "@types/react-dom": "^16.9.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0"
   },
@@ -35,7 +35,7 @@
     "terser-webpack-plugin": "^1.4.1",
     "typescript": "^3.5.3",
     "webpack": "^4.39.2",
-    "webpack-cli": "^3.3.6",
+    "webpack-cli": "^3.3.7",
     "webpack-dev-server": "^3.8.0",
     "webpack-merge": "^4.2.1",
     "webpack-notifier": "^1.8.0",

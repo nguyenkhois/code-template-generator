@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 //ImportYourCSS
 
-function YourComponentName() {
+type YourComponentNameProps = { };
+
+function YourComponentName(props: YourComponentNameProps) {
     const [state, setState] = useState(null);
 
     useEffect(() => { }, []);

@@ -6,19 +6,11 @@ const regularExpression = /^(?![-.])([A-Za-z-_.\d])+([A-Za-z\d])+$/gi;
 const pathRegExr = /^([a-zA-Z/])+([a-zA-Z-_.:\d/\\])+([a-zA-Z\d/\\])$/gi;
 const supportedTemplate = [
     {
-        "name": "react-advance",
-        "type": "react"
-    },
-    {
         "name": "react-hooks",
         "type": "react"
     },
     {
         "name": "react-sass",
-        "type": "react"
-    },
-    {
-        "name": "react-simplification",
         "type": "react"
     },
     {

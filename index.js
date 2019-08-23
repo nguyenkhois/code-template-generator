@@ -13,7 +13,7 @@ function MainApp() {
     return new Promise((resolve, reject) => {
         const { mainFlag, subFlags, argument, commandLength, unknowns } = command.parse(process.argv);
 
-        if (commandLength > 0 && unknowns.length === 0) {
+        if (commandLength && !unknowns.length) {
             let projectOption = {
                 "gitSupport": false,
                 "subFlags": subFlags
@@ -46,13 +46,9 @@ function MainApp() {
 
                 // Single component generation
                 case "-c":
-                case "-r":
-                case "-h":
                     validateInputName(argument)
                         .then(() => {
-                            const componentOption = { componentType: mainFlag };
-
-                            generateComponent(argument, componentOption)
+                            generateComponent(argument)
                                 .then((fullFileName) => resolve({ type: "component", name: fullFileName }))
                                 .catch((err) => reject(err));
                         })
@@ -68,13 +64,10 @@ function MainApp() {
                     break;
 
                 // Full component generation
-                case "-fc":
-                case "-fr":
-                case "-fh":
+                case "-f":
                     validateInputName(argument)
                         .then(() => {
                             const componentOption = {
-                                componentType: mainFlag,
                                 subFlags: subFlags
                             };
 
