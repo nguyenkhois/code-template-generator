@@ -28,8 +28,8 @@ describe("FUNCTIONS/template.js - File generation", function () {
         });
     });
 
-    describe("Generate a single component (a file *.js or *.jsx)", function () {
-        const componentName = "_TestComponent.js";
+    describe("Generate a single component (a file *.js, *.jsx or *.tsx)", function () {
+        const componentName = "_TestComponent.tsx";
 
         it("Component should not exist", function () {
             generateComponent(componentName)

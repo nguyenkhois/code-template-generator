@@ -5,20 +5,16 @@ const { filterByProperty } = require("../helpers/");
 describe("COMMON/library.js - filterByProperty()", function () {
     const inputObjectArray = [
         {
-            "name": "react-advance",
+            "name": "react-hooks",
             "type": "react"
         },
         {
-            "name": "react-simplification",
+            "name": "react-sass",
             "type": "react"
         },
         {
             "name": "react-typescript",
             "type": "react"
-        },
-        {
-            "name": "simple-express-server",
-            "type": "express"
         }
     ];
     const expectResult = [
