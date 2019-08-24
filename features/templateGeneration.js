@@ -152,7 +152,7 @@ function generateFile(argFullFileName, fnGetAndReplaceFileContent, extraOption =
             return reject(new AppError("f002")); // The file name is missing
         }
 
-        const supportedExtension = ["js", "jsx", "tsx", "gitignore", "css"],
+        const supportedExtension = ["js", "jsx", "ts", "tsx", "gitignore", "css"],
             seekingExtension = argFullFileName.split("."),
             seekingExtensionLength = seekingExtension.length;
 
@@ -202,7 +202,7 @@ function generateGitignoreFile(subDirectory) {
     return new Promise((resolve, reject) => {
         const extraOption = { subDir: subDirectory };
 
-        generateFile(".gitignore", function () {
+        generateFile(".gitignore", () => {
             const gitignoreTemplatePath = path.join(templateFilePath, "/gitignore.template");
             const gitignoreContent = fs.readFileSync(gitignoreTemplatePath);
 
@@ -215,14 +215,11 @@ function generateGitignoreFile(subDirectory) {
 
 /**
  * Single component generation
- * @param {string} componentName is a file name (component-name.js)
- * @param {object} option = {
- *      isFullComponent: boolean,
- *      fullCSSFileName: string
- * }
+ * @param {string} componentName is a file name (Ex: component-name.js)
+ * @param {object} option = { isFullComponent: boolean, fullCSSFileName: string }
  *
- * Only using when creating a full component that is a directory with two files
- * *.css, *.js (or *.jsx, *.tsx) that are within
+ * Only using the extraOption when creating a full component
+ * that is a directory with two files *.css, *.js (or *.jsx, *.tsx) are within
  * @param {object} extraOption = { subDir: string }
  */
 function generateComponent(componentName, option = {}, extraOption = {}) {
@@ -241,6 +238,7 @@ function generateComponent(componentName, option = {}, extraOption = {}) {
             // Chosen template file
             let templateName;
             switch (fileExtension) {
+                case "ts":
                 case "tsx":
                     templateName = "/ts-component.template";
                     break;
@@ -250,13 +248,13 @@ function generateComponent(componentName, option = {}, extraOption = {}) {
                     break;
             }
 
-            const componentTemplatePath = path.join(templateFilePath, templateName);
-            const originalContent = fs.readFileSync(componentTemplatePath, "utf8");
+            const componentTemplatePath = path.join(templateFilePath, templateName),
+                originalContent = fs.readFileSync(componentTemplatePath, "utf8");
 
             let className = filteredName.replace(/[-_]/g, "");
             className = stringHelper.firstCharToUpperCase(className);
 
-            let replacedContent = originalContent.replace(componentRegExp, className);
+            const replacedContent = originalContent.replace(componentRegExp, className);
 
             // Return file content
             if (isFullComponent && fullCSSFileName && fullCSSFileName.length) {
@@ -273,8 +271,8 @@ function generateComponent(componentName, option = {}, extraOption = {}) {
 
 /**
  * Full component generation
- * A full component that is a directory with *.js (or *.jsx, *.ts, *.tsx) and *.css are within.
- * @param {string} componentName is like <component-name> that is a <directory-name> now.
+ * A full component that is a directory with two files *.css and *.js (or *.jsx, *.tsx) are within
+ * @param {string} componentName is a <directory-name> now.
  * @param {object} option = { subFlags: array }
  */
 function generateFullComponent(componentName = null, option = { subFlags: [] }) {
@@ -283,15 +281,16 @@ function generateFullComponent(componentName = null, option = { subFlags: [] }) 
             return reject(new Error("Missing the componentName variable"));
         }
 
-        const { subFlags } = option;
-        const supportedExtenstions = ["js", "jsx", "tsx"];
-        const defaultExtension = "js";
-        const newFullDirectoryPath = `${CURR_DIR}/${componentName}`;
+        const { subFlags } = option,
+            supportedExtenstions = ["jsx", "tsx"],
+            defaultExtension = "js",
+            newFullDirectoryPath = `${CURR_DIR}/${componentName}`;
 
         // Identify extension
-        let componentExtension = defaultExtension;
-        let isBreak = false;
+        let componentExtension = defaultExtension,
+            isBreak = false;
         const subFlagsLength = subFlags.length;
+
         if (subFlags.length) {
             for (let i = 0; i < subFlagsLength; i++) {
                 const foundExtension = subFlags[i].slice(2); // Remove symbol -- in subFlag
@@ -314,22 +313,16 @@ function generateFullComponent(componentName = null, option = { subFlags: [] }) 
                 newFullCSSFileName = `${componentName}.css`;
 
             // Create the new option
-            const newOption = {
-                isFullComponent: true,
-                fullCSSFileName: newFullCSSFileName
-            };
-
-            const extraOption = {
-                subDir: componentName
-            };
+            const newOption = { isFullComponent: true, fullCSSFileName: newFullCSSFileName },
+                extraOption = { subDir: componentName };
 
             // Generate JS file
             const generateJSFile = generateComponent(newFullJSFileName, newOption, extraOption);
 
             // Generate CSS file
-            const generateCSSFile = generateFile(newFullCSSFileName, function () {
-                return `/* CSS for ${componentName} component */`;
-            }, extraOption);
+            const generateCSSFile = generateFile(newFullCSSFileName,
+                () => `/* CSS for ${componentName} component */`,
+                extraOption);
 
             // Combination for all promises
             Promise.all([generateJSFile, generateCSSFile])
