@@ -123,7 +123,7 @@ function MainApp() {
                     break;
 
                 // User asset generation
-                case "-m":
+                case "-a":
                     retrieveAsset()
                         .then((result) => resolve({ type: "asset", message: result }))
                         .catch((err) => reject(err));

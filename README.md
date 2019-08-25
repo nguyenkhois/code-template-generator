@@ -2,11 +2,29 @@
 [![Node.js version](https://img.shields.io/node/v/code-template-generator.svg?style=flat)](https://nodejs.org)   [![code-template-generator](https://img.shields.io/npm/v/code-template-generator.svg?style=flat)](https://www.npmjs.com/package/code-template-generator/)
 
 ## Breaking changes in version 3
-* [__Removed__] classic React templates for both project and component. You can find them on the repo [Build environment](https://github.com/nguyenkhois/build-environments). We keep the app is lightweight and nothing is missing ;-).
-* [__New__] For both project and component:
-    * Using only React Hooks.
-    * Support both plain JavaScript and TypeScript.
+* [__New__] Using React Hooks for both project and component templates and support both plain JavaScript and TypeScript.
+    * The project templates
+        * react-hooks _(Plain JS)_
+        * react-sass _(Plain JS)_
+        * react-typescript _(TypeScript)_
+    * The component templates
+        * Plain JavaScript _(*.js, *.jsx)_
+        * TypeScript _(*.ts, *.tsx)_
+* [__Changed__]
+    * Using `-a` instead of `-m` for asset retrieving. Examples:
+        * `generate -a`
+        * `generate --asset` _(Using alias)_
+* [__Removed__]
+    * You can find other project templates in the repo [Build environment](https://github.com/nguyenkhois/build-environments). We keep the app is lightweight and nothing is missing ;-)
+    * Removed the project templates
+        * react-advance
+        * react-simplification
+        * simple-express-server
+    * Removed the component templates
+        * React classic that is using `class`
+        * React Redux
 
+* View the content is below for more information.
 
 ## Table of contents
 1. [Introduction](#1-introduction)
@@ -25,31 +43,31 @@
 7. [Thanks you!](#6-thank-you)
 
 ## 1. Introduction
-The application is a lightweight Node.js CLI tool that is most using for front-end web development with  [React](https://reactjs.org/). Main features:
+You like to build yourself development environment and install only what you need in your project. You want to know how it works and have more controll as much as possible. Sometimes you just want to have a little tool to show an idea. The application gives you a step on your way and it makes your life more exciting. (^_~)
+
+The application is a lightweight Node.js CLI tool that is using for front-end web development with  [React](https://reactjs.org/). Main features:
 * Project generation that has a part of the [Build environments](https://github.com/nguyenkhois/build-environments) project.
 * Component generation.
 * User asset generation.
-
-You build your own and have more choices for your frontend development. It makes your life easier. (^_~)
 
 ### Screenshot
 ![Demo](./assets/screenshot.gif)
 
 ## 2. Main features
 * Project generation:
-    * Without running the `git init` command.
-    * With running the `git init` command and generation of a `.gitignore` file while the project is generated from a chosen template.
-* React component generation and it can be:
-    * A single React component that is a file `*.js`, `*.jsx` or `*.tsx`.
-    * A full React component that is a directory with two files `*.css` and `*.js` (or `*.jsx`, `*.tsx`) are within.
+    * Without Git support _(default)_.
+    * With Git support by running the `git init` command and generation of a `.gitignore` file while the project is generated from a chosen template.
+* React component generation can be:
+    * A single React component that is a JavaScript file (*.js, *.jsx, *.ts, *.tsx).
+    * A full React component that is a directory with two files are within: a CSS file and a JS file (*.js, *.jsx, *.tsx).
 * `.gitignore` file generation.
-* Automatic update checking for the latest stable version.
+* Automatic update checking for the latest stable version on npmjs.com.
 * [Project templates](https://github.com/nguyenkhois/build-environments):
     * It's simple for configuration and installation of only dependencies you need.
         * Fast and flexible.
         * Only the minimum needed dependencies are installed and preconfigured.
-        * Easy to change to (or from) another build environment.
-        * Compatibility with another project that is generated from [create-react-app](https://facebook.github.io/create-react-app/).
+        * Easy to change to _(or from)_ another build environment.
+        * Compatibility with another projects that are generated from [create-react-app](https://facebook.github.io/create-react-app/).
     * Code splitting.
     * Image handling.
     * Minification for production.
@@ -62,22 +80,21 @@ You build your own and have more choices for your frontend development. It makes
 ### 2.1 Project templates
 |Templates|Main dependencies|
 |---|---|
-|react-hooks|React Hooks |
-|react-sass|React Hooks and SASS |
+|react-hooks|React Hooks, Babel |
+|react-sass|React Hooks, Babel and SASS |
 |react-typescript|React Hooks, TypeScript 3, awesome-typescript-loader|
-|simple-express-server|Express, cors|
 
-You can view more details about these project templates in the repository [Build environments](https://github.com/nguyenkhois/build-environments).
+You can view more details and other project templates in the repository [Build environments](https://github.com/nguyenkhois/build-environments).
 
 ### 2.2 Component templates
 |Component|Single (*)|Full (**)|Description|
 |---|:---:|:---:|---|
-|Plain JavaScript|✓|✓|*.js, *.jsx|
-|TypeScript|✓|✓|*.tsx|
+|Plain JavaScript|✓|✓||
+|TypeScript|✓|✓||
 
-(*) Single component is a file with these supported extension *.js, *.jsx and *.tsx.
+(*) Single component is a JavaScript file with these supported extension *.js, *.jsx, *.ts and *.tsx.
 
-(**) Full component is a directory with two files *.css and *.js (or *.jsx, *.tsx) that are generated within.
+(**) Full component is a directory with two files are within: a CSS file and a JS file (*.js, *.jsx, *.tsx).
 
 ### 2.3 User asset generation
 You can retrieve your own assets from a local directory.
@@ -92,11 +109,11 @@ You can retrieve your own assets from a local directory.
         * `-cf, --config` is used with its sub options:
             * `--set-asset`
             * `--view-asset`
-        * `-m, --my-asset`
+        * `-a, --asset`
     * Syntaxes:
         * `generate -cf --set-asset <local-path-to-your-asset-directory>`
         * `generate -cf --view-asset`
-        * `generate -m`
+        * `generate -a`
 
 _(You can view [how to use](#4-usage) and the [examples](#5-examples) are below for more details)_
 
@@ -107,31 +124,31 @@ System requirements:
 * The minimum supported Node.js version is 8.3.0 (Node.js LTS version is a good choice for the stability).
 * Administrator permission is required by your operating system for:
     * Installation of `code-template-generator` on global by the option `--global`.
-    * Running the command `$ generate --update` for the latest stable version updating.
+    * Running the command `generate --update` for the latest stable version updating.
 
 ## 4. Usage
 `$ generate [-option] [--sub-option] [project-name][component-name][path]`
 
-__Tip!__ You can use the command `gen` instead of `generate` in version 2.2.x. It's more quickly when you enter a command line.
+__Tip!__ You can use the command `gen` instead of `generate` from version 2.2.x. It's more quickly when you enter a command line.
 
 Examples:
 
-* `generate --version` -> Main command.
-* `gen --version` -> Short command.
+* `generate -v` -> Main command.
+* `gen -v` -> Short command.
 
 ### 4.1 Options
 | Option | Used with | Description |
 |:---:|:---:|---|
-| - | `<project-name>` |  Generate a new project from a chosen template without running the `git init` command |
+| - | `<project-name>` |  Generate a new project from a chosen template without Git support |
 |`-g`|`<project-name>`| Run automatically the `git init` command and generate a `.gitignore` file on the root of project directory during the generation|
-|`-c`|`<component-name.js>`|Generate a single React component `(*.js or *.jsx)` in the current directory|
-|`-f`|`<component-name>`|Generate a full React component that is a directory with `*.js, *.css` files in the current directory|
+|`-c`|`<component-name>.<extension>`|Generate a single React component (*.js, *.jsx, *.ts, *.tsx) in the current directory|
+|`-f`|`<component-name>`|Generate a full React component in the current directory|
 |`-i`|-| A `.gitignore` file will be generated in the current directory |
 |`-v`|-|View the installed version|
 |`-help`|-|View help documentation|
 |`-u`|-| Automatic update checking and installation for the latest stable version (*) |
 |`-cf`| (**) |Using with one of these sub options: `--set-asset`, `--view-asset`|
-|`-m`|-|Show a list to retrieve chosen asset(s) into the current work directory|
+|`-a`|-|Show a list to retrieve chosen asset(s) into the current work directory|
 
 (*) Administrator permission is required by your operating system. Here are the examples for MacOS and Ubuntu systems by using `sudo`:
 * `$ sudo generate -u`
@@ -166,41 +183,43 @@ Examples:
 |`-help`|`--help`|
 |`-u`|`--update`|
 |`-cf`|`--config`|
-|`-m`|`--my-asset`|
+|`-a`|`--asset`|
 
 ## 5. Examples
 
 ````
 // Project generation
-$ generate first-project             // Standar and without any options
+$ generate first-project   // Generates a project without any options
 
-$ generate -g secondproject          // With running the `git init` command
-$ generate --git ThirdProject        // Using alias --git instead of -g
+$ generate -g secondproject   // With Git support by running 'git init'
+$ generate --git ThirdProje   // Using alias --git instead of -g
 $ generate -g --no-install OtherProject
 $ generate --no-install LastProject  // No install dependencies
 
-// Single component -> A file
-$ generate -c SearchComponent.js
+// Single component -> A JavaScript file
+$ generate -c SearchService.js
 $ generate -c ReviewComponent.jsx
-$ generate -c Count.tsx
+$ generate -c CountService.ts
+$ generate -c CounterComponent.tsx
 
-// Full component -> A directory
-$ generate -f ProductComponent
-$ generate -f --jsx CartComponent
-$ generate -f --tsx Counter
+// Full component
+// -> A directory with two files are within (*.css, *.js|jsx|tsx)
+$ generate -f Product         // Default is using *.js
+$ generate -f --jsx Cart      // Using *.jsx
+$ generate -f --tsx Counter   // Using *.tsx
 
 // Asset generation
 $ generate -cf --set-asset "C:\Users\name\myassets"  // Windows
 $ generate -cf --set-asset "/Users/name/myassets"    // MacOS
 $ generate -cf --set-asset "/home/name/myassets"     // Ubuntu
-$ generate -cf --view-asset   // View the current asset location
-$ generate -m                 // Show the asset list and retrieve them
+$ generate -cf --view-asset   // View info about the current asset location
+$ generate -a                 // Show the asset list and retrieve them
 
 // Others
-$ generate --gitignore  // Generate a .gitignore file
-$ generate --version    // View the installed version
-$ generate --help       // View help documentation
-$ generate --update     // Install the latest stable version
+$ generate -i      // Generate a .gitignore file
+$ generate -v      // View the installed version
+$ generate -help   // View help documentation
+$ generate -u      // Install the latest stable version
 ````
 
 ## 6. Thank you!

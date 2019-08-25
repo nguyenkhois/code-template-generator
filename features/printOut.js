@@ -58,12 +58,12 @@ function helpInformation(optionList) {
         "\n\t$ generate \x1b[90m--no-install\x1b[0m \x1b[33mOtherProject\x1b[0m" +
         "\n" +
         "\n\t$ generate -c \x1b[33mSearchComponent.jsx\x1b[0m" +
-        "\n\t$ generate -f \x1b[33mProductComponent\x1b[0m" +
-        "\n\t$ generate -f \x1b[90m--jsx\x1b[0m \x1b[33mNews\x1b[0m" +
+        "\n\t$ generate -f \x1b[33mProduct\x1b[0m" +
+        "\n\t$ generate -f \x1b[90m--tsx\x1b[0m \x1b[33mNews\x1b[0m" +
         "\n" +
         "\n\t$ generate -cf \x1b[90m--set-asset\x1b[0m \x1b[33m\"C:\\Users\\name\\myassets\"\x1b[0m (Windows)" +
         "\n\t$ generate -cf \x1b[90m--view-asset\x1b[0m" +
-        "\n\t$ generate -m" +
+        "\n\t$ generate -a" +
         "\n" +
         "\n\t$ generate -i" +
         "\n\t$ generate -v" +

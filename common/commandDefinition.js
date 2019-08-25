@@ -6,14 +6,14 @@ const command = new Command();
 command
     .option("-root", "", "Root of a command") // Special case
     .option("-g", "--git", "Run git init and generate a .gitignore file")
-    .option("-c", "--component", "Generate a React component file (*.js, *.jsx, *.tsx)")
+    .option("-c", "--component", "Generate a React component file (*.js, *.jsx, *.ts, *.tsx)")
     .option("-f", "--full-component", "Generate a full React component with two files *.css, *.js (or *.jsx, *.tsx)")
     .option("-i", "--gitignore", "Generate a .gitignore file")
     .option("-v", "--version", "View the installed version")
     .option("-help", "--help", "View help documentation")
     .option("-u", "--update", "Update to the latest stable version")
     .option("-cf", "--config", "Configuration for the application")
-    .option("-m", "--my-asset", "Retrieve your assets from a specific directory")
+    .option("-a", "--asset", "Retrieve your assets from a specific directory")
     .subOption("-root", "--no-install", "No run git init and no install dependencies")
     .subOption("-g", "--no-install", "No install dependencies")
     .subOption("-f", "--jsx", "Using *.jsx for a full component")
