@@ -90,7 +90,7 @@ You can view more details and other project templates in the repository [Build e
 |Component|Single (*)|Full (**)|Description|
 |---|:---:|:---:|---|
 |Plain JavaScript|✓|✓||
-|TypeScript|✓|✓||
+|TypeScript|✓|✓|Version 3.x|
 
 (*) Single component is a JavaScript file with these supported extension *.js, *.jsx, *.ts and *.tsx.
 
@@ -121,9 +121,9 @@ _(You can view [how to use](#4-usage) and the [examples](#5-examples) are below 
 `$ npm install --global code-template-generator`
 
 System requirements:
-* The minimum supported Node.js version is 8.3.0 (Node.js LTS version is a good choice for the stability).
+* The minimum supported Node.js version is 8.9.0 (Node.js LTS version is a good choice for the stability).
 * Administrator permission is required by your operating system for:
-    * Installation of `code-template-generator` on global by the option `--global`.
+    * Installation of `code-template-generator` on global by using the option `--global`.
     * Running the command `generate --update` for the latest stable version updating.
 
 ## 4. Usage
