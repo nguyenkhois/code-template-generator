@@ -36,7 +36,7 @@ module.exports = {
             cleanOnceBeforeBuildPatterns: ['**/*', '!images'] // No remove "images" for a faster development
         }),
         new WriteFilePlugin({
-            test: /\.(png|jpg|gif|svg)$/i
+            test: /\.(png|jpg|gif|svg|ico)$/i
         }),
         new CopyWebpackPlugin([
             { from: 'src/images', to: 'images' }

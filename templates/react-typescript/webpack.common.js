@@ -8,7 +8,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { entryPoints, distDir, htmlTemplate } = require('./webpack.custom'); // Using your own configs
 
 module.exports = {
-    entry: entryPoints,// which file(s) to begin with, 
+    entry: entryPoints,// which file(s) to begin with,
     output: {
         path: path.join(__dirname, distDir), // what folder to put bundle in
         filename: '[name].[hash].js' // what name to use for bundle
@@ -36,7 +36,7 @@ module.exports = {
             cleanOnceBeforeBuildPatterns: ['**/*', '!images'] // No remove "images" for a faster development
         }),
         new WriteFilePlugin({
-            test: /\.(png|jpg|gif|svg)$/i
+            test: /\.(png|jpg|gif|svg|ico)$/i
         }),
         new CopyWebpackPlugin([
             { from: 'src/images', to: 'images' }
