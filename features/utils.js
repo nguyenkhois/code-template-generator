@@ -25,9 +25,7 @@ function queryLatestVersion() {
                 return resolve(latestVersion);
             });
 
-        }).on("error", (error) => {
-            return reject(error);
-        });
+        }).on("error", (err) => reject(err));
     });
 }
 
@@ -36,9 +34,9 @@ function installedVersion() {
         const { version } = require("../package.json") || '';
 
         if (version && version.length > 0)
-            resolve(version);
+            return resolve(version);
         else
-            reject(new AppError("i001"));
+            return reject(new AppError("i001"));
     });
 }
 
@@ -53,9 +51,9 @@ function autoUpdateCheck() {
                         latest: result[1]
                     };
 
-                    resolve(versionInfo);
+                    return resolve(versionInfo);
                 } else {
-                    reject(new AppError("i002"));
+                    return reject(new AppError("i002"));
                 }
             })
             .catch((err) => reject(err));
@@ -79,9 +77,9 @@ function validateInputName(input) {
         }
 
         if (regularExpression.test(input)) {
-            resolve(true);
+            return resolve(true);
         } else {
-            reject(new AppError("n001"));
+            return reject(new AppError("n001"));
         }
     });
 }
@@ -98,9 +96,9 @@ function validateInputPath(input) {
         }
 
         if (pathRegExr.test(input)) {
-            resolve(true);
+            return resolve(true);
         } else {
-            reject(new AppError("pa001"));
+            return reject(new AppError("pa001"));
         }
     });
 }
@@ -133,12 +131,10 @@ function checkAndInstallStableUpdate() {
 
                 } else {
                     resolvingContent = `The latest stable version ${installed} already installed`;
-                    resolve({ message: resolvingContent });
+                    return resolve({ message: resolvingContent });
                 }
             })
-            .catch((err) => {
-                reject(errorIdentification(err));
-            });
+            .catch((err) => reject(errorIdentification(err)));
     });
 }
 

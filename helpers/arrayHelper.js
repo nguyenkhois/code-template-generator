@@ -7,8 +7,7 @@ Array.prototype.findIndexByProperty = function (sPropertyName, sPropertyValue) {
 function filterByProperty(objectArray, sPropertyName, sSeekingValue) {
     return new Promise((resolve, reject) => {
         if (!Array.isArray(objectArray)) {
-            reject(Error("Input data is not an array"));
-            return;
+            return reject(Error("Expects an array for the first parameter"));
         }
 
         resolve(objectArray.filter(objItem => objItem[sPropertyName] === sSeekingValue));

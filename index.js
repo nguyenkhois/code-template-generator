@@ -185,17 +185,11 @@ MainApp()
         // Automatic update checking after resolving
         const { type } = resolving;
         if (type && type !== "update") {
-            autoUpdateCheck().then((versionInfo) => {
-                const { isUpdateFound, latest } = versionInfo;
-                if (isUpdateFound && latest) {
-                    printUpdateMessage(latest);
-                }
-            }).catch((err) => {
-                const customErrorObject = errorIdentification(err);
-                printOutReject(customErrorObject);
-            });
+            autoUpdateCheck()
+                .then((versionInfo) => {
+                    const { isUpdateFound, latest } = versionInfo;
+                    isUpdateFound && latest && printUpdateMessage(latest);
+                }).catch((err) => printOutReject(errorIdentification(err)));
         }
     })
-    .catch((error) => {
-        printOutReject(error);
-    });
+    .catch((err) => printOutReject(err));
