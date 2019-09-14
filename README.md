@@ -2,14 +2,16 @@
 [![Node.js version](https://img.shields.io/node/v/code-template-generator.svg?style=flat)](https://nodejs.org)   [![code-template-generator](https://img.shields.io/npm/v/code-template-generator.svg?style=flat)](https://www.npmjs.com/package/code-template-generator/)
 
 ## Breaking changes in version 3
-* [__New__] Using React Hooks for both project and component templates and support both plain JavaScript and TypeScript.
-    * The project templates
-        * react-hooks _(Plain JS)_
-        * react-sass _(Plain JS)_
-        * react-typescript _(TypeScript)_
-    * The component templates
-        * Plain JavaScript _(*.js, *.jsx)_
-        * TypeScript _(*.ts, *.tsx)_
+* [__New__]
+    * Using React Hooks for both project and component templates and support both plain JavaScript and TypeScript.
+        * The project templates
+            * react-hooks _(Plain JS)_
+            * react-sass _(Plain JS)_
+            * react-typescript _(TypeScript)_
+        * The component templates
+            * Plain JavaScript _(*.js, *.jsx)_
+            * TypeScript _(*.ts, *.tsx)_
+    * The user can change asset's name when choosing only one file or directory. It's useful when the user wants using an own project template.
 * [__Changed__]
     * Using `-a` instead of `-m` for asset retrieving. Examples:
         * `generate -a`
