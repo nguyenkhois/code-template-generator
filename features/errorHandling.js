@@ -205,6 +205,7 @@ class AppError extends Error {
 }
 
 module.exports = {
+    inputNameText,
     AppError,
     errorCodeList,
     errorIdentification,

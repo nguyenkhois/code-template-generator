@@ -3,7 +3,7 @@ const path = require("path");
 
 const { fs, inquirer, CURR_DIR } = require("../common/");
 const { createDirectoryContents, stringHelper } = require("../helpers/");
-const { AppError } = require("./errorHandling");
+const { inputNameText, AppError } = require("./errorHandling");
 
 const templatePath = path.join(__dirname, "../templates/");
 const templateFilePath = path.join(__dirname, "../templates-files/");
@@ -29,7 +29,12 @@ function generateTemplate(inputProjectName, option = { gitSupport: false, subFla
                 message: "Project name:",
                 validate: function (input) {
                     const regExr = /^(?![-.])([A-Za-z-_.\d])+([A-Za-z\d])+$/;
-                    return regExr.test(input);
+
+                    if (regExr.test(input)) {
+                        return true;
+                    }
+
+                    return inputNameText;
                 }
             }
         ];
