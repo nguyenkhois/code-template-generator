@@ -11,7 +11,7 @@
         * The component templates
             * Plain JavaScript _(*.js, *.jsx)_
             * TypeScript _(*.ts, *.tsx)_
-    * The user can change asset's name when choosing only one file or directory. It's useful when the user wants using an own project template.
+    * You can change an asset's name when choosing __only one__ file or directory. It's useful when you want using your own project template or many different config files _(Webpack, ESLint, ...)_.
 * [__Changed__]
     * Using `-a` instead of `-m` for asset retrieving. Examples:
         * `generate -a`
