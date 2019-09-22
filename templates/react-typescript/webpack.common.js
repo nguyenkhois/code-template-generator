@@ -16,11 +16,19 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.tsx?$/,
+                test: /\.ts(x?)$/,
+                loader: "ts-loader",
                 include: [
                     path.join(__dirname, "src")
-                ],
-                loader: "awesome-typescript-loader"
+                ]
+            },
+            {
+                test: /\.js$/,
+                use: ["source-map-loader"],
+                enforce: "pre",
+                include: [
+                    path.join(__dirname, "src")
+                ]
             }
         ]
     },
@@ -36,7 +44,7 @@ module.exports = {
             cleanOnceBeforeBuildPatterns: ['**/*', '!images'] // No remove "images" for a faster development
         }),
         new WriteFilePlugin({
-            test: /\.(png|jpg|gif|svg)$/i
+            test: /\.(png|jpg|gif|svg|ico)$/i
         }),
         new CopyWebpackPlugin([
             { from: 'src/images', to: 'images' }

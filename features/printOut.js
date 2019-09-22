@@ -52,29 +52,23 @@ function helpInformation(optionList) {
         `\n${aliasContent}` +
         "\nEXAMPLES:" +
         "\n\t$ generate \x1b[33mfirst-project\x1b[0m" +
+        "\n" +
         "\n\t$ generate -g \x1b[33msecondproject\x1b[0m" +
         "\n\t$ generate -g \x1b[90m--no-install\x1b[0m \x1b[33mThirdProject\x1b[0m" +
         "\n\t$ generate \x1b[90m--no-install\x1b[0m \x1b[33mOtherProject\x1b[0m" +
         "\n" +
-        "\n\t$ generate -c \x1b[33mSearchComponent.js\x1b[0m" +
-        "\n\t$ generate -r \x1b[33mReviewComponent.jsx\x1b[0m" +
-        "\n\t$ generate -h \x1b[33mFooter.jsx\x1b[0m" +
-        "\n\t$ generate -fc \x1b[33mProductComponent\x1b[0m" +
-        "\n\t$ generate -fr \x1b[33mCartComponent\x1b[0m" +
-        "\n\t$ generate -fh \x1b[33mHeader\x1b[0m" +
-        "\n" +
-        "\n\t$ generate -fc \x1b[90m--jsx\x1b[0m \x1b[33mNews\x1b[0m" +
+        "\n\t$ generate -c \x1b[33mSearchComponent.jsx\x1b[0m" +
+        "\n\t$ generate -f \x1b[33mProduct\x1b[0m" +
+        "\n\t$ generate -f \x1b[90m--tsx\x1b[0m \x1b[33mNews\x1b[0m" +
         "\n" +
         "\n\t$ generate -cf \x1b[90m--set-asset\x1b[0m \x1b[33m\"C:\\Users\\name\\myassets\"\x1b[0m (Windows)" +
-        "\n\t$ generate -cf \x1b[90m--set-asset\x1b[0m \x1b[33m\"/Users/name/myassets\"\x1b[0m (MacOS)" +
-        "\n\t$ generate -cf \x1b[90m--set-asset\x1b[0m \x1b[33m\"/home/name/myassets\"\x1b[0m (Ubuntu)" +
         "\n\t$ generate -cf \x1b[90m--view-asset\x1b[0m" +
-        "\n\t$ generate -m" +
+        "\n\t$ generate -a" +
         "\n" +
-        "\n\t$ generate --gitignore" +
-        "\n\t$ generate --version" +
-        "\n\t$ generate --help" +
-        "\n\t$ generate --update";
+        "\n\t$ generate -i" +
+        "\n\t$ generate -v" +
+        "\n\t$ generate -help" +
+        "\n\t$ generate -u";
 
     return helpContent;
 }
@@ -217,20 +211,19 @@ function printOutGuideAfterGeneration(projectName, templateName) {
     let detailMessage = "\n";
 
     const endMessage = "\n\nHappy coding! (^_^)" +
-        "\n\n\x1b[90mTips! You can view README.md for detail information." +
-        "\nView other templates at https://github.com/nguyenkhois/build-environments\x1b[0m";
+        "\n\n\x1b[90mTip! You can view README.md for more information.";
 
     filterByProperty(supportedTemplate, "name", templateName)
         .then((result) => {
             if (result.length === 1) {
                 switch (result[0].type) {
                     case "react": // React project
-                        detailMessage += "\n\t\x1b[36mnpm start\x1b[0m\n\t   Starts the development server at http://localhost:9000" +
-                            "\n\n\t\x1b[36mnpm run build\x1b[0m\n\t   Bundles the app for production.";
+                        detailMessage += "\n\t\x1b[36mnpm start\x1b[0m\n\t   Starts the development server \x1b[90mat http://localhost:9000\x1b[0m" +
+                            "\n\n\t\x1b[36mnpm run build\x1b[0m\n\t   Bundles the app for production";
                         break;
 
                     case "express": // Express project
-                        detailMessage += "\n\t\x1b[36mnpm start\x1b[0m\n\t   Starts the local web server at http://localhost:8000";
+                        detailMessage += "\n\t\x1b[36mnpm start\x1b[0m\n\t   Starts the local web server \x1b[90mat http://localhost:8000\x1b[0m";
                         break;
 
                     default:

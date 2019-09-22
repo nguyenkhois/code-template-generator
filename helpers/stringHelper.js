@@ -6,7 +6,7 @@ const stringHelper = {
             }
 
             return null;
-        } catch (e) { console.error(e); }
+        } catch (err) { console.error(err); }
     }
 };
 

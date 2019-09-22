@@ -3,7 +3,7 @@ const path = require("path");
 
 const { fs, inquirer, CURR_DIR } = require("../common/");
 const { createDirectoryContents, stringHelper } = require("../helpers/");
-const { AppError } = require("./errorHandling");
+const { inputNameText, AppError } = require("./errorHandling");
 
 const templatePath = path.join(__dirname, "../templates/");
 const templateFilePath = path.join(__dirname, "../templates-files/");
@@ -29,7 +29,12 @@ function generateTemplate(inputProjectName, option = { gitSupport: false, subFla
                 message: "Project name:",
                 validate: function (input) {
                     const regExr = /^(?![-.])([A-Za-z-_.\d])+([A-Za-z\d])+$/;
-                    return regExr.test(input);
+
+                    if (regExr.test(input)) {
+                        return true;
+                    }
+
+                    return inputNameText;
                 }
             }
         ];
@@ -123,7 +128,7 @@ function dependencyInstallation(projectName) {
 
         const exec = require("child_process").exec;
 
-        console.log("\nStarting the installation of all needed dependencies...");
+        console.log("\nStarting the installation for all needed dependencies...");
         exec(`cd ${projectName} && npm i`, (error, stdout, stderr) => {
             if (error) {
                 return reject(error);
@@ -131,7 +136,7 @@ function dependencyInstallation(projectName) {
 
             console.log(`\n\x1b[32mDone!\x1b[0m npm ${stdout}`);
 
-            if (stderr !== "") {
+            if (!stderr) {
                 console.log(`\x1b[35mInformation\x1b[0m: ${stderr}`);
             }
 
@@ -152,22 +157,23 @@ function generateFile(argFullFileName, fnGetAndReplaceFileContent, extraOption =
             return reject(new AppError("f002")); // The file name is missing
         }
 
-        const supportedExtension = ["js", "jsx", "gitignore", "css"];
-        const seekingExtension = argFullFileName.split(".");
+        const supportedExtension = ["js", "jsx", "ts", "tsx", "gitignore", "css"],
+            seekingExtension = argFullFileName.split("."),
+            seekingExtensionLength = seekingExtension.length;
 
-        let fileExtension = "";
-        let filteredName = "";
+        let fileExtension = "",
+            filteredName = "";
 
-        if (seekingExtension.length > 1) {
-            fileExtension = seekingExtension[seekingExtension.length - 1];
-            filteredName = seekingExtension.slice(0, seekingExtension.length - 1).join("");
+        if (seekingExtensionLength) {
+            fileExtension = seekingExtension.slice(-1)[0];
+            filteredName = seekingExtension.slice(0, seekingExtensionLength - 1).join("");
         }
 
         if (supportedExtension.indexOf(fileExtension) > -1) {
             // Check if the file will be created in a sub directory
             let newFullFilePath = `${CURR_DIR}/${argFullFileName}`; // Default is in the current directory
 
-            if (Object.keys(extraOption).length > 0) {
+            if (Object.keys(extraOption).length) {
                 const { subDir } = extraOption;
                 if (subDir) {
                     newFullFilePath = `${CURR_DIR}/${subDir}/${argFullFileName}`;
@@ -176,7 +182,7 @@ function generateFile(argFullFileName, fnGetAndReplaceFileContent, extraOption =
 
             // Check if the file is not found
             if (!fs.existsSync(newFullFilePath)) {
-                fs.writeFile(newFullFilePath, fnGetAndReplaceFileContent(filteredName), (err) => {
+                fs.writeFile(newFullFilePath, fnGetAndReplaceFileContent(filteredName, fileExtension), (err) => {
                     if (!err) {
                         resolve(argFullFileName);
                     } else {
@@ -201,7 +207,7 @@ function generateGitignoreFile(subDirectory) {
     return new Promise((resolve, reject) => {
         const extraOption = { subDir: subDirectory };
 
-        generateFile(".gitignore", function () {
+        generateFile(".gitignore", () => {
             const gitignoreTemplatePath = path.join(templateFilePath, "/gitignore.template");
             const gitignoreContent = fs.readFileSync(gitignoreTemplatePath);
 
@@ -214,37 +220,32 @@ function generateGitignoreFile(subDirectory) {
 
 /**
  * Single component generation
- * @param {string} componentName is like <component-name.js>
- * @param {object} option = {
- *      componentType: string, // [-c][-r][-h] -> React, React-Redux, React hooks component
- *      fullComponent: boolean,
- *      fullCSSFileName: string
- * }
+ * @param {string} componentName is a file name (Ex: component-name.js)
+ * @param {object} option = { isFullComponent: boolean, fullCSSFileName: string }
  *
- * Using for creating a full component that is a directory with *.js, *.jsx, *.css are within
+ * Only using the extraOption when creating a full component
+ * that is a directory with two files *.css, *.js (or *.jsx, *.tsx) are within
  * @param {object} extraOption = { subDir: string }
  */
-function generateComponent(componentName, option = { componentType: "" }, extraOption = {}) {
+function generateComponent(componentName, option = {}, extraOption = {}) {
+
     return new Promise((resolve, reject) => {
         if (!componentName) {
             return reject(new Error("Missing the componentName variable"));
         }
 
         // Call an other Promise function -> input data is (argument, function)
-        generateFile(componentName, function (filteredName) {
-            const { componentType, fullComponent, fullCSSFileName } = option;
+        generateFile(componentName, function (filteredName, fileExtension) {
+            const { isFullComponent, fullCSSFileName } = option;
             const componentRegExp = /YourComponentName/g;
             const cssRegExp = /\/\/ImportYourCSS/g;
 
             // Chosen template file
             let templateName;
-            switch (componentType) {
-                case "-r":
-                    templateName = "/js-redux-component.template";
-                    break;
-
-                case "-h":
-                    templateName = "/js-hooks-component.template";
+            switch (fileExtension) {
+                case "ts":
+                case "tsx":
+                    templateName = "/ts-component.template";
                     break;
 
                 default:
@@ -252,16 +253,16 @@ function generateComponent(componentName, option = { componentType: "" }, extraO
                     break;
             }
 
-            const componentTemplatePath = path.join(templateFilePath, templateName);
-            const originalContent = fs.readFileSync(componentTemplatePath, "utf8");
+            const componentTemplatePath = path.join(templateFilePath, templateName),
+                originalContent = fs.readFileSync(componentTemplatePath, "utf8");
 
             let className = filteredName.replace(/[-_]/g, "");
             className = stringHelper.firstCharToUpperCase(className);
 
-            let replacedContent = originalContent.replace(componentRegExp, className);
+            const replacedContent = originalContent.replace(componentRegExp, className);
 
             // Return file content
-            if (fullComponent && fullCSSFileName && fullCSSFileName.length > 0) {
+            if (isFullComponent && fullCSSFileName && fullCSSFileName.length) {
                 return replacedContent.replace(cssRegExp, `import './${fullCSSFileName}';`);
             } else {
                 return replacedContent.replace(cssRegExp, ""); // Clear comment in the template file
@@ -275,29 +276,27 @@ function generateComponent(componentName, option = { componentType: "" }, extraO
 
 /**
  * Full component generation
- * A full component that is a directory with *.js (or *.jsx) and *.css are within.
- * @param {string} componentName is like <component-name> that is a <directory-name> now.
- * @param {object} option = {
- *      componentType: string, // [-fc][-fr][-fh] -> React, React-Redux, React hooks component
- *      subFlags: array
- * }
+ * A full component that is a directory with two files *.css and *.js (or *.jsx, *.tsx) are within
+ * @param {string} componentName is a <directory-name> now.
+ * @param {object} option = { subFlags: array }
  */
-function generateFullComponent(componentName = null, option = { componentType: "", subFlags: [] }) {
+function generateFullComponent(componentName = null, option = { subFlags: [] }) {
     return new Promise((resolve, reject) => {
         if (!componentName) {
             return reject(new Error("Missing the componentName variable"));
         }
 
-        const { componentType, subFlags } = option;
-        const supportedExtenstions = ["js", "jsx"];
-        const defaultExtension = "js";
-        const newFullDirectoryPath = `${CURR_DIR}/${componentName}`;
+        const { subFlags } = option,
+            supportedExtenstions = ["jsx", "tsx"],
+            defaultExtension = "js",
+            newFullDirectoryPath = `${CURR_DIR}/${componentName}`;
 
         // Identify extension
-        let componentExtension = defaultExtension;
-        let isBreak = false;
-        if (subFlags.length > 0) {
-            const subFlagsLength = subFlags.length;
+        let componentExtension = defaultExtension,
+            isBreak = false;
+        const subFlagsLength = subFlags.length;
+
+        if (subFlags.length) {
             for (let i = 0; i < subFlagsLength; i++) {
                 const foundExtension = subFlags[i].slice(2); // Remove symbol -- in subFlag
                 if (supportedExtenstions.indexOf(foundExtension) > -1) {
@@ -315,43 +314,20 @@ function generateFullComponent(componentName = null, option = { componentType: "
             fs.mkdirSync(newFullDirectoryPath);
 
             // Create file name
-            const newFullJSFileName = `${componentName}.${componentExtension}`;
-            const newFullCSSFileName = `${componentName}.css`;
-
-            // Chosen component type - React - React-Redux - React hooks
-            let compType;
-            switch (componentType) {
-                case "-fr":
-                    compType = "-r"; // React-Redux component
-                    break;
-
-                case "-fh":
-                    compType = "-h"; // React hooks component
-                    break;
-
-                default:
-                    compType = "-c"; // React component
-                    break;
-            }
+            const newFullJSFileName = `${componentName}.${componentExtension}`,
+                newFullCSSFileName = `${componentName}.css`;
 
             // Create the new option
-            const newOption = {
-                componentType: compType,
-                fullComponent: true,
-                fullCSSFileName: newFullCSSFileName
-            };
-
-            const extraOption = {
-                subDir: componentName
-            };
+            const newOption = { isFullComponent: true, fullCSSFileName: newFullCSSFileName },
+                extraOption = { subDir: componentName };
 
             // Generate JS file
             const generateJSFile = generateComponent(newFullJSFileName, newOption, extraOption);
 
             // Generate CSS file
-            const generateCSSFile = generateFile(newFullCSSFileName, function () {
-                return `/* CSS for ${componentName} component */`;
-            }, extraOption);
+            const generateCSSFile = generateFile(newFullCSSFileName,
+                () => `/* CSS for ${componentName} component */`,
+                extraOption);
 
             // Combination for all promises
             Promise.all([generateJSFile, generateCSSFile])

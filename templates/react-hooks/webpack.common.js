@@ -33,10 +33,10 @@ module.exports = {
         new HtmlWebpackPlugin({ template: htmlTemplate }),
         new CleanWebpackPlugin({
             verbose: true,
-            cleanOnceBeforeBuildPatterns: ['**/*', '!images'] // No remove "images" for a faster development
+            cleanOnceBeforeBuildPatterns: ['**/*', '!images'] // No removing "images" for a faster development
         }),
         new WriteFilePlugin({
-            test: /\.(png|jpg|gif|svg)$/i
+            test: /\.(png|jpg|gif|svg|ico)$/i
         }),
         new CopyWebpackPlugin([
             { from: 'src/images', to: 'images' }

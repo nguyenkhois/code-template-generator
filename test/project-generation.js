@@ -10,8 +10,8 @@ const { generateTemplate, AppError } = require("../features/");
 describe("FUNCTIONS/template.js - Project generation", function () {
     let backup;
     const testProject = {
-        "projectName": "_TestProjectSimpleExpressServer",
-        "projectChoice": "simple-express-server"
+        "projectName": "_TestProjectReactHooks",
+        "projectChoice": "react-hooks"
     };
 
     before(function () {

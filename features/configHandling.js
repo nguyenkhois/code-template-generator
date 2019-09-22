@@ -4,7 +4,7 @@ const os = require("os");
 const { fs, inquirer, CURR_DIR } = require("../common/");
 const { createDirectoryContents } = require("../helpers/");
 const { validateInputPath } = require("./utils");
-const { AppError } = require("./errorHandling");
+const { inputNameText, AppError } = require("./errorHandling");
 
 const HOME_DIR = os.homedir();
 const configFilePath = `${HOME_DIR}/code-template-generator.json`;
@@ -130,33 +130,35 @@ function retrieveAsset() {
                                     }
                                 ])
                                 .then((answers) => {
-                                    let passedArr = [];
-                                    let failureArr = [];
+                                    if (answers.userAssetList.length === 1) {
+                                        inquirer.prompt([
+                                            {
+                                                type: 'input',
+                                                name: 'changeToNewName',
+                                                message: 'Do you want to change its name?',
+                                                default: answers.userAssetList[0],
+                                                validate: function (input) {
+                                                    const regExr = /^(?![-])([A-Za-z-_.\d])+([A-Za-z\d])+$/;
 
-                                    answers.userAssetList.map((item) => {
-                                        const itemFullPath = `${assetPath}/${item}`;
-                                        const writePath = `${CURR_DIR}/${item}`;
+                                                    if (regExr.test(input)) {
+                                                        return true;
+                                                    }
 
-                                        const stats = fs.statSync(itemFullPath);
-
-                                        if (!fs.existsSync(writePath)) {
-                                            if (stats.isFile()) {
-                                                const contents = fs.readFileSync(itemFullPath);
-                                                fs.writeFileSync(writePath, contents);
-                                            } else if (stats.isDirectory()) {
-                                                fs.mkdirSync(writePath);
-                                                createDirectoryContents(fs, itemFullPath, writePath);
+                                                    return inputNameText;
+                                                }
                                             }
-                                            passedArr = passedArr.concat([item]);
-                                        } else {
-                                            failureArr = failureArr.concat([item]);
-                                        }
-                                    });
+                                        ])
+                                            .then((response) => {
+                                                generateAsset(assetPath, answers.userAssetList, response.changeToNewName)
+                                                    .then((result) => resolve(result))
+                                                    .catch((err) => reject(err));
 
-                                    if (passedArr.length > 0) {
-                                        resolve({ "passed": passedArr, "failure": failureArr });
+                                            })
+                                            .catch((err) => reject(err));
                                     } else {
-                                        reject(new AppError("pa006")); // Can not retrieve asset
+                                        generateAsset(assetPath, answers.userAssetList)
+                                            .then((result) => resolve(result))
+                                            .catch((err) => reject(err));
                                     }
                                 });
                         } else {
@@ -171,6 +173,71 @@ function retrieveAsset() {
                 reject(new AppError("pa005")); // The asset path is null = not defined
             }
         });
+    });
+}
+
+function generateAsset(assetPath, arrAsset, changedName) {
+    return new Promise((resolve, reject) => {
+        const arrAssetLength = arrAsset.length;
+
+        if (Array.isArray(arrAsset) && arrAssetLength) {
+            let passedArr = [],
+                failureArr = [];
+
+            if (arrAssetLength === 1 && changedName.length) {
+                // Allow the user changes the asset's name when choosing only one file or directory
+                const assetFullPath = `${assetPath}/${arrAsset[0]}`;
+                const writePath = `${CURR_DIR}/${changedName}`;
+
+                writeAsset(changedName, assetFullPath, writePath, (result) => {
+                    passedArr = passedArr.concat(result.passedItem);
+                    failureArr = failureArr.concat(result.failureItem);
+                });
+            } else {
+                arrAsset.map((itemName) => {
+                    const itemFullPath = `${assetPath}/${itemName}`;
+                    const writePath = `${CURR_DIR}/${itemName}`;
+
+                    writeAsset(itemName, itemFullPath, writePath, (result) => {
+                        passedArr = passedArr.concat(result.passedItem);
+                        failureArr = failureArr.concat(result.failureItem);
+                    });
+                });
+            }
+
+            if (passedArr.length > 0) {
+                resolve({ "passed": passedArr, "failure": failureArr });
+            } else {
+                reject(new AppError("pa006")); // Can not retrieve asset
+            }
+        } else {
+            reject(new AppError("pa006"));
+        }
+    });
+}
+
+function writeAsset(itemName, itemFullPath, writePath, fnCallback) {
+    let passedItem = [],
+        failureItem = [];
+
+    const stats = fs.statSync(itemFullPath);
+
+    if (!fs.existsSync(writePath)) {
+        if (stats.isFile()) {
+            const contents = fs.readFileSync(itemFullPath);
+            fs.writeFileSync(writePath, contents);
+        } else if (stats.isDirectory()) {
+            fs.mkdirSync(writePath);
+            createDirectoryContents(fs, itemFullPath, writePath);
+        }
+        passedItem = passedItem.concat([itemName]);
+    } else {
+        failureItem = failureItem.concat([itemName]);
+    }
+
+    fnCallback({
+        passedItem,
+        failureItem
     });
 }
 

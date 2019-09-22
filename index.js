@@ -13,7 +13,7 @@ function MainApp() {
     return new Promise((resolve, reject) => {
         const { mainFlag, subFlags, argument, commandLength, unknowns } = command.parse(process.argv);
 
-        if (commandLength > 0 && unknowns.length === 0) {
+        if (commandLength && !unknowns.length) {
             let projectOption = {
                 "gitSupport": false,
                 "subFlags": subFlags
@@ -46,13 +46,9 @@ function MainApp() {
 
                 // Single component generation
                 case "-c":
-                case "-r":
-                case "-h":
                     validateInputName(argument)
                         .then(() => {
-                            const componentOption = { componentType: mainFlag };
-
-                            generateComponent(argument, componentOption)
+                            generateComponent(argument)
                                 .then((fullFileName) => resolve({ type: "component", name: fullFileName }))
                                 .catch((err) => reject(err));
                         })
@@ -68,13 +64,10 @@ function MainApp() {
                     break;
 
                 // Full component generation
-                case "-fc":
-                case "-fr":
-                case "-fh":
+                case "-f":
                     validateInputName(argument)
                         .then(() => {
                             const componentOption = {
-                                componentType: mainFlag,
                                 subFlags: subFlags
                             };
 
@@ -130,7 +123,7 @@ function MainApp() {
                     break;
 
                 // User asset generation
-                case "-m":
+                case "-a":
                     retrieveAsset()
                         .then((result) => resolve({ type: "asset", message: result }))
                         .catch((err) => reject(err));
@@ -192,17 +185,11 @@ MainApp()
         // Automatic update checking after resolving
         const { type } = resolving;
         if (type && type !== "update") {
-            autoUpdateCheck().then((versionInfo) => {
-                const { isUpdateFound, latest } = versionInfo;
-                if (isUpdateFound && latest) {
-                    printUpdateMessage(latest);
-                }
-            }).catch((err) => {
-                const customErrorObject = errorIdentification(err);
-                printOutReject(customErrorObject);
-            });
+            autoUpdateCheck()
+                .then((versionInfo) => {
+                    const { isUpdateFound, latest } = versionInfo;
+                    isUpdateFound && latest && printUpdateMessage(latest);
+                }).catch((err) => printOutReject(errorIdentification(err)));
         }
     })
-    .catch((error) => {
-        printOutReject(error);
-    });
+    .catch((err) => printOutReject(err));
