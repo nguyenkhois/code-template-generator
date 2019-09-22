@@ -25,7 +25,7 @@ You like to build yourself development environment and install only what you nee
 The application is a lightweight Node.js CLI tool that is using for front-end web development with  [React](https://reactjs.org/). Main features:
 * Project generation that has a part of the [Build environments](https://github.com/nguyenkhois/build-environments) project.
 * Component generation.
-* User asset generation.
+* Asset generation.
 
 ### Breaking changes in version 3
 * [__New__]
@@ -109,7 +109,7 @@ Reasons:
 * You may have your own project templates, code templates, libraries and many more _(.gitignore, .editorconfig, .eslinttrc.json, .eslintignore, webpack.config.js ect)_.
 * You don't want to do the same things as search-copy-paste the assets many times while you are coding or starting a new project.
 
-![User asset generation](./assets/userasset.gif)
+![Asset generation](./assets/userasset.gif)
 
 _(You can view [how to use](#4-usage) and the [examples](#5-examples) are below for more details)_
 
