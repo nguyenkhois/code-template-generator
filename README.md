@@ -8,7 +8,7 @@
 2. [Main features](#2-main-features)
     * [Project templates](#21-project-templates)
     * [Component templates](#22-component-templates)
-    * [User asset generation](#23-asset-generation)
+    * [Asset generation](#23-asset-generation)
 3. [Installation](#3-installation)
 4. [Usage](#4-usage)
     * [Options](#41-options)
