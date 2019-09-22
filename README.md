@@ -1,36 +1,10 @@
 # code-template-generator
 [![Node.js version](https://img.shields.io/node/v/code-template-generator.svg?style=flat)](https://nodejs.org)   [![code-template-generator](https://img.shields.io/npm/v/code-template-generator.svg?style=flat)](https://www.npmjs.com/package/code-template-generator/)
 
-## Breaking changes in version 3
-* [__New__]
-    * Using React Hooks for both project and component templates and support both plain JavaScript and TypeScript.
-        * The project templates
-            * react-hooks _(Plain JS)_
-            * react-sass _(Plain JS)_
-            * react-typescript _(TypeScript)_
-        * The component templates
-            * Plain JavaScript _(*.js, *.jsx)_
-            * TypeScript _(*.ts, *.tsx)_
-    * You can change an asset's name when choosing __only one__ file or directory. It's useful when you want using your own project template or many different config files _(Webpack, ESLint, ...)_.
-* [__Changed__]
-    * Using `-a` instead of `-m` for asset retrieving. Examples:
-        * `generate -a`
-        * `generate --asset` _(Using alias)_
-* [__Removed__]
-    * You can find other project templates in the repo [Build environment](https://github.com/nguyenkhois/build-environments). We keep the app is lightweight and nothing is missing ;-)
-    * Removed the project templates
-        * react-advance
-        * react-simplification
-        * simple-express-server
-    * Removed the component templates
-        * React classic that is using `class`
-        * React Redux
-
-* View the content is below for more information.
-
 ## Table of contents
 1. [Introduction](#1-introduction)
     * [Screenshot](#screenshot)
+    * [Breaking changes in version 3]()
 2. [Main features](#2-main-features)
     * [Project templates](#21-project-templates)
     * [Component templates](#22-component-templates)
@@ -52,18 +26,47 @@ The application is a lightweight Node.js CLI tool that is using for front-end we
 * Component generation.
 * User asset generation.
 
+### Breaking changes in version 3
+* [__New__]
+    * __Project component templates__:
+        * Using React Hooks.
+        * Support both plain JavaScript and TypeScript.
+        * The project templates:
+            * react-hooks _(Plain JS)_
+            * react-sass _(Plain JS)_
+            * react-typescript _(TypeScript)_
+        * The component templates:
+            * Plain JavaScript _(*.js, *.jsx)_
+            * TypeScript _(*.ts, *.tsx)_
+    * __User's generation__:
+        * You can generate your own project template, component, config file etc. by using the option `--asset`.
+        * You can __change an asset's name__ when choosing __only one__ file or directory.
+* [__Changed__]
+    * Using `-a` instead of `-m` for asset retrieving. Examples:
+        * `generate -a`
+        * `generate --asset` _(Using alias)_
+* [__Removed__]
+    * You can find other project templates in the repo [Build environment](https://github.com/nguyenkhois/build-environments). We keep the app is lightweight and nothing is missing. ;-)
+    * Removed the project templates:
+        * react-advance
+        * react-simplification
+        * simple-express-server
+    * Removed the component templates:
+        * React classic that is using `class` syntax.
+        * React Redux.
+
 ### Screenshot
-![Demo](./assets/screenshot.gif)
+![Screenshot](./assets/screenshot.gif)
 
 ## 2. Main features
-* Project generation:
+* Project generation with two alternative for Git support:
     * Without Git support _(default)_.
     * With Git support by running the `git init` command and generation of a `.gitignore` file while the project is generated from a chosen template.
 * React component generation can be:
     * A single React component that is a JavaScript file (*.js, *.jsx, *.ts, *.tsx).
     * A full React component that is a directory with two files are within: a CSS file and a JS file (*.js, *.jsx, *.tsx).
 * `.gitignore` file generation.
-* Automatic update checking for the latest stable version on npmjs.com.
+* Automatic update checking for the latest stable version that is found on npmjs.com.
 * [Project templates](https://github.com/nguyenkhois/build-environments):
     * It's simple for configuration and installation of only dependencies you need.
         * Fast and flexible.
@@ -77,14 +80,14 @@ The application is a lightweight Node.js CLI tool that is using for front-end we
     * Hot Module Replacement (HMR) is enabled.
     * You don't need to care about the distribution directory `/dist`. The things you care are only the directory `/src`.
     * Anti-caching.
-* User asset generation -> You can retrieve your own assets from a local directory.
+* User's asset generation -> You can retrieve your own assets _(project templates, component template, config file for ESLint, Webpack,...)_ from a local directory.
 
 ### 2.1 Project templates
 |Templates|Main dependencies|
 |---|---|
 |react-hooks|React Hooks, Babel |
 |react-sass|React Hooks, Babel and SASS |
-|react-typescript|React Hooks, TypeScript 3, awesome-typescript-loader|
+|react-typescript|React Hooks, TypeScript, ts-loader|
 
 You can view more details and other project templates in the repository [Build environments](https://github.com/nguyenkhois/build-environments).
 
@@ -92,30 +95,20 @@ You can view more details and other project templates in the repository [Build e
 |Component|Single (*)|Full (**)|Description|
 |---|:---:|:---:|---|
 |Plain JavaScript|✓|✓||
-|TypeScript|✓|✓|Version 3.x|
+|TypeScript|✓|✓||
 
-(*) Single component is a JavaScript file with these supported extension *.js, *.jsx, *.ts and *.tsx.
+(*) Single component is a JavaScript file with these supported extension:s *.js, *.jsx, *.ts and *.tsx.
 
 (**) Full component is a directory with two files are within: a CSS file and a JS file (*.js, *.jsx, *.tsx).
 
 ### 2.3 User asset generation
 You can retrieve your own assets from a local directory.
 
-![User asset generation](./assets/userasset.jpg)
+Reasons:
+* You may have your own project templates, code templates, libraries and many more like .gitignore, .editorconfig, .eslinttrc.json, .eslintignore, webpack.config.js ect.
+* You don't want to do the same things as search-copy-paste the assets many times while you are coding or starting a new project.
 
-1. Reasons
-    * You may have your own libraries, code templates and many more like .gitignore, .editorconfig, .eslinttrc.json, .eslintignore, ect.
-    * You don't want to do the same things as search-copy-paste the assets many times while you are coding or starting a new project.
-2. Details
-    * The options, sub options and their respective aliases:
-        * `-cf, --config` is used with its sub options:
-            * `--set-asset`
-            * `--view-asset`
-        * `-a, --asset`
-    * Syntaxes:
-        * `generate -cf --set-asset <local-path-to-your-asset-directory>`
-        * `generate -cf --view-asset`
-        * `generate -a`
+![User asset generation](./assets/userasset.gif)
 
 _(You can view [how to use](#4-usage) and the [examples](#5-examples) are below for more details)_
 
@@ -141,20 +134,20 @@ Examples:
 ### 4.1 Options
 | Option | Used with | Description |
 |:---:|:---:|---|
-| - | `<project-name>` |  Generate a new project from a chosen template without Git support |
-|`-g`|`<project-name>`| Run automatically the `git init` command and generate a `.gitignore` file on the root of project directory during the generation|
-|`-c`|`<component-name>.<extension>`|Generate a single React component (*.js, *.jsx, *.ts, *.tsx) in the current directory|
-|`-f`|`<component-name>`|Generate a full React component in the current directory|
-|`-i`|-| A `.gitignore` file will be generated in the current directory |
-|`-v`|-|View the installed version|
-|`-help`|-|View help documentation|
-|`-u`|-| Automatic update checking and installation for the latest stable version (*) |
-|`-cf`| (**) |Using with one of these sub options: `--set-asset`, `--view-asset`|
-|`-a`|-|Show a list to retrieve chosen asset(s) into the current work directory|
+| - | `<project-name>` |  Generate a new project from a chosen template without Git support. |
+|`-g`|`<project-name>`| Run automatically the `git init` command and generate a `.gitignore` file on the root of project directory during the generation.|
+|`-c`|`<component-name>.<extension>`|Generate a single React component in the current directory _(*.js, *.jsx, *.ts, *.tsx)_.|
+|`-f`|`<component-name>`|Generate a full React component in the current directory _(*.js, *.jsx, *.tsx)_.|
+|`-i`|-| A `.gitignore` file will be generated in the current directory. |
+|`-v`|-|View the installed version.|
+|`-help`|-|View help documentation.|
+|`-u`|-| Automatic update checking and installation for the latest stable version. (*) |
+|`-cf`| (**) |Using with one of these sub options: `--set-asset`, `--view-asset`.|
+|`-a`|-|Show a list to retrieve chosen asset(s) into the current work directory.|
 
 (*) Administrator permission is required by your operating system. Here are the examples for MacOS and Ubuntu systems by using `sudo`:
 * `$ sudo generate -u`
-* `$ sudo generate --update` (Using alias)
+* `$ sudo generate --update` _(Using alias)_
 
 (**) View how to use with its sub options that are below.
 
@@ -167,12 +160,12 @@ Examples:
 
 |Option|Sub option|Used with|Description|
 |:---:|:---:|:---:|---|
-|-|`--no-install`|`<project-name>`|Generate a project without running the `git init` command and installation of dependencies|
-|`-g`|`--no-install`|`<project-name>`|Generate a project with running the `git init` command but without installation of dependencies|
-|`-cf`|`--set-asset`|`<local-path>`|Store a local path to the asset directory into the application config file|
-|`-cf`|`--view-asset`|-|View the current asset path|
-|`-f`|`--jsx`|`<component-name>`|(*) The application creates a `*.jsx` file instead of a `*.js` file that is default when it generates a full component|
-|`-f`|`--tsx`|`<component-name>`|(*) The application creates a `*.tsx` file instead of a `*.js` file that is default when it generates a full component|
+|-|`--no-install`|`<project-name>`|Generate a project without running the `git init` command and installation of dependencies.|
+|`-g`|`--no-install`|`<project-name>`|Generate a project with running the `git init` command but without installation of dependencies.|
+|`-cf`|`--set-asset`|`<local-path>`|Store a local path to the asset directory into the application config file.|
+|`-cf`|`--view-asset`|-|View the current asset path.|
+|`-f`|`--jsx`|`<component-name>`|(*) The application creates a `*.jsx` file instead of a `*.js` file that is default when it generates a full component.|
+|`-f`|`--tsx`|`<component-name>`|(*) The application creates a `*.tsx` file instead of a `*.js` file that is default when it generates a full component.|
 
 ### 4.3 Aliases
 |Option|Alias|
