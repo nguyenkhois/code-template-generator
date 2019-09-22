@@ -4,7 +4,7 @@
 ## Table of contents
 1. [Introduction](#1-introduction)
     * [Screenshot](#screenshot)
-    * [Breaking changes in version 3]()
+    * [Breaking changes in version 3](#breaking-changes-in-version-3)
 2. [Main features](#2-main-features)
     * [Project templates](#21-project-templates)
     * [Component templates](#22-component-templates)
