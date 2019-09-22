@@ -8,7 +8,7 @@
 2. [Main features](#2-main-features)
     * [Project templates](#21-project-templates)
     * [Component templates](#22-component-templates)
-    * [User asset generation](#23-user-asset-generation)
+    * [User asset generation](#23-asset-generation)
 3. [Installation](#3-installation)
 4. [Usage](#4-usage)
     * [Options](#41-options)
@@ -29,7 +29,7 @@ The application is a lightweight Node.js CLI tool that is using for front-end we
 
 ### Breaking changes in version 3
 * [__New__]
-    * __Project component templates__:
+    * __Project templates and component templates__:
         * Using React Hooks.
         * Support both plain JavaScript and TypeScript.
         * The project templates:
@@ -39,7 +39,7 @@ The application is a lightweight Node.js CLI tool that is using for front-end we
         * The component templates:
             * Plain JavaScript _(*.js, *.jsx)_
             * TypeScript _(*.ts, *.tsx)_
-    * __User's generation__:
+    * __Asset generation__:
         * You can generate your own project template, component, config file etc. by using the option `--asset`.
         * You can __change an asset's name__ when choosing __only one__ file or directory.
 * [__Changed__]
@@ -81,7 +81,7 @@ The application is a lightweight Node.js CLI tool that is using for front-end we
     * Hot Module Replacement (HMR) is enabled.
     * You don't need to care about the distribution directory `/dist`. The things you care are only the directory `/src`.
     * Anti-caching.
-* User's asset generation -> You can retrieve your own assets _(project templates, component template, config file for ESLint, Webpack,...)_ from a local directory.
+* Asset generation -> You can retrieve your own assets _(project templates, component templates, config files for ESLint, Webpack etc.)_ from a directory on local.
 
 ### 2.1 Project templates
 |Templates|Main dependencies|
@@ -102,11 +102,11 @@ You can view more details and other project templates in the repository [Build e
 
 (**) Full component is a directory with two files are within: a CSS file and a JS file (*.js, *.jsx, *.tsx).
 
-### 2.3 User asset generation
-You can retrieve your own assets from a local directory.
+### 2.3 Asset generation
+You can retrieve your own assets from a directory on local.
 
 Reasons:
-* You may have your own project templates, code templates, libraries and many more like .gitignore, .editorconfig, .eslinttrc.json, .eslintignore, webpack.config.js ect.
+* You may have your own project templates, code templates, libraries and many more _(.gitignore, .editorconfig, .eslinttrc.json, .eslintignore, webpack.config.js ect)_.
 * You don't want to do the same things as search-copy-paste the assets many times while you are coding or starting a new project.
 
 ![User asset generation](./assets/userasset.gif)
