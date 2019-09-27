@@ -60,28 +60,29 @@ The application is a lightweight Node.js CLI tool that is using for front-end we
 ![Screenshot](./assets/screenshot.gif)
 
 ## 2. Main features
-* Project generation with two alternative for Git support:
-    * Without Git support _(default)_.
-    * With Git support by running the `git init` command and generation of a `.gitignore` file while the project is generated from a chosen template.
+* Project template generation
+    * Two alternative for Git support during the generation:
+        * Without Git support _(default)_.
+        * With Git support by running the `git init` command and generation of a `.gitignore` file while the project is generated from a chosen template.
+    * [Project templates](https://github.com/nguyenkhois/build-environments):
+        * It's simple for configuration and installation of only dependencies you need.
+            * Fast and flexible.
+            * Only the minimum needed dependencies are installed and preconfigured.
+            * Easy to change to _(or from)_ another build environment.
+            * Compatibility with another projects that are generated from [create-react-app](https://facebook.github.io/create-react-app/).
+        * Code splitting.
+        * Image handling.
+        * Minification for production.
+        * CSS, JS code injected automatic into the HTML template `/src/index.html`.
+        * Hot Module Replacement (HMR) is enabled.
+        * You don't need to care about the distribution directory `/dist`. The things you care are only the directory `/src`.
+        * Anti-caching.
 * React component generation can be:
     * A single React component that is a JavaScript file (*.js, *.jsx, *.ts, *.tsx).
     * A full React component that is a directory with two files are within: a CSS file and a JS file (*.js, *.jsx, *.tsx).
+* Asset generation - You can retrieve your own assets _(project templates, component templates, config files for ESLint, Webpack etc.)_ from a directory on local.
 * `.gitignore` file generation.
 * Automatic update checking for the latest stable version that is found on npmjs.com.
-* [Project templates](https://github.com/nguyenkhois/build-environments):
-    * It's simple for configuration and installation of only dependencies you need.
-        * Fast and flexible.
-        * Only the minimum needed dependencies are installed and preconfigured.
-        * Easy to change to _(or from)_ another build environment.
-        * Compatibility with another projects that are generated from [create-react-app](https://facebook.github.io/create-react-app/).
-    * Code splitting.
-    * Image handling.
-    * Minification for production.
-    * CSS, JS code injected automatic into the HTML template `/src/index.html`.
-    * Hot Module Replacement (HMR) is enabled.
-    * You don't need to care about the distribution directory `/dist`. The things you care are only the directory `/src`.
-    * Anti-caching.
-* Asset generation -> You can retrieve your own assets _(project templates, component templates, config files for ESLint, Webpack etc.)_ from a directory on local.
 
 ### 2.1 Project templates
 |Templates|Main dependencies|
@@ -95,12 +96,12 @@ You can view more details and other project templates in the repository [Build e
 ### 2.2 Component templates
 |Component|Single (*)|Full (**)|Description|
 |---|:---:|:---:|---|
-|Plain JavaScript|✓|✓||
-|TypeScript|✓|✓||
+|Plain JavaScript|*.js|*.css, *.js|Can using *.jsx|
+|TypeScript|*.tsx|*.css, *.tsx||
 
-(*) Single component is a JavaScript file with these supported extension:s *.js, *.jsx, *.ts and *.tsx.
+_(*) Single component is a JavaScript file with these supported extension:s *.js, *.jsx, *.ts and *.tsx._
 
-(**) Full component is a directory with two files are within: a CSS file and a JS file (*.js, *.jsx, *.tsx).
+_(**) Full component is a directory with two files are within: a CSS file and a JS file (*.js, *.jsx, *.tsx)._
 
 ### 2.3 Asset generation
 You can retrieve your own assets from a directory on local.
@@ -117,8 +118,8 @@ _(You can view [how to use](#4-usage) and the [examples](#5-examples) are below 
 `$ npm install --global code-template-generator`
 
 System requirements:
-* The minimum supported Node.js version is 8.9.0 (Node.js LTS version is a good choice for the stability).
-* Administrator permission is required by your operating system for:
+* The minimum supported Node.js version is __8.9.0__ _(Node.js LTS version is a good choice for the stability)_.
+* Administrator permission is required by your operating system for these things:
     * Installation of `code-template-generator` on global by using the option `--global`.
     * Running the command `generate --update` for the latest stable version updating.
 
@@ -135,10 +136,10 @@ Examples:
 ### 4.1 Options
 | Option | Used with | Description |
 |:---:|:---:|---|
-| - | `<project-name>` |  Generate a new project from a chosen template without Git support. |
+| - | `<project-name>` |  Generate a new project from a chosen template __without__ Git support. |
 |`-g`|`<project-name>`| Run automatically the `git init` command and generate a `.gitignore` file on the root of project directory during the generation.|
-|`-c`|`<component-name>.<extension>`|Generate a single React component in the current directory _(*.js, *.jsx, *.ts, *.tsx)_.|
-|`-f`|`<component-name>`|Generate a full React component in the current directory _(*.js, *.jsx, *.tsx)_.|
+|`-c`|`<component-name>.<extension>`|Generate a __single__ React component in the current directory _(*.js, *.jsx, *.ts, *.tsx)_.|
+|`-f`|`<component-name>`|Generate a __full__ React component in the current directory _(*.js, *.jsx, *.tsx)_.|
 |`-i`|-| A `.gitignore` file will be generated in the current directory. |
 |`-v`|-|View the installed version.|
 |`-help`|-|View help documentation.|
@@ -153,16 +154,16 @@ Examples:
 (**) View how to use with its sub options that are below.
 
 ### 4.2 Sub options
-* `--no-install` (No install dependencies)
-* `--set-asset` (Set a local path to the asset directory)
-* `--view-asset` (View the current local path to the asset directory)
-* `--jsx`
-* `--tsx`
+* `--no-install` _(No install dependencies)_
+* `--set-asset` _(Set a local path to the asset directory)_
+* `--view-asset` _(View the current local path to the asset directory)_
+* `--jsx` _(Using *.jsx instead of *.js)_
+* `--tsx` _(Using *.tsx instead of *.js)_
 
 |Option|Sub option|Used with|Description|
 |:---:|:---:|:---:|---|
-|-|`--no-install`|`<project-name>`|Generate a project without running the `git init` command and installation of dependencies.|
-|`-g`|`--no-install`|`<project-name>`|Generate a project with running the `git init` command but without installation of dependencies.|
+|-|`--no-install`|`<project-name>`|Generate a project without both running the `git init` command and installation of dependencies.|
+|`-g`|`--no-install`|`<project-name>`|Generate a project with running the `git init` command but __without__ installation of dependencies.|
 |`-cf`|`--set-asset`|`<local-path>`|Store a local path to the asset directory into the application config file.|
 |`-cf`|`--view-asset`|-|View the current asset path.|
 |`-f`|`--jsx`|`<component-name>`|(*) The application creates a `*.jsx` file instead of a `*.js` file that is default when it generates a full component.|
