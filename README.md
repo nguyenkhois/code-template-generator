@@ -78,8 +78,8 @@ The application is a lightweight Node.js CLI tool that is using for front-end we
         * You don't need to care about the distribution directory `/dist`. The things you care are only the directory `/src`.
         * Anti-caching.
 * React component generation can be:
-    * A single React component that is a JavaScript file (*.js, *.jsx, *.ts, *.tsx).
-    * A full React component that is a directory with two files are within: a CSS file and a JS file (*.js, *.jsx, *.tsx).
+    * A single React component that is a JavaScript file _(*.js, *.jsx, *.ts, *.tsx)_.
+    * A full React component that is a directory with two files are within: a CSS file and a JS file _(*.js, *.jsx, *.tsx)_.
 * Asset generation - You can retrieve your own assets _(project templates, component templates, config files for ESLint, Webpack etc.)_ from a directory on local.
 * `.gitignore` file generation.
 * Automatic update checking for the latest stable version that is found on npmjs.com.
@@ -99,7 +99,7 @@ You can view more details and other project templates in the repository [Build e
 |Plain JavaScript|*.js|*.css, *.js|Can using *.jsx|
 |TypeScript|*.tsx|*.css, *.tsx||
 
-_(*) Single component is a JavaScript file with these supported extension:s *.js, *.jsx, *.ts and *.tsx._
+_(*) Single component is a JavaScript file with these supported extensions: *.js, *.jsx, *.ts and *.tsx._
 
 _(**) Full component is a directory with two files are within: a CSS file and a JS file (*.js, *.jsx, *.tsx)._
 
@@ -162,12 +162,12 @@ Examples:
 
 |Option|Sub option|Used with|Description|
 |:---:|:---:|:---:|---|
-|-|`--no-install`|`<project-name>`|Generate a project without both running the `git init` command and installation of dependencies.|
+|-|`--no-install`|`<project-name>`|Generate a project __without__ both running the `git init` command and installation of dependencies.|
 |`-g`|`--no-install`|`<project-name>`|Generate a project with running the `git init` command but __without__ installation of dependencies.|
 |`-cf`|`--set-asset`|`<local-path>`|Store a local path to the asset directory into the application config file.|
 |`-cf`|`--view-asset`|-|View the current asset path.|
-|`-f`|`--jsx`|`<component-name>`|(*) The application creates a `*.jsx` file instead of a `*.js` file that is default when it generates a full component.|
-|`-f`|`--tsx`|`<component-name>`|(*) The application creates a `*.tsx` file instead of a `*.js` file that is default when it generates a full component.|
+|`-f`|`--jsx`|`<component-name>`|The application creates a `*.jsx` file instead of a `*.js` file that is default when it generates a full component.|
+|`-f`|`--tsx`|`<component-name>`|The application creates a `*.tsx` file instead of a `*.js` file that is default when it generates a full component.|
 
 ### 4.3 Aliases
 |Option|Alias|
@@ -189,7 +189,7 @@ Examples:
 $ generate first-project   // Generates a project without any options
 
 $ generate -g secondproject   // With Git support by running 'git init'
-$ generate --git ThirdProje   // Using alias --git instead of -g
+$ generate --git ThirdProject   // Using alias --git instead of -g
 $ generate -g --no-install OtherProject
 $ generate --no-install LastProject  // No install dependencies
 
