@@ -25,7 +25,7 @@ You like to build yourself development environment and install only what you nee
 The application is a lightweight Node.js CLI tool that is using for front-end web development with  [React](https://reactjs.org/). Main features:
 * Project generation that has a part of the [Build environments](https://github.com/nguyenkhois/build-environments) project.
 * Component generation.
-* Asset generation.
+* Asset generation that is useful when you want using your own project template or config files etc.
 
 ### Breaking changes in version 3
 * [__New__]
