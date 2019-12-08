@@ -3,7 +3,7 @@ const inquirer = require('inquirer');
 
 const CURR_DIR = process.cwd();
 const regularExpression = /^(?![-.])([A-Za-z-_.\d])+([A-Za-z\d])+$/gi;
-const pathRegExr = /^([a-zA-Z/])+([a-zA-Z-_.:\d/\\])+([a-zA-Z\d/\\])$/gi;
+const pathRegExr = /^([a-zA-Z/])+([a-zA-Z-_.:\d/\\])+([a-zA-Z\d/\\])+((?!\/\s).)*$/gi;
 const supportedTemplate = [
     {
         "name": "react-hooks",
