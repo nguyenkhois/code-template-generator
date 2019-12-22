@@ -57,7 +57,7 @@ The application is a lightweight Node.js CLI tool that is using for front-end we
         * React Redux.
 
 ### Screenshot
-![Screenshot](./assets/screenshot.gif)
+![Screenshot](https://raw.githubusercontent.com/nguyenkhois/code-template-generator/master/assets/screenshot.gif)
 
 ## 2. Main features
 * Project template generation
@@ -110,7 +110,7 @@ Reasons:
 * You may have your own project templates, code templates, libraries and many more _(.gitignore, .editorconfig, .eslinttrc.json, .eslintignore, webpack.config.js ect)_.
 * You don't want to do the same things as search-copy-paste the assets many times while you are coding or starting a new project.
 
-![Asset generation](./assets/userasset.gif)
+![Asset generation](https://raw.githubusercontent.com/nguyenkhois/code-template-generator/master/assets/userasset.gif)
 
 _(You can view [how to use](#4-usage) and the [examples](#5-examples) are below for more details)_
 

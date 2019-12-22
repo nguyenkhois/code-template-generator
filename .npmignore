@@ -1,12 +1,16 @@
+.vs
 .vscode
 .idea
+.DS_Store
+
+node_modules
+assets
 
 .editorconfig
 .eslintignore
 .eslintrc.json
 package-lock.json
 
-node_modules
 *test*
 _Test*
 _test*
