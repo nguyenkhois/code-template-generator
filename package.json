@@ -1,6 +1,6 @@
 {
     "name": "code-template-generator",
-    "version": "3.0.8",
+    "version": "3.0.9",
     "description": "The lightweight React code template generator",
     "main": "index.js",
     "scripts": {
@@ -28,7 +28,7 @@
         "chai": "^4.2.0",
         "chai-as-promised": "^7.1.1",
         "eslint": "^6.8.0",
-        "mocha": "^6.2.2"
+        "mocha": "^7.0.0"
     },
     "repository": {
         "type": "git",
@@ -40,6 +40,6 @@
     "homepage": "https://github.com/nguyenkhois/",
     "dependencies": {
         "command-handling": "^1.0.6",
-        "inquirer": "^7.0.1"
+        "inquirer": "^7.0.3"
     }
 }
