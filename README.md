@@ -3,8 +3,6 @@
 
 ## Table of contents
 1. [Introduction](#1-introduction)
-    * [Screenshot](#screenshot)
-    * [Breaking changes in version 3](#breaking-changes-in-version-3)
 2. [Main features](#2-main-features)
     * [Project templates](#21-project-templates)
     * [Component templates](#22-component-templates)
@@ -26,35 +24,6 @@ The application is a lightweight Node.js CLI tool that is using for front-end we
 * Project generation that has a part of the [Build environments](https://github.com/nguyenkhois/build-environments) project.
 * Component generation.
 * Asset generation that is useful when you want using your own project template or config files etc.
-
-### Breaking changes in version 3
-* [__New__]
-    * __Project templates and component templates__:
-        * Using React Hooks.
-        * Support both plain JavaScript and TypeScript.
-        * The project templates:
-            * react-hooks _(Plain JS)_
-            * react-sass _(Plain JS)_
-            * react-typescript _(TypeScript)_
-        * The component templates:
-            * Plain JavaScript _(*.js, *.jsx)_
-            * TypeScript _(*.ts, *.tsx)_
-    * __Asset generation__:
-        * You can generate your own project template, component, config file etc. by using the option `--asset`.
-        * You can __change an asset's name__ when choosing __only one__ file or directory.
-* [__Changed__]
-    * Using `-a` instead of `-m` for asset retrieving. Examples:
-        * `generate -a`
-        * `generate --asset` _(Using alias)_
-* [__Removed__]
-    * You can find other project templates in the repo [Build environment](https://github.com/nguyenkhois/build-environments). We keep the app is lightweight and nothing is missing. ;-)
-    * Removed the project templates:
-        * react-advance
-        * react-simplification
-        * simple-express-server
-    * Removed the component templates:
-        * React classic that is using `class` syntax.
-        * React Redux.
 
 ### Screenshot
 ![Screenshot](https://raw.githubusercontent.com/nguyenkhois/code-template-generator/master/assets/screenshot.gif)
