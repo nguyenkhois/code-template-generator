@@ -4,8 +4,8 @@ root = true
 [*]
 charset = utf-8
 end_of_line = lf
-indent_style = space
+indent_style = tab
 indent_size = 4
-tab_width = 1
-max_line_length = 100
+tab_width = 4
+max_line_length = 160
 trim_trailing_whitespace = true
