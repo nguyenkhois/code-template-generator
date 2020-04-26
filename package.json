@@ -1,6 +1,6 @@
 {
     "name": "code-template-generator",
-    "version": "3.0.14",
+    "version": "3.0.15",
     "description": "The lightweight React code template generator",
     "main": "index.js",
     "scripts": {
@@ -11,7 +11,7 @@
         "gen": "./index.js"
     },
     "engines": {
-        "node": ">=8.9.0"
+        "node": ">=8.17.0"
     },
     "keywords": [
         "react",
@@ -28,7 +28,7 @@
         "chai": "^4.2.0",
         "chai-as-promised": "^7.1.1",
         "eslint": "^6.8.0",
-        "mocha": "^7.1.1"
+        "mocha": "^7.1.2"
     },
     "repository": {
         "type": "git",
